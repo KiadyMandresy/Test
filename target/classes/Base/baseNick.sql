@@ -15,9 +15,9 @@ create table Utilisateur(
     mdp varchar(255),
     mail varchar(100)
 )ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
-insert into Admin values(null,'soa','12345','soa@gmail.com');
-insert into Admin values(null,'nick','12345','nick@gmail.com');
-insert into Admin values(null,'kiady','12345','kiady@gmail.com');
+insert into Utilisateur values(null,'soa','12345','soa@gmail.com');
+insert into Utilisateur values(null,'nick','12345','nick@gmail.com');
+insert into Utilisateur values(null,'kiady','12345','kiady@gmail.com');
 create table Region(
      id int primary key not null AUTO_INCREMENT,
      nom varchar(50)
@@ -39,7 +39,7 @@ create table TypeSignalement(
     id int primary key not null AUTO_INCREMENT,
     nom varchar(50)
 )ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
-
+insert into TypeSignalement values(null,'Destruction');
 
 create table Signalement(
      id int primary key not null AUTO_INCREMENT,
@@ -48,10 +48,13 @@ create table Signalement(
      dateS DATETIME,
      x float,
      y float,
-     FOREIGN KEY (idType) REFERENCES TypeSignalement(id)
+     idUtilisateur int,
+     FOREIGN KEY (idType) REFERENCES TypeSignalement(id),
+     FOREIGN KEY (idUtilisateur) REFERENCES Utilisateur(id)
 )ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
-
+insert into Signalement values(null,1,'commentaire 1',('2021-11-10'),4500.0,1500.0,2);
+insert into Signalement values(null,1,'commentaire 2',('2021-18-05'),4500.0,1500.0,2);
 
 create table DetailSignalement(
      id int primary key not null AUTO_INCREMENT,
@@ -60,6 +63,8 @@ create table DetailSignalement(
       FOREIGN KEY (idSign) REFERENCES Signalement(id)
 )ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
+insert into DetailSignalement values(null,1,'src/pgoto.jpeg');
+insert into DetailSignalement values(null,2,'src/pg.jpeg');
 create table SignalementCorbeille(
      id int primary key not null AUTO_INCREMENT,
      idSign int,
@@ -85,3 +90,16 @@ create table Notification(
      idSignTermine int,
       FOREIGN KEY (idSignTermine) REFERENCES SignalementTermine(id)
 )ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+
+/*--------------VIEW------------------------*/
+/**/
+/*Liste globales des signalements*/
+create view signalementGlobal as select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s
+join TypeSignalement as st
+on st.id=s.idType
+join DetailSignalement as dt
+on dt.idSign=s.id
+join Utilisateur as u
+on u.id=s.idUtilisateur
+
+

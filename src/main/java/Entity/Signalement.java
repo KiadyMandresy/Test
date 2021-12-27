@@ -16,6 +16,7 @@ public class Signalement {
     Timestamp dateS;
     double x;
     double y;
+    int idUtilisateur;
 
     public int getId(){
         return this.id;
@@ -53,14 +54,22 @@ public class Signalement {
     public void setY(double k){
         this.y=k;
     }
+    public int getIdUtilisateur() {
+        return idUtilisateur;
+    }
+    public void setIdUtilisateur(int idUtilisateur) {
+        this.idUtilisateur = idUtilisateur;
+    }
 
-    public Signalement(int i,int ii,String c,Timestamp d,double xx,double yy){
+    public Signalement(int i,int ii,String c,Timestamp d,double xx,double yy,int iii){
         this.id=i;
         this.idType=ii;
         this.commentaire=c;
         this.dateS=d;
         this.x=xx;
         this.y=yy;
+        this.idUtilisateur=iii;
+        //
     }
     
     public Signalement(){
