@@ -2,26 +2,26 @@ package com.example.Test.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import Entity.Personne;
+import Entity.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-//import java.util.*;
+
 
 @Controller
 public class PersonneController {
     
     public List<Personne> getAll(){
         List<Personne> rep=new ArrayList<>();
+        ConnectioBD co=new ConnectioBD();
         try{
-            Connection con=DriverManager.getConnection("jdbc:mysql://localhost/rojoFinal", "root", "root");
-            PreparedStatement st=con.prepareStatement("SELECT*FROM Personne");
+            
+            PreparedStatement st=co.getConnection().prepareStatement("SELECT*FROM Personne");
             ResultSet res=st.executeQuery();
             while(res.next()){
                 int id=res.getInt("id");
