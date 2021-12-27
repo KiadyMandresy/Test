@@ -57,7 +57,6 @@ public class PersonneController {
     public String view(Model model) {
         model.addAttribute("personn", this.getAll());
         //model.addAttribute("personnes", this.getAll());
-
         return "templateAdmin";
     }
     
