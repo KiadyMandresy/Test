@@ -55,7 +55,6 @@ public class PersonneController {
         return "listePersonne";
     }
     @RequestMapping(value = { "/template" }, method = RequestMethod.GET)
-
     public String view(@RequestParam(name="page")String page,Model model) {
         page="essai.jsp";
         model.addAttribute("page",page);
