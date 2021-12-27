@@ -3,7 +3,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="service.*" %>
 <%@ page import="controller.*" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 
 <html lang="en" class="material-style layout-fixed">
@@ -133,7 +133,7 @@
                     <li class="sidenav-item">
                         <a href="bus?lim=1" class="sidenav-link">
                              <i class="sidenav-icon feather icon-bold"></i>
-                            <div>Bus</div>
+                            <div>Bussssss</div>
                         </a>
                     </li>
                     <li class="sidenav-item">
@@ -233,7 +233,7 @@
                
               <div class="layout-content">
 
-                  
+                
 		</div> 
                    
                     <nav class="layout-footer footer bg-white">
