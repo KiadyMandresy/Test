@@ -21,7 +21,7 @@ public class PersonneController {
         ConnectionBD co=new ConnectionBD();
         try{
             
-            PreparedStatement st=co.getConnection().prepareStatement("SELECT*FROM Personne");
+            PreparedStatement st=co.getConnection().prepareStatement("SELECT*FROM ChefRegion");
             ResultSet res=st.executeQuery();
             while(res.next()){
                 int id=res.getInt("id");
@@ -55,7 +55,7 @@ public class PersonneController {
     }
     @RequestMapping(value = { "/template" }, method = RequestMethod.GET)
     public String view(Model model) {
-
+        model.addAttribute("personn", this.getAll());
         //model.addAttribute("personnes", this.getAll());
 
         return "templateAdmin";

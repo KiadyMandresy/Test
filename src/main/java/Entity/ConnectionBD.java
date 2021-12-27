@@ -3,7 +3,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 
-public class ConnectioBD {
+public class ConnectionBD {
     
     public Connection getConnection(){
         Connection con=null;
@@ -16,7 +16,7 @@ public class ConnectioBD {
         return con;
     }
 
-    public ConnectioBD(){
+    public ConnectionBD(){
 
     }
 }
