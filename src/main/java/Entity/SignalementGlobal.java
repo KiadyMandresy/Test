@@ -69,6 +69,7 @@ public class SignalementGlobal {
         this.nom=n;
         this.photos=p;
         this.idUtilisateur=iii;
+        //
     }
     public SignalementGlobal(){
 

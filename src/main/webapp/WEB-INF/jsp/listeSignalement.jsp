@@ -14,6 +14,7 @@
                 <th>Personne</th>
                 <th>Type Signalement</th>
                 <th>Date Signalement</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>

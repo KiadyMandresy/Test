@@ -92,7 +92,7 @@ create table Notification(
 )ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
 /*--------------VIEW------------------------*/
-
+/**/
 /*Liste globales des signalements*/
 create view signalementGlobal as select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s
 join TypeSignalement as st

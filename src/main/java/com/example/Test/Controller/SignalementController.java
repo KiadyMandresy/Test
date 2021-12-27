@@ -18,6 +18,7 @@ public class SignalementController {
     @RequestMapping(value = { "/listeSignalement" }, method = RequestMethod.GET)
     public String view(Model model) {
         String page="listeSignalement.jsp";
+        //qsqs
         model.addAttribute("page",page);
         SignalementService ser=new SignalementService();
         model.addAttribute("listeGlobale",ser.getSignalementGlobal());

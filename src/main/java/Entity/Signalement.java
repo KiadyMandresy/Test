@@ -69,6 +69,7 @@ public class Signalement {
         this.x=xx;
         this.y=yy;
         this.idUtilisateur=iii;
+        //
     }
     
     public Signalement(){

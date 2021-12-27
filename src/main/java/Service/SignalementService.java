@@ -19,6 +19,7 @@ public class SignalementService {
         try{
             PreparedStatement st=con.getConnection().prepareStatement(req);
             ResultSet res=st.executeQuery();
+            //ds
             while(res.next()){
                 int id=res.getInt("id");
                 String com=res.getString("commentaire");
