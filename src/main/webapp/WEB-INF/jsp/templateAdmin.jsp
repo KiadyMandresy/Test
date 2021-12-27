@@ -78,76 +78,55 @@
                 <ul class="sidenav-inner py-1">
 
                     <!-- Dashboards -->
-                    <li class="sidenav-item active">
-                        <a href="accueil" class="sidenav-link">
-                            <i class="sidenav-icon feather icon-home"></i>
-                            <div>Accueil</div>
-                        </a>
-                    </li>
+                   
 
                     <!-- Layouts -->
                     <li class="sidenav-divider mb-1"></li>
-                     <li class="sidenav-header small font-weight-semibold">Filtre</li>
-                     <form method="post" action="filtre">
-                    <li class="sidenav-item">
-                       <a  class="sidenav-link">
-                             <i class="sidenav-icon feather icon-trending-up"></i>
-                            <div>Ligne</div>
-                        </a>
-                         <center>
-                             <span style="margin-left:30px"><input type="radio" name="ligne" value=""> pp </span>
-                            </center>
-                       <!--</div>-->
-                    </li>
+                   
+                   
                       <li class="sidenav-item">
                         <a  class="sidenav-link">
                              <i class="sidenav-icon feather icon-bold"></i>
-                            <div>Bus</div>
+                            <div>Insertion Chef de region</div>
                         </a>
-                     <div class="input-group">
-                            <select class="custom-select" style="margin-left:80px" name="bus">
-                               
-                                    <option value="aa">aa</option>
-                                 
-                            </select>
-                         </center>
-                                   
-                     </div>
+                    
                       </li>
-                      <li class="sidenav-item">
-                          <input type="text" class="form-control" placeholder="jj-mm-aa" name="d1" style="margin-left:80px;width:80px">
-                          <input type="text" class="form-control" placeholder="jj-mm-aa" name="d2" style="margin-left:80px;width:80px">
-                      </li>
-                    <li class="sidenav-item">
-                    <br>   <button type="submit" class="btn btn-round btn-dark" style="margin-left:60px">Rechercher</button>   </br>
-                     </form>
-                    </li>
-                   
-                    <li class="sidenav-header small font-weight-semibold">Liste</li>
+                    
+                  
+                    <li class="sidenav-header small font-weight-semibold">Signalement</li>
                      <li class="sidenav-item">
                         <a href="ligne?lim=1" class="sidenav-link">
                              <i class="sidenav-icon feather icon-trending-up"></i>
-                            <div>Ligne</div>
+                            <div>Signalement a valider</div>
+                        </a>
+                    </li>
+                    <li class="sidenav-item">
+                        <a href="ligne?lim=1" class="sidenav-link">
+                             <i class="sidenav-icon feather icon-trending-up"></i>
+                            <div>Signalement valides</div>
+                        </a>
+                    </li>
+                    </li>
+                    <li class="sidenav-header small font-weight-semibold">Statistiques</li>
+                     <li class="sidenav-item">
+                        <a href="ligne?lim=1" class="sidenav-link">
+                             <i class="sidenav-icon feather icon-trending-up"></i>
+                            <div>Classement des regions par nombres de signalement</div>
                         </a>
                     </li>
                     <li class="sidenav-item">
                         <a href="bus?lim=1" class="sidenav-link">
                              <i class="sidenav-icon feather icon-bold"></i>
-                            <div>Bussssss</div>
+                            <div>Classement des regions par depense</div>
                         </a>
                     </li>
                     <li class="sidenav-item">
                         <a href="chauffeur?lim=1" class="sidenav-link">
                              <i class="sidenav-icon feather icon-user"></i>
-                            <div>Chauffeur</div>
+                            <div>Classement des regions par performance (regler les problemes)</div>
                         </a>
                     </li>
-                      <li class="sidenav-item">
-                        <a href="pointage?lim=1" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-book"></i>
-                            <div>Versement</div>
-                        </a>
-                    </li>
+                     
                     <!-- UI elements -->
                    
                        
@@ -232,9 +211,9 @@
                 </nav>
                
               <div class="layout-content">
-
+                <jsp:include page="${page}" />
                 
-		</div> 
+		    </div> 
                    
                     <nav class="layout-footer footer bg-white">
                         <div class="container-fluid d-flex flex-wrap justify-content-between text-center container-p-x pb-3">
