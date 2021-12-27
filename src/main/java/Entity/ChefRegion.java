@@ -1,5 +1,10 @@
 package Entity;
 
+import java.sql.Connection;
+import java.sql.Statement;
+
+import net.bytebuddy.agent.builder.AgentBuilder.RawMatcher.Conjunction;
+
 public class ChefRegion{
     int id;
     String nom;
@@ -47,5 +52,20 @@ public class ChefRegion{
     public ChefRegion(){
         
     }
+    public void insert()
+    {
+        String req="INSERT INTO ChefRegion VALUES(null,'"+this.nom+"','"+this.mdp+"','"+this.mail+"',"+this.idReg+")";
+        try{
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            Statement st=con.createStatement();
+            st.executeUpdate(req);
+            con.commit();
+            con.close();
+        }
+        catch(Exception e)
+        {
 
+        }
+    }
 }

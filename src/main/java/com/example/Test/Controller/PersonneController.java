@@ -1,7 +1,7 @@
 package com.example.Test.Controller;
 import java.util.ArrayList;
 import java.util.List;
-
+import Service.*;
 import Entity.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,8 +56,10 @@ public class PersonneController {
     }
     @RequestMapping(value = { "/template" }, method = RequestMethod.GET)
     public String view(@RequestParam(name="page")String page,Model model) {
-        page="essai.jsp";
+        page="insertChefRegion.jsp";
         model.addAttribute("page",page);
+        RegionService r=new RegionService();
+        model.addAttribute("regions",r.getAll());
         return "templateAdmin";
     }
     
