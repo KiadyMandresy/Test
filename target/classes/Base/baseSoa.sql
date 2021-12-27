@@ -15,9 +15,9 @@ create table Utilisateur(
     mdp varchar(255),
     mail varchar(100)
 )ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
-insert into Admin values(null,'soa','12345','soa@gmail.com');
-insert into Admin values(null,'nick','12345','nick@gmail.com');
-insert into Admin values(null,'kiady','12345','kiady@gmail.com');
+insert into Utilisateur values(null,'soa','12345','soa@gmail.com');
+insert into Utilisateur values(null,'nick','12345','nick@gmail.com');
+insert into Utilisateur values(null,'kiady','12345','kiady@gmail.com');
 create table Region(
      id int primary key not null AUTO_INCREMENT,
      nom varchar(50)
@@ -48,9 +48,10 @@ create table Signalement(
      dateS DATETIME,
      x float,
      y float,
-     FOREIGN KEY (idType) REFERENCES TypeSignalement(id)
+     idUtilisateur int,
+     FOREIGN KEY (idType) REFERENCES TypeSignalement(id),
+     FOREIGN KEY (idUtilisateur) REFERENCES Utilisateur(id)
 )ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
-
 
 
 create table DetailSignalement(
