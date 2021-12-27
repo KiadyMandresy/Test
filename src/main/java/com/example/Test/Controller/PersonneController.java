@@ -18,7 +18,7 @@ public class PersonneController {
     
     public List<Personne> getAll(){
         List<Personne> rep=new ArrayList<>();
-        ConnectioBD co=new ConnectioBD();
+        ConnectionBD co=new ConnectionBD();
         try{
             
             PreparedStatement st=co.getConnection().prepareStatement("SELECT*FROM Personne");
@@ -60,18 +60,5 @@ public class PersonneController {
 
         return "templateAdmin";
     }
-    @RequestMapping(value = { "assets/css/{page}" }, method = RequestMethod.GET)
-    public String viewC(@PathVariable("page") String css,Model model) {
-
-        //model.addAttribute("personnes", this.getAll());
-
-        return "assets/js/"+css;
-    }
-     @RequestMapping(value = { "assets/js/{page}" }, method = RequestMethod.GET)
-    public String viewJ(@PathVariable("page") String css,Model model) {
-
-        //model.addAttribute("personnes", this.getAll());
-
-        return "assets/js/"+css;
-    }
+    
 }

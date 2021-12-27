@@ -8,7 +8,7 @@ public class ConnectioBD {
     public Connection getConnection(){
         Connection con=null;
         try{
-            con=DriverManager.getConnection("jdbc:mysql://localhost/Nick", "root", "root");
+            con=DriverManager.getConnection("jdbc:mysql://localhost/rojoFinal", "root", "root");
         }catch(Exception e){
             e.printStackTrace();
         }
