@@ -54,7 +54,7 @@ public class ChefRegion{
     }
     public void insert()
     {
-        String req="INSERT INTO ChefRegion VALUES(null,'"+this.nom+"','"+this.mdp+"','"+this.mail+"',"+this.idReg+")";
+        String req="INSERT INTO ChefRegion(nom,mdp,mail,idReg) VALUES('"+this.nom+"','"+this.mdp+"','"+this.mail+"',"+this.idReg+")";
         try{
             ConnectionBD co=new ConnectionBD();
             Connection con=co.getConnection();
