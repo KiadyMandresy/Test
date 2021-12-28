@@ -31,6 +31,20 @@
         </tbody>
     </table>
 
+    <div class="card-body">
+
+        <nav>
+            <ul class="pagination">
+            <c:forEach  var="i" begin="1" end="${lim}">
+                <li class="page-item ">
+                    <a class="page-link" href="${pageContext.request.contextPath}/listeSignalement?lim=${i}">${i}</a>
+                </li> 
+            </c:forEach>
+        </ul>
+        </nav>
+    </div>
+        
+        
     
 </div>
 
