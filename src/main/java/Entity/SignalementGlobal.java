@@ -1,7 +1,10 @@
 package Entity;
 
-import java.sql.Timestamp;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.*;
 public class SignalementGlobal {
     
     int id;
@@ -70,6 +73,27 @@ public class SignalementGlobal {
         this.photos=p;
         this.idUtilisateur=iii;
         //
+    }
+    public List<SignalementGlobal> select(String req)
+    {
+        List<SignalementGlobal> liste=new ArrayList<>();
+        try
+        {
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                SignalementGlobal reg=new SignalementGlobal(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"));
+                liste.add(reg);
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return liste;
     }
     public SignalementGlobal(){
 

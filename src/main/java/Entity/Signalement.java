@@ -1,7 +1,10 @@
 package Entity;
 
 import java.sql.Timestamp;
-
+import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 public class Signalement {
     /*id int primary key not null AUTO_INCREMENT,
      idType int,
@@ -70,6 +73,28 @@ public class Signalement {
         this.y=yy;
         this.idUtilisateur=iii;
         
+    }
+    public List<Signalement> select(String req)
+    {
+        List<Signalement> liste=new ArrayList<>();
+        try
+        {
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                Integer ut=res.getInt("idUtilisateur");
+                Signalement reg=new Signalement(res.getInt("id"),res.getInt("idType"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),ut.toString());
+                liste.add(reg);
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return liste;
     }
     
     public Signalement(){

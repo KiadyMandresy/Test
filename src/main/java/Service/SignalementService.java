@@ -12,10 +12,46 @@ public class SignalementService {
     public SignalementService(){
 
     }
+    public int countPhotoSignalement(int id)
+    {
+        int i=0;
+        ConnectionBD co=new ConnectionBD();
+        try
+        {
+            Connection con=co.getConnection();
+            String req="select count(id) as nb from detailSignalement where idSign="+id;
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                i=res.getInt("nb");
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
 
+        }
+        return i;
+    }
+    public String getPhoto(int nb,int id)
+    {
+        String req="select * from detailSignalement where idSign="+id+" order by asc limit 1 offset"+nb;
+        DetailSignalement dt=new DetailSignalement();
+        List<DetailSignalement> list=dt.select(req);
+        String photo=list.get(0).getPhotos();
+        return photo;
+    }
+    public SignalementGlobal getFicheSignalementNonValide(int id)
+    {
+        String req="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur where id="+id;
+        SignalementGlobal sign=new SignalementGlobal();
+        List<SignalementGlobal> liste=sign.select(req);
+        return liste.get(0);
+    }
     public List<SignalementGlobal> getSignalementGlobal(int indice){
         int rep1,rep2;
-        rep1=((indice-1)*3)+1;
+        rep1=((indice-1)*3);
         rep2=indice*3;
         List<SignalementGlobal> rep=new ArrayList<>();
         ConnectionBD con=new ConnectionBD();
