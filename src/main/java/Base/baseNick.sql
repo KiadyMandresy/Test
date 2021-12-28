@@ -53,8 +53,8 @@ create table Signalement(
      FOREIGN KEY (idUtilisateur) REFERENCES Utilisateur(id)
 )ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
-insert into Signalement values(null,1,'commentaire 1',('2021-11-10'),4500.0,1500.0,2);
-insert into Signalement values(null,1,'commentaire 2',('2021-18-05'),4500.0,1500.0,2);
+insert into Signalement values(null,1,'commentaire 1',('2021-11-10 12:00:21:00'),4500.0,1500.0,2);
+insert into Signalement values(null,1,'commentaire 2',('2021-18-05 12:00:21:00'),4500.0,1500.0,2);
 
 create table DetailSignalement(
      id int primary key not null AUTO_INCREMENT,
@@ -63,8 +63,9 @@ create table DetailSignalement(
       FOREIGN KEY (idSign) REFERENCES Signalement(id)
 )ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
-insert into DetailSignalement values(null,1,'src/pgoto.jpeg');
-insert into DetailSignalement values(null,2,'src/pg.jpeg');
+insert into DetailSignalement values(null,3,'src/pgoto.jpeg');
+insert into DetailSignalement values(null,4,'src/pg.jpeg');
+
 create table SignalementCorbeille(
      id int primary key not null AUTO_INCREMENT,
      idSign int,

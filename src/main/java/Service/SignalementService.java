@@ -5,6 +5,7 @@ import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.sql.*;
 
 public class SignalementService {
     
@@ -19,11 +20,11 @@ public class SignalementService {
         try{
             PreparedStatement st=con.getConnection().prepareStatement(req);
             ResultSet res=st.executeQuery();
-            //ds
             while(res.next()){
                 int id=res.getInt("id");
                 String com=res.getString("commentaire");
-                Timestamp date=res.getTimestamp("dateS");
+                Date d=res.getDate("dateS");
+                Timestamp date=new Timestamp(d.getTime());
                 double x=res.getDouble("x");
                 double y=res.getDouble("y");
                 String n=res.getString("nom");

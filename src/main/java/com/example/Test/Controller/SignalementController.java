@@ -2,7 +2,7 @@ package com.example.Test.Controller;
 import java.util.ArrayList;
 import java.util.List;
 import Entity.*;
-import Service.SignalementService;
+import Service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
