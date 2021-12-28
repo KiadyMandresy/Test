@@ -28,6 +28,7 @@ public class AdminController {
         ChefRegionService chef=new ChefRegionService();
         chef.insertChefRegion(nom, mdp, mail, region);
         model.addAttribute("regions",r.getAll());
+        model.addAttribute("page",page);
         return "templateAdmin";
     }
 }
