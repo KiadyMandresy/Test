@@ -5,6 +5,7 @@ import Entity.*;
 import Service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -32,6 +33,17 @@ public class SignalementController {
         model.addAttribute("listeGlobale",ser.getSignalementGlobal(ii));
         return "templateAdmin";
     }
-    
+    @RequestMapping(value={"signalement/{id}"},method=RequestMethod.GET)
+    public String fiche1(Model model,@PathVariable("id") String id,@RequestParam(name="nb")String photo)
+    {
+        SignalementService serv=new SignalementService();
+        Integer idd=new Integer(id);
+        Integer p=new Integer(photo);
+        model.addAttribute("countPhoto", serv.countPhotoSignalement(idd.intValue()));
+        model.addAttribute("photo", serv.getPhoto(p.intValue(), idd.intValue()));
+        model.addAttribute("serv",serv.getFicheSignalementNonValide(idd.intValue()));
+        model.addAttribute("page", "fiche1.jsp");
+        return "templateAdmin";
+    }
     
 }
