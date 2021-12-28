@@ -5,7 +5,7 @@
     
 
     <hr class="border-light container-m--x my-4">
-    <h6 class="text-muted small font-weight-bold py-3 my-4">Liste des signalements</h6>
+    <h4 class="font-weight-bold py-3 mb-0">Liste des signalements</h4>
 
     <table class="table card-table">
         <thead class="thead-light">

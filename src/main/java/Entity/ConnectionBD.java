@@ -8,7 +8,11 @@ public class ConnectionBD {
     public Connection getConnection(){
         Connection con=null;
         try{
-            con=DriverManager.getConnection("jdbc:mysql://localhost/rojoFinal", "root", "root");
+            Class.forName("org.postgresql.Driver");
+            String dbURL = "jdbc:postgresql://localhost/final";
+            String user = "Soa";
+            String pass = "soa";
+            con = DriverManager.getConnection(dbURL, user, pass);
         }catch(Exception e){
             e.printStackTrace();
         }
