@@ -95,7 +95,7 @@
                   
                     <li class="sidenav-header small font-weight-semibold">Signalement</li>
                      <li class="sidenav-item">
-                        <a href="${pageContext.request.contextPath}/listeSignalement" class="sidenav-link">
+                        <a href="${pageContext.request.contextPath}/listeSignalement?lim=1" class="sidenav-link">
                              <i class="sidenav-icon feather icon-trending-up"></i>
                             <div>Signalement a valider</div>
                         </a>
