@@ -1,88 +1,111 @@
 create database rojoFinal;
 use rojoFinal;
 create table Admin(
-    id int primary key not null AUTO_INCREMENT,
+    id serial primary key,
     nom varchar(50),
     mdp varchar(255),
     mail varchar(100)
-)ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
-insert into Admin values(null,'soa','1234','soa@gmail.com');
-insert into Admin values(null,'nick','1234','nick@gmail.com');
-insert into Admin values(null,'kiady','1234','kiady@gmail.com');
+);
+insert into Admin(nom,mdp,mail) values('soa','1234','soa@gmail.com');
+insert into Admin(nom,mdp,mail) values('nick','1234','nick@gmail.com');
+insert into Admin(nom,mdp,mail) values('kiady','1234','kiady@gmail.com');
+
 create table Utilisateur(
-     id int primary key not null AUTO_INCREMENT,
+     id serial primary key,
      nom varchar(50),
     mdp varchar(255),
     mail varchar(100)
-)ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
-insert into Utilisateur values(null,'soa','12345','soa@gmail.com');
-insert into Utilisateur values(null,'nick','12345','nick@gmail.com');
-insert into Utilisateur values(null,'kiady','12345','kiady@gmail.com');
+);
+
+insert into Utilisateur(nom,mdp,mail) values('soa','12345','soa@gmail.com');
+insert into Utilisateur(nom,mdp,mail) values('nick','12345','nick@gmail.com');
+insert into Utilisateur(nom,mdp,mail) values('kiady','12345','kiady@gmail.com');
 create table Region(
-     id int primary key not null AUTO_INCREMENT,
+     id serial primary key,
      nom varchar(50)
-)ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
-insert into Region values (null,'R1');
-insert into Region values (null,'R2');
+);
+insert into Region(nom) values ('Region 1');
+insert into Region(nom) values ('Region 2');
+
 create table ChefRegion(
-    id int primary key not null AUTO_INCREMENT,
+    id serial primary key,
     nom varchar(50),
     mdp varchar(255),
     mail varchar(100),
     idReg int,
     FOREIGN key (idReg) references Region(id)
-)ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
-insert into ChefRegion values(null,'Chef Soa','1234','soa@gmail.com',1);
-insert into ChefRegion values(null,'Chef nick','1234','nick@gmail.com',2);
-insert into ChefRegion values(null,'Chef kiady','1234','kiady@gmail.com',2);
-create table TypeSignalement(
-    id int primary key not null AUTO_INCREMENT,
-    nom varchar(50)
-)ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+);
+insert into ChefRegion(nom,mdp,mail,idReg) values('Chef Soa','1234','soa@gmail.com',1);
+insert into ChefRegion(nom,mdp,mail,idReg) values('Chef nick','1234','nick@gmail.com',2);
+insert into ChefRegion(nom,mdp,mail,idReg) values('Chef kiady','1234','kiady@gmail.com',2);
 
+create table TypeSignalement(
+    id serial primary key,
+    nom varchar(50)
+);
+insert into TypeSignalement(nom) values('Destruction');
 
 create table Signalement(
-     id int primary key not null AUTO_INCREMENT,
+     id serial primary key,
      idType int,
      commentaire text,
-     dateS DATETIME,
+     dateS TimeStamp,
      x float,
      y float,
      idUtilisateur int,
      FOREIGN KEY (idType) REFERENCES TypeSignalement(id),
      FOREIGN KEY (idUtilisateur) REFERENCES Utilisateur(id)
-)ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+);
 
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 1','2021-11-10'::timestamp,4500.0,1500.0,2);
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 2','2021-10-05'::timestamp,4500.0,1500.0,2);
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 1','2021-11-10'::timestamp,4500.0,1500.0,1);
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 2','2021-10-05'::timestamp,4500.0,1500.0,1);
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 1','2021-11-10'::timestamp,4500.0,1500.0,2);
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 2','2021-10-05'::timestamp,4500.0,1500.0,1);
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 1','2021-11-10'::timestamp,4500.0,1500.0,2);
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 2','2021-10-05'::timestamp,4500.0,1500.0,2);
 
 create table DetailSignalement(
-     id int primary key not null AUTO_INCREMENT,
+     id serial primary key,
      idSign int,
      photos varchar(255),
       FOREIGN KEY (idSign) REFERENCES Signalement(id)
-)ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+);
+
+insert into DetailSignalement(idSign,photos) values(5,'src/pgoto.jpeg');
+insert into DetailSignalement(idSign,photos) values(6,'src/pg.jpeg');
+insert into DetailSignalement(idSign,photos) values(7,'src/pgoto.jpeg');
+insert into DetailSignalement(idSign,photos) values(8,'src/pg.jpeg');
+insert into DetailSignalement(idSign,photos) values(1,'src/pgoto.jpeg');
+insert into DetailSignalement(idSign,photos) values(2,'src/pg.jpeg');
 
 create table SignalementCorbeille(
-     id int primary key not null AUTO_INCREMENT,
+     id serial primary key,
      idSign int,
-     dateS DATETIME,
+     dateS TimeStamp,
       FOREIGN KEY (idSign) REFERENCES Signalement(id)
-)ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+);
 create table SignalementValide(
-     id int primary key not null AUTO_INCREMENT,
+     id serial primary key,
      idSign int,
      idReg int,
       FOREIGN KEY (idSign) REFERENCES Signalement(id),
        FOREIGN KEY (idReg) REFERENCES Region(id)
-)ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+);
 create table SignalementTermine(
-         id int primary key not null AUTO_INCREMENT,
+         id serial primary key,
          idSignV int,
-         dateS DATETIME,
+         dateS TimeStamp,
          budget float,
       FOREIGN KEY (idSignV) REFERENCES SignalementValide(id)
-)ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+);
 create table Notification(
-     id int primary key not null AUTO_INCREMENT,
+     id serial primary key,
      idSignTermine int,
       FOREIGN KEY (idSignTermine) REFERENCES SignalementTermine(id)
-)ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+);
+
+/*--------------VIEW------------------------*/
+/**/
+

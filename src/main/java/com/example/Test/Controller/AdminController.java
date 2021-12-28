@@ -24,7 +24,6 @@ public class AdminController {
     @RequestMapping(value = { "/ajoutChef" }, method = RequestMethod.GET)
     public String insert2(@RequestParam(name="nom")String nom,@RequestParam(name="mail")String mail,@RequestParam(name="mdp")String mdp,@RequestParam(name="region")String region,Model model) {
         String page="insertChefRegion.jsp";
-        model.addAttribute("page",page);
         RegionService r=new RegionService();
         ChefRegionService chef=new ChefRegionService();
         chef.insertChefRegion(nom, mdp, mail, region);

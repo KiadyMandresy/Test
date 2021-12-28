@@ -19,7 +19,8 @@ public class SignalementService {
         rep2=indice*3;
         List<SignalementGlobal> rep=new ArrayList<>();
         ConnectionBD con=new ConnectionBD();
-        String req2=" limit "+rep1+",3";
+        String req2=" limit 3 offset "+rep1;
+        /*[LIMIT { 2 | ALL }] [OFFSET 3] */
         String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur";
         try{
             PreparedStatement st=con.getConnection().prepareStatement(req1+req2);
