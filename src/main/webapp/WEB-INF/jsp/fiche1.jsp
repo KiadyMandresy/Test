@@ -9,13 +9,13 @@
                 <div class="card-body">
                     <dl>
                         <dt>Description :</dt>
-                        <dd>A description list is perfect for defining terms.</dd>
+                        <dd>${serv.getCommentaire()}</dd>
                         <dt>Nom de l'annonceur</dt>
-                        <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
+                        <dd>${serv.getIdUtilisateur()}</dd>
                         <dt>Localisation:</dt>
-                        <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
+                        <dd>Anosibe</dd>
                         <dt>date:</dt>
-                        <dd>2021-22-10</dd>
+                        <dd>${serv.getDateS()}</dd>
                     </dl>
                 </div>
             </div>
