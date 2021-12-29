@@ -85,25 +85,25 @@
                    
                    
                       <li class="sidenav-item">
-                        <a  class="sidenav-link" href="${pageContext.request.contextPath}/insertionChefRegion">
+                        <a  class="sidenav-link" href="${pageContext.request.contextPath}/listeSignalement?lim=1">
                              <i class="sidenav-icon feather icon-bold"></i>
-                            <div>Insertion Chef de region</div>
+                            <div>Liste des signalements</div>
                         </a>
                     
                       </li>
                     
                   
-                    <li class="sidenav-header small font-weight-semibold">Signalement</li>
+                    <li class="sidenav-header small font-weight-semibold">Crud</li>
                      <li class="sidenav-item">
-                        <a href="${pageContext.request.contextPath}/listeSignalement?lim=1" class="sidenav-link">
+                        <a href="${pageContext.request.contextPath}/insertionChefRegion" class="sidenav-link">
                              <i class="sidenav-icon feather icon-trending-up"></i>
-                            <div>Signalement a valider</div>
+                            <div>Chef de region</div>
                         </a>
                     </li>
                     <li class="sidenav-item">
                         <a href="ligne?lim=1" class="sidenav-link">
                              <i class="sidenav-icon feather icon-trending-up"></i>
-                            <div>Signalement valides</div>
+                            <div>Region</div>
                         </a>
                     </li>
                     </li>

@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 
 public class ConnectionBD {
     
-    public Connection getConnection(){
+    public Connection getConnection()
+    {
         Connection con=null;
         try{
             Class.forName("org.postgresql.Driver");
