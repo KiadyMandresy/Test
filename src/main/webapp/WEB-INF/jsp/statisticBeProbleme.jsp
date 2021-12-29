@@ -27,7 +27,7 @@
       datasets: [{
         label: 'Statistic nombres de promblemes par region',
         backgroundColor: 'rgb(255, 106, 34)',
-        borderColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 109, 132)',
         data: ["${stat2}"],
       }]
     };
@@ -44,5 +44,4 @@
   </script>
 
  <script>
-   
-  </script>  
+</script>  
