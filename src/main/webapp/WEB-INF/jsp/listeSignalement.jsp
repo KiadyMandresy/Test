@@ -24,7 +24,7 @@
             <td>${liste.getIdUtilisateur()}</td>
             <td>${liste.getNom()}</td>
             <td>${liste.getDateS()}</td>
-            <td>Fiche</td>
+            <td><a href="${pageContext.request.contextPath}/signalement?nb=1&&id=${liste.getId()}">Fiche</a></td>
             </tr>
         </c:forEach>
            
