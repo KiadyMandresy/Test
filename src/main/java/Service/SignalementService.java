@@ -113,4 +113,64 @@ public class SignalementService {
         return va;
     }
 
+    public List<SignalementGlobal> getSignalementGlobalRecherche(String d1,String d2){
+        int rep1,rep2;
+        List<SignalementGlobal> rep=new ArrayList<>();
+        ConnectionBD con=new ConnectionBD();
+        String req3=" where s.id not in (select idSign from SignalementCorbeille) and s.dateS>'"+d1+"' and s.dateS<'"+d2+"'";
+        String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur";
+        System.out.println(req1+req3);
+        try{
+            PreparedStatement st=con.getConnection().prepareStatement(req1+req3);
+            ResultSet res=st.executeQuery();
+            while(res.next()){
+                int id=res.getInt("id");
+                String com=res.getString("commentaire");
+                Date d=res.getDate("dateS");
+                Timestamp date=new Timestamp(d.getTime());
+                double x=res.getDouble("x");
+                double y=res.getDouble("y");
+                String n=res.getString("nom");
+                String photos=res.getString("photos");
+                String idu=res.getString("Personne");
+                SignalementGlobal sing=new SignalementGlobal(id,com,date,x,y,n,photos,idu);
+                rep.add(sing);
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return rep;
+    }
+
+    public int countSingalement(String d1,String d2){
+        int va=0;
+        List<SignalementGlobal> rep=new ArrayList<>();
+        ConnectionBD con=new ConnectionBD();
+        String req2=" where s.id not in (select idSign from SignalementCorbeille) and s.dateS>'"+d1+"' and s.dateS<'"+d2+"'";
+        String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur";
+        try{
+            PreparedStatement st=con.getConnection().prepareStatement(req1+req2);
+            ResultSet res=st.executeQuery();
+            while(res.next()){
+                int id=res.getInt("id");
+                String com=res.getString("commentaire");
+                Date d=res.getDate("dateS");
+                Timestamp date=new Timestamp(d.getTime());
+                double x=res.getDouble("x");
+                double y=res.getDouble("y");
+                String n=res.getString("nom");
+                String photos=res.getString("photos");
+                String idu=res.getString("Personne");
+                SignalementGlobal sing=new SignalementGlobal(id,com,date,x,y,n,photos,idu);
+                rep.add(sing);
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        va=rep.size();
+        return va;
+    }
+
 }
