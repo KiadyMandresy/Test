@@ -36,7 +36,8 @@ public class SignalementService {
     }
     public String getPhoto(int nb,int id)
     {
-        String req="select * from detailSignalement where idSign="+id+" order by asc limit 1 offset"+nb;
+        nb=nb-1;
+        String req="select * from detailSignalement where idSign="+id+" order by id  asc limit 1 offset "+nb;
         DetailSignalement dt=new DetailSignalement();
         List<DetailSignalement> list=dt.select(req);
         String photo=list.get(0).getPhotos();
@@ -44,7 +45,7 @@ public class SignalementService {
     }
     public SignalementGlobal getFicheSignalementNonValide(int id)
     {
-        String req="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur where id="+id;
+        String req="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur where s.id="+id;
         SignalementGlobal sign=new SignalementGlobal();
         List<SignalementGlobal> liste=sign.select(req);
         return liste.get(0);
