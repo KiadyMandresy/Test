@@ -33,8 +33,8 @@ public class SignalementController {
         model.addAttribute("listeGlobale",ser.getSignalementGlobal(ii));
         return "templateAdmin";
     }
-    @RequestMapping(value={"signalement/{id}"},method=RequestMethod.GET)
-    public String fiche1(Model model,@PathVariable("id") String id,@RequestParam(name="nb")String photo)
+    @RequestMapping(value={"/signalement"},method=RequestMethod.GET)
+    public String fiche1(Model model,@RequestParam("id") String id,@RequestParam(name="nb")String photo)
     {
         SignalementService serv=new SignalementService();
         Integer idd=new Integer(id);
