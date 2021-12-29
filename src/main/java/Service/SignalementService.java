@@ -173,4 +173,48 @@ public class SignalementService {
         return va;
     }
 
+    public List<StatRegion> getStatRegion(){
+        List<StatRegion> rep=new ArrayList<>();
+        ConnectionBD con=new ConnectionBD();
+        try{
+            String req1="select count(s.id),r.nom from Signalement as s join SignalementValide as sv on sv.idSign=s.id join Region as r on r.id=sv.idReg";
+            String req2=" group by r.id";
+            System.out.println(req1+req2);
+            PreparedStatement st=con.getConnection().prepareStatement(req1+req2);
+            ResultSet res=st.executeQuery();
+            while(res.next()){
+                int id=res.getInt("count");
+                String com=res.getString("nom");
+                StatRegion reg=new StatRegion(id,com);
+                rep.add(reg);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return rep;
+    }
+
+    public List<StatRegion> getStatRegionRecherche(String d1,String d2){
+        List<StatRegion> rep=new ArrayList<>();
+        ConnectionBD con=new ConnectionBD();
+        try{
+            String req1="select count(s.id),r.nom from Signalement as s join SignalementValide as sv on sv.idSign=s.id join Region as r on r.id=sv.idReg";
+            String req2=" group by r.id";
+            String req3=" where s.dateS>'"+d1+"' and s.dateS<'"+d2+"'";
+            System.out.println(req1+req3+req2);
+            System.out.println(req1+req2);
+            PreparedStatement st=con.getConnection().prepareStatement(req1+req3+req2);
+            ResultSet res=st.executeQuery();
+            while(res.next()){
+                int id=res.getInt("count");
+                String com=res.getString("nom");
+                StatRegion reg=new StatRegion(id,com);
+                rep.add(reg);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return rep;
+    }
+
 }
