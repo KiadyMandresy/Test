@@ -87,9 +87,10 @@ public class SignalementService {
         int va=0;
         List<SignalementGlobal> rep=new ArrayList<>();
         ConnectionBD con=new ConnectionBD();
+        String req2=" where s.id not in (select idSign from SignalementCorbeille)";
         String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur";
         try{
-            PreparedStatement st=con.getConnection().prepareStatement(req1);
+            PreparedStatement st=con.getConnection().prepareStatement(req1+req2);
             ResultSet res=st.executeQuery();
             while(res.next()){
                 int id=res.getInt("id");
