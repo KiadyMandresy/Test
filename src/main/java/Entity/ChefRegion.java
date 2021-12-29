@@ -1,9 +1,8 @@
 package Entity;
-
+import java.sql.*;
+import java.util.*;
 import java.sql.Connection;
 import java.sql.Statement;
-
-import net.bytebuddy.agent.builder.AgentBuilder.RawMatcher.Conjunction;
 
 public class ChefRegion{
     int id;
@@ -11,7 +10,6 @@ public class ChefRegion{
     String mdp;
     String mail;
     int idReg;
-
     public int getId(){
         return this.id;
     }
@@ -48,6 +46,59 @@ public class ChefRegion{
         this.mdp=m;
         this.mail=ma;
         this.idReg=ii;
+    }
+    public void delete ()
+    {
+        String req="delete from ChefRegion where id="+this.id;
+        try{
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            Statement st=con.createStatement();
+            st.executeUpdate(req);
+            con.commit();
+            con.close();
+        }
+        catch(Exception e)
+        {
+
+        }
+    }
+    public void update()
+    {
+        String req="update ChefRegion set nom='"+this.nom+"',mdp='"+this.mdp+"',mail='"+this.mail+"',idReg="+this.idReg;
+        try{
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            Statement st=con.createStatement();
+            st.executeUpdate(req);
+            con.commit();
+            con.close();
+        }
+        catch(Exception e)
+        {
+
+        }
+    }
+    public List<ChefRegion> select(String req)
+    {
+        List<ChefRegion> liste=new ArrayList<>();
+        try
+        {
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                ChefRegion reg=new ChefRegion(res.getInt("id"),res.getString("nom"),res.getString("mdp"),res.getString("mail"),res.getInt("idReg"));
+                liste.add(reg);
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return liste;
     }
     public ChefRegion(){
         
