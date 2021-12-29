@@ -65,6 +65,7 @@ insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'co
 insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 2','2021-10-05'::timestamp,4500.0,1500.0,1);
 insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 1','2021-11-10'::timestamp,4500.0,1500.0,2);
 insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 2','2021-10-05'::timestamp,4500.0,1500.0,2);
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'Misy lalana simba eny Iavloha','2021-05-05'::timestamp,4500.0,1500.0,2);
 
 create table DetailSignalement(
      id serial primary key,
@@ -79,13 +80,14 @@ insert into DetailSignalement(idSign,photos) values(7,'src/pgoto.jpeg');
 insert into DetailSignalement(idSign,photos) values(8,'src/pg.jpeg');
 insert into DetailSignalement(idSign,photos) values(1,'src/pgoto.jpeg');
 insert into DetailSignalement(idSign,photos) values(2,'src/pg.jpeg');
-
+insert into DetailSignalement(idSign,photos) values(9,'src/pg.jpeg');
 create table SignalementCorbeille(
      id serial primary key,
      idSign int,
      dateS TimeStamp,
       FOREIGN KEY (idSign) REFERENCES Signalement(id)
 );
+insert into SignalementCorbeille(idSign,dateS) values(9,'2021-12-07'::timestamp);
 create table SignalementValide(
      id serial primary key,
      idSign int,

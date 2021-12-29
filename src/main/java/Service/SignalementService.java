@@ -20,10 +20,11 @@ public class SignalementService {
         List<SignalementGlobal> rep=new ArrayList<>();
         ConnectionBD con=new ConnectionBD();
         String req2=" limit 3 offset "+rep1;
-        /*[LIMIT { 2 | ALL }] [OFFSET 3] */
+        String req3=" where s.id not in (select idSign from SignalementCorbeille)";
         String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur";
+        System.out.println(req1+req3+req2);
         try{
-            PreparedStatement st=con.getConnection().prepareStatement(req1+req2);
+            PreparedStatement st=con.getConnection().prepareStatement(req1+req3+req2);
             ResultSet res=st.executeQuery();
             while(res.next()){
                 int id=res.getInt("id");
