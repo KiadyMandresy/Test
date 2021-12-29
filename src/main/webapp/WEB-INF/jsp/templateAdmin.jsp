@@ -18,7 +18,7 @@
     <meta name="keywords" content="Empire, bootstrap admin template, bootstrap admin panel, bootstrap 4 admin template, admin template">
     <meta name="author" content="Srthemesvilla" />
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
    
     <link rel="stylesheet" href="assets/fonts/fontawesome.css">
     <link rel="stylesheet" href="assets/fonts/ionicons.css">
@@ -109,7 +109,7 @@
                     </li>
                     <li class="sidenav-header small font-weight-semibold">Statistiques</li>
                      <li class="sidenav-item">
-                        <a href="ligne?lim=1" class="sidenav-link">
+                        <a href="${pageContext.request.contextPath}/stat_Probleme" class="sidenav-link">
                              <i class="sidenav-icon feather icon-trending-up"></i>
                             <div>Classement des regions par nombres de signalement</div>
                         </a>
@@ -356,7 +356,7 @@
     <script src="libs/chart-am4/core.js"></script>
     <script src="libs/chart-am4/charts.js"></script>
     <script src="libs/chart-am4/animated.js"></script>
-
+    
     <!-- Demo -->
     <!-- <script src="assets/js/demo.js"></script><script src="assets/js/analytics.js"></script> -->
     <!-- <script src="assets/js/pages/dashboards_index.js"></script> -->

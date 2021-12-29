@@ -49,7 +49,7 @@
             <c:forEach  var="i" begin="1" end="${lim}">
                 <li class="page-item ">
                     <a class="page-link" href="${pageContext.request.contextPath}/listeSignalement?lim=${i}">${i}</a>
-                </li> 
+                </li>
             </c:forEach>
         </ul>
         </nav>

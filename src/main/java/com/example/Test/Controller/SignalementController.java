@@ -55,5 +55,67 @@ public class SignalementController {
         model.addAttribute("listeGlobale",ser.getSignalementGlobalRecherche( date1, date2));
         return "templateAdmin";
     }
+
+    @RequestMapping(value = { "/stat_Probleme" }, method = RequestMethod.GET)
+    public String stat(Model model) {
+        String page="statisticBeProbleme.jsp";
+        SignalementService ser=new SignalementService();
+        List<StatRegion> rep=ser.getStatRegion();
+        String data=rep.get(0).getNom();
+        Integer i2=new Integer(rep.get(0).getNbr());
+        String data2=i2.toString();
+        String d=data2;
+        if(rep.size()>1){
+            data=data+"\",";
+            d=d+"\",";
+        }
+        for(int i=1;i<rep.size()-1;i++){  
+            data=data+"\""+rep.get(i).getNom()+"\",";
+            Integer f=new Integer(rep.get(rep.size()-1).getNbr());
+            d=d+"\""+f.toString(i)+"\",";
+        }
+        if(rep.size()>1){
+            data=data+"\""+rep.get(rep.size()-1).getNom();
+            Integer f=new Integer(rep.get(rep.size()-1).getNbr());
+            d=d+"\""+f.toString();
+        }
+        System.out.println(data);
+        System.out.println(d);
+        model.addAttribute("stat",data);
+        model.addAttribute("stat2",d);
+        model.addAttribute("page",page);
+        return "templateAdmin";
+    }
+
+    @RequestMapping(value = { "/stat_ProblemeRecherche" }, method = RequestMethod.GET)
+    public String stat2(Model model,@RequestParam("d1") String date1,@RequestParam(name="d2")String date2) {
+        String page="statisticBeProbleme.jsp";
+        SignalementService ser=new SignalementService();
+        List<StatRegion> rep=ser.getStatRegionRecherche(date1,date2);
+        String data=rep.get(0).getNom();
+        Integer i2=new Integer(rep.get(0).getNbr());
+        String data2=i2.toString();
+        String d=data2;
+        if(rep.size()>1){
+            data=data+"\",";
+            d=d+"\",";
+        }
+        for(int i=1;i<rep.size()-1;i++){  
+            data=data+"\""+rep.get(i).getNom()+"\",";
+            Integer f=new Integer(rep.get(rep.size()-1).getNbr());
+            d=d+"\""+f.toString(i)+"\",";
+        }
+        if(rep.size()>1){
+            data=data+"\""+rep.get(rep.size()-1).getNom();
+            Integer f=new Integer(rep.get(rep.size()-1).getNbr());
+            d=d+"\""+f.toString();
+        }
+        System.out.println(data);
+        System.out.println(d);
+        model.addAttribute("stat",data);
+        model.addAttribute("stat2",d);
+        model.addAttribute("page",page);
+        return "templateAdmin";
+    }
     
 }
