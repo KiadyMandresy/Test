@@ -45,5 +45,15 @@ public class SignalementController {
         model.addAttribute("page", "fiche1.jsp");
         return "templateAdmin";
     }
+
+    @RequestMapping(value={"/signalementRecherche"},method=RequestMethod.GET)
+    public String Recherche(Model model,@RequestParam("d1") String date1,@RequestParam(name="d2")String date2)
+    {
+        String page="listeSignalement.jsp";
+        model.addAttribute("page",page);
+        SignalementService ser=new SignalementService();
+        model.addAttribute("listeGlobale",ser.getSignalementGlobalRecherche( date1, date2));
+        return "templateAdmin";
+    }
     
 }
