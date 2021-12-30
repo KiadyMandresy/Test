@@ -86,7 +86,7 @@
                    
                       <li class="sidenav-item">
                         <a  class="sidenav-link" href="${pageContext.request.contextPath}/listeSignalement?lim=1">
-                             <i class="sidenav-icon feather icon-bold"></i>
+                             <i class="sidenav-icon feather icon-alert-triangle"></i>
                             <div>Liste des signalements</div>
                         </a>
                     
@@ -95,14 +95,14 @@
                   
                     <li class="sidenav-header small font-weight-semibold">Crud</li>
                      <li class="sidenav-item">
-                        <a href="${pageContext.request.contextPath}/insertionChefRegion" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-trending-up"></i>
+                        <a href="${pageContext.request.contextPath}/ChefRegions?lim=1" class="sidenav-link">
+                             <i class="sidenav-icon feather icon-user"></i>
                             <div>Chef de region</div>
                         </a>
                     </li>
                     <li class="sidenav-item">
                         <a href="ligne?lim=1" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-trending-up"></i>
+                             <i class="sidenav-icon feather icon-map-pin"></i>
                             <div>Region</div>
                         </a>
                     </li>
@@ -110,19 +110,19 @@
                     <li class="sidenav-header small font-weight-semibold">Statistiques</li>
                      <li class="sidenav-item">
                         <a href="${pageContext.request.contextPath}/stat_Probleme" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-trending-up"></i>
+                             <i class="sidenav-icon feather icon-bar-chart"></i>
                             <div>Classement des regions par nombres de signalement</div>
                         </a>
                     </li>
                     <li class="sidenav-item">
                         <a href="bus?lim=1" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-bold"></i>
+                             <i class="sidenav-icon feather icon-bar-chart-2"></i>
                             <div>Classement des regions par depense</div>
                         </a>
                     </li>
                     <li class="sidenav-item">
                         <a href="chauffeur?lim=1" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-user"></i>
+                             <i class="sidenav-icon feather icon-bar-chart"></i>
                             <div>Classement des regions par performance (regler les problemes)</div>
                         </a>
                     </li>
@@ -302,14 +302,10 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="javascript:" class="dropdown-item">
-                                        <i class="feather icon-user text-muted"></i> &nbsp; My profile</a>
-                                    <a href="javascript:" class="dropdown-item">
-                                        <i class="feather icon-mail text-muted"></i> &nbsp; Messages</a>
-                                    <a href="javascript:" class="dropdown-item">
-                                        <i class="feather icon-settings text-muted"></i> &nbsp; Account settings</a>
+                                        <i class="feather icon-user text-muted"></i> &nbsp; Mon profil</a>
                                     <div class="dropdown-divider"></div>
                                     <a href="javascript:" class="dropdown-item">
-                                        <i class="feather icon-power text-danger"></i> &nbsp; Log Out</a>
+                                        <i class="feather icon-power text-danger"></i> &nbsp; Se deconnecter</a>
                                 </div>
                             </div>
                         </div>
