@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
+import java.util.*;
+import java.sql.Statement;
 
 public class Region {
     /*id int primary key not null AUTO_INCREMENT,
@@ -54,4 +57,57 @@ public class Region {
     public Region(){
         
     }
+
+    public void updateRegion(){
+        String req="update Region set nom='"+this.nom+"' where id="+this.id;
+        try{
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            Statement st=con.createStatement();
+            st.executeUpdate(req);
+            con.commit();
+            con.close();
+        }
+        catch(Exception e)
+        {
+
+        }
+    }
+
+    public void delete (int id)
+    {
+        String req="delete from Region where id="+id;
+        try{
+            ConnectionBD co=new ConnectionBD();
+            System.out.println(req);
+            Connection con=co.getConnection();
+            Statement st=con.createStatement();
+            st.executeUpdate(req);
+            con.commit();
+            con.close();
+        }
+        catch(Exception e)
+        {
+
+        }
+    }
+
+    public void insert()
+    {
+        String req="INSERT INTO Region(nom) VALUES('"+this.nom+"')";
+        try{
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            Statement st=con.createStatement();
+            st.executeUpdate(req);
+            con.commit();
+            con.close();
+        }
+        catch(Exception e)
+        {
+
+        }
+    }
+
+    
 }

@@ -95,6 +95,15 @@ create table SignalementValide(
       FOREIGN KEY (idSign) REFERENCES Signalement(id),
        FOREIGN KEY (idReg) REFERENCES Region(id)
 );
+insert into SignalementValide(idSign,idReg) values(1,1);
+insert into SignalementValide(idSign,idReg) values(2,1);
+insert into SignalementValide(idSign,idReg) values(3,1);
+insert into SignalementValide(idSign,idReg) values(4,2);
+insert into SignalementValide(idSign,idReg) values(5,2);
+insert into SignalementValide(idSign,idReg) values(6,2);
+insert into SignalementValide(idSign,idReg) values(7,2);
+insert into SignalementValide(idSign,idReg) values(8,2);
+insert into SignalementValide(idSign,idReg) values(9,2);
 create table SignalementTermine(
          id serial primary key,
          idSignV int,
@@ -120,3 +129,6 @@ join Utilisateur as u
 on u.id=s.idUtilisateur
 
 
+select count(s.id),r.nom from Signalement as s join SignalementValide as sv on sv.idSign=s.id join Region as r on r.id=sv.idReg
+where s.dateS>'2021-05-10' and s.dateS<'2021-11-01'
+group by r.id

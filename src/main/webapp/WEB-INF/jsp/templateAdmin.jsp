@@ -101,7 +101,7 @@
                         </a>
                     </li>
                     <li class="sidenav-item">
-                        <a href="ligne?lim=1" class="sidenav-link">
+                        <a href="${pageContext.request.contextPath}/listeRegion?lim=1" class="sidenav-link">
                              <i class="sidenav-icon feather icon-map-pin"></i>
                             <div>Region</div>
                         </a>
