@@ -12,7 +12,7 @@ public class ConnectionBD {
             Class.forName("org.postgresql.Driver");
             String dbURL = "jdbc:postgresql://localhost/final";
             String user = "postgres";
-            String pass = "kalisi61";
+            String pass="kalisi61";
             con = DriverManager.getConnection(dbURL, user, pass);
         }catch(Exception e){
             e.printStackTrace();
