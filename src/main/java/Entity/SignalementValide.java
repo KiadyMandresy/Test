@@ -1,5 +1,9 @@
 package Entity;
-
+import java.sql.Timestamp;
+import java.sql.*;
+import java.util.*;
+import java.sql.Connection;
+import java.sql.Statement;
 public class SignalementValide {
     /*id int primary key not null AUTO_INCREMENT,
      idSign int,
@@ -34,5 +38,21 @@ public class SignalementValide {
     }
     public SignalementValide(){
         
+    }
+    public void insert()
+    {
+       String req="INSERT INTO SignalementValide(idSign,idReg) VALUES("+this.idSign+","+this.idReg+")";
+       try{
+           ConnectionBD co=new ConnectionBD();
+           Connection con=co.getConnection();
+           Statement st=con.createStatement();
+           st.executeUpdate(req);
+           con.commit();
+           con.close();
+       }
+       catch(Exception e)
+       {
+
+       }
     }
 }

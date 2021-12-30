@@ -12,6 +12,42 @@ public class SignalementService {
     public SignalementService(){
 
     }
+    public void deleteSignalement(String id)
+    {
+        Integer idd=new Integer(id);
+        SignalementCorbeille sg=new SignalementCorbeille(0,idd.intValue(),null);
+        sg.insert();
+    }
+    public void valideSignalement(String id,String reg)
+    {
+        Integer idd=new Integer(id);
+        Integer rg=new Integer(reg);
+        SignalementValide val=new SignalementValide(0,idd.intValue(),rg.intValue());
+        val.insert();
+    }
+    public SignalementValideView ifValide(int id)
+    {
+       SignalementValideView test=null;
+        String req="select s.commentaire,ds.photos,s.id,r.nom as region,t.nom,u.nom as personne,s.x,s.y,s.dateS from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType where s.id="+id;
+        ConnectionBD co=new ConnectionBD();
+        try
+        {
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                SignalementValideView s=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"),res.getString("region"));
+                test=s;
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return test;
+    }
     public int countPhotoSignalement(int id)
     {
         int i=0;

@@ -14,7 +14,7 @@ import java.sql.ResultSet;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class SignalementController {
+public class SignalementController extends SignalementService{
     
     @RequestMapping(value = { "/listeSignalement" }, method = RequestMethod.GET)
     public String view(Model model,@RequestParam(name="lim")String l) {
@@ -33,15 +33,70 @@ public class SignalementController {
         model.addAttribute("listeGlobale",ser.getSignalementGlobal(ii));
         return "templateAdmin";
     }
+    
+    @RequestMapping(value={"/signalementValide"},method=RequestMethod.GET)
+    public String valide(Model model,@RequestParam("id") String id,@RequestParam(name="region")String reg)
+    {
+        valideSignalement(id, reg);
+        SignalementService serv=new SignalementService();
+        Integer idd=new Integer(id);
+        Integer p=new Integer("1");
+        SignalementValideView sv=ifValide(idd.intValue());
+        int valide=1;
+        model.addAttribute("serv",sv);
+        RegionService chef=new RegionService();
+        model.addAttribute("reg", chef.getAll());
+        model.addAttribute("valide", valide);
+        model.addAttribute("countPhoto", serv.countPhotoSignalement(idd.intValue()));
+        model.addAttribute("photo", serv.getPhoto(p.intValue(), idd.intValue()));
+        model.addAttribute("page", "fiche1.jsp");
+        return "templateAdmin";
+    }
+    @RequestMapping(value={"/deleteSignalamentConf"},method=RequestMethod.GET)
+    public String confDelete(Model model,@RequestParam("id") String id)
+    {
+        model.addAttribute("id", id);
+        model.addAttribute("page", "confirmDeleteSign.jsp");
+        return "templateAdmin";
+    }
+    @RequestMapping(value={"/signalementCorbeille"},method=RequestMethod.GET)
+    public String corbeille(Model model,@RequestParam("id") String id)
+    {
+        deleteSignalement(id);
+        model.addAttribute("page", "listeSignalement");
+        SignalementService ser=new SignalementService();
+        int cc=ser.getCountSignalement()/3;
+        int count=ser.getCountSignalement()%3;
+        if(count!=0){
+            cc=cc+1;
+        }
+        model.addAttribute("lim", cc);
+        model.addAttribute("listeGlobale",ser.getSignalementGlobal(1));
+        return "templateAdmin";
+    }
     @RequestMapping(value={"/signalement"},method=RequestMethod.GET)
     public String fiche1(Model model,@RequestParam("id") String id,@RequestParam(name="nb")String photo)
     {
         SignalementService serv=new SignalementService();
         Integer idd=new Integer(id);
         Integer p=new Integer(photo);
+        SignalementValideView sv=ifValide(idd.intValue());
+        int valide=0;
+        if(sv==null)
+        {
+            model.addAttribute("serv",serv.getFicheSignalementNonValide(idd.intValue()));
+        }
+        else
+        {
+            model.addAttribute("serv",sv);
+            valide=1;
+        }
+        RegionService chef=new RegionService();
+        model.addAttribute("reg", chef.getAll());
+        model.addAttribute("valide", valide);
         model.addAttribute("countPhoto", serv.countPhotoSignalement(idd.intValue()));
         model.addAttribute("photo", serv.getPhoto(p.intValue(), idd.intValue()));
-        model.addAttribute("serv",serv.getFicheSignalementNonValide(idd.intValue()));
+      
         model.addAttribute("page", "fiche1.jsp");
         return "templateAdmin";
     }
