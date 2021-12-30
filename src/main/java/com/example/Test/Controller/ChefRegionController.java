@@ -18,7 +18,7 @@ public class ChefRegionController extends ChefRegionService{
     public String updateChef1(@RequestParam(name="id")String id,@RequestParam(name="nom")String nom,@RequestParam(name="mail")String mail,@RequestParam(name="mdp")String mdp,@RequestParam(name="region")String region,@RequestParam(name="lim")String lim,Model model)
     {
         RegionService r=new RegionService();
-        model.addAttribute("regions",r.getAll());
+        model.addAttribute("regions",r.getAll());     
         Integer idd=new Integer(id);
         ChefRegion chef=new ChefRegion(idd.intValue(),nom,mdp,mail,0);
         model.addAttribute("chef", chef);
