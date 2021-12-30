@@ -28,7 +28,7 @@
                         </c:forEach>
                     </select>
                 </div>
-           <center> <button type="submit" class="btn btn-primary" style="background-color:grey">Inserer</button></center>
+           <center> <button type="submit" class="btn btn-primary" >Inserer</button></center>
         </form>
     </div>
 </div>

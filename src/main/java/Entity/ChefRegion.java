@@ -65,7 +65,7 @@ public class ChefRegion{
     }
     public void update()
     {
-        String req="update ChefRegion set nom='"+this.nom+"',mdp='"+this.mdp+"',mail='"+this.mail+"',idReg="+this.idReg;
+        String req="update ChefRegion set nom='"+this.nom+"',mdp='"+this.mdp+"',mail='"+this.mail+"',idReg="+this.idReg+" where id="+this.id;
         try{
             ConnectionBD co=new ConnectionBD();
             Connection con=co.getConnection();
