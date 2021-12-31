@@ -4,26 +4,25 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card mb-4" id="btn-dropdown-demo">
-                <div class="card-header">
-                    <h6 class="card-header-title mb-0">Description</h6>
-                </div>
                 <div class="card-body">
                     <dl>
-                        <dt>Description :</dt>
+                        <dt style="color:rgb(255, 106, 34);">Description :</dt>
                         <dd>${serv.getCommentaire()}</dd>
-                        <dt>Nom de l'annonceur</dt>
-                        <dd>${serv.getIdUtilisateur()}</dd>
-                        <dt>Localisation:</dt>
+                        <dt style="color:rgb(255, 106, 34);">Nom de l'annonceur</dt>
+                        <dd >${serv.getIdUtilisateur()}</dd>
+                        <dt style="color:rgb(255, 106, 34);">Localisation:</dt>
                         <dd>Anosibe</dd>
-                        <dt>date:</dt>
+                        <dt style="color:rgb(255, 106, 34);">date:</dt>
                         <dd>${serv.getDateS()}</dd>
                         <c:if test="${valide==0}">
+                            <dt style="color:rgb(255, 106, 34);">Statut:</dt>
+                            <dd>Pas encore Valide</dd>
                             <p>
                                 <div class="demo-inline-spacing mt-3">
                                     
                                     <div class="btn-group">
                                         <a href="${pageContext.request.contextPath}/deleteSignalamentConf?id=${serv.getId()}"><button  class="btn btn-primary" ><i class="feather icon-x"></i>Invalider</button></a>
-                                        <button style="margin-left: 225px;" type="button" class="btn btn-primary dropdown-toggle hide-arrow" data-toggle="dropdown"><i class="feather icon-check"></i>Valider</button>
+                                        <button style="margin-left:225px;" type="button" class="btn btn-primary dropdown-toggle hide-arrow" data-toggle="dropdown"><i class="feather icon-check"></i>Valider</button>
                                         <div class="dropdown-menu">
                                             <span class="dropdown-item">Choix de region</span>
                                             <div class="dropdown-divider"></div>
@@ -36,8 +35,18 @@
                             </p>
                         </c:if>
                         <c:if test="${valide==1}">
-                            <dt>Region:</dt>
+                            <dt style="color:rgb(255, 106, 34);">Region:</dt>
                             <dd>${serv.getRegion()}</dd>
+                            <dt style="color:rgb(255, 106, 34);">Statut:</dt>
+                            <dd>Pas encore Resolu</dd>
+                        </c:if>
+                        <c:if test="${valide==2}">
+                            <dt style="color:rgb(255, 106, 34);">Region:</dt>
+                            <dd>${serv.getRegion()}</dd>
+                            <dt style="color:rgb(255, 106, 34);">Budget:</dt>
+                            <dd style="color:rgb(255, 106, 34);">${serv.getBudget()}</dd>
+                            <dt style="color:rgb(255, 106, 34);">Statut:</dt>
+                            <dd style="color:rgb(255, 106, 34);">Probleme resolu le ${serv.getTermine()}</dd>
                         </c:if>
                     </dl>
                 </div>
@@ -46,7 +55,7 @@
         <div class="col-md-6">
             <div class="card mb-4">
                 <div class="card-header">
-                    <h6 class="card-header-title mb-0">Photos</h6>
+                    <h6 class="card-header-title mb-0" style="color:rgb(255, 106, 34);">Photos</h6>
                 </div>
                 <div class="card-body">
                     <figure class="figure" style="max-width: 25rem">

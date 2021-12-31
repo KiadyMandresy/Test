@@ -16,6 +16,7 @@ public class SignalementService {
     public String[] statDepenseRegionDate(String date1,String date2)
     {
         String req="select sum(st.budget) as budget,r.nom as region from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType join SignalementTermine st on st.idSignV=sv.id  where s.dateS>'"+date1+"' and s.dateS<'"+date2+"' group by r.nom";
+        System.out.println(req);
         String[] retour=new String[2];
         retour[0]="";
         retour[1]="";
@@ -70,6 +71,7 @@ public class SignalementService {
     {
         String req="select sum(st.budget) as budget,r.nom as region from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType join SignalementTermine st on st.idSignV=sv.id group by r.nom";
         String[] retour=new String[2];
+        System.out.println(req);
         retour[0]="";
         retour[1]="";
         Vector nomReg=new Vector();

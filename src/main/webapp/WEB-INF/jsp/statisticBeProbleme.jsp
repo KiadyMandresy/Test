@@ -16,7 +16,7 @@
     </form>
 
 <div class="card mb-4">   
-    <canvas id="myChart"></canvas>
+    <canvas id="myChart" ></canvas>
   
 </div>
 </div>

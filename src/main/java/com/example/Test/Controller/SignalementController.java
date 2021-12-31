@@ -80,17 +80,26 @@ public class SignalementController extends SignalementService{
         SignalementService serv=new SignalementService();
         Integer idd=new Integer(id);
         Integer p=new Integer(photo);
-        SignalementValideView sv=ifValide(idd.intValue());
+        SignalementValideView st=signTermine(id);
         int valide=0;
-        if(sv==null)
+        if(st==null)
         {
-            model.addAttribute("serv",serv.getFicheSignalementNonValide(idd.intValue()));
+            SignalementValideView sv=ifValide(idd.intValue());
+            if(sv==null)
+            {
+                model.addAttribute("serv",serv.getFicheSignalementNonValide(idd.intValue()));
+            }
+            else
+            {
+                model.addAttribute("serv",sv);
+                valide=1;
+            }
         }
-        else
-        {
-            model.addAttribute("serv",sv);
-            valide=1;
-        }
+       else
+       {
+            model.addAttribute("serv",st);
+            valide=2;
+       }
         RegionService chef=new RegionService();
         model.addAttribute("reg", chef.getAll());
         model.addAttribute("valide", valide);
@@ -145,18 +154,20 @@ public class SignalementController extends SignalementService{
     public String statDepense(Model model,@RequestParam("d1") String date1,@RequestParam(name="d2")String date2)
     {
         String[] donnee=statDepenseRegionDate(date1,date2);
+        System.out.println(donnee[0]+"  ///   "+donnee[1]);
         model.addAttribute("x", donnee[0]);
         model.addAttribute("y", donnee[1]);
-        model.addAttribute("page", "statDepenseGraph");
+        model.addAttribute("page", "statDepenseGraph.jsp");
         return "templateAdmin";
     }
     @RequestMapping(value = { "/statDepense" }, method = RequestMethod.GET)
     public String statDepense(Model model)
     {
         String[] donnee=statDepenseRegion();
+        System.out.println(donnee[0]+"  ///   "+donnee[1]);
         model.addAttribute("x", donnee[0]);
         model.addAttribute("y", donnee[1]);
-        model.addAttribute("page", "statDepenseGraph");
+        model.addAttribute("page", "statDepenseGraph.jsp");
         return "templateAdmin";
     }
     @RequestMapping(value = { "/stat_ProblemeRecherche" }, method = RequestMethod.GET)

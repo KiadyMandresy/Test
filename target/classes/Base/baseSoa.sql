@@ -93,6 +93,9 @@ create table SignalementValide(
       FOREIGN KEY (idSign) REFERENCES Signalement(id),
        FOREIGN KEY (idReg) REFERENCES Region(id)
 );
+insert into SignalementValide (idSign,idReg) values(5,2);
+insert into SignalementValide (idSign,idReg) values(9,1);
+insert into SignalementValide (idSign,idReg) values(14,3);
 create table SignalementTermine(
          id serial primary key,
          idSignV int,
@@ -100,6 +103,10 @@ create table SignalementTermine(
          budget float,
       FOREIGN KEY (idSignV) REFERENCES SignalementValide(id)
 );
+insert into SignalementTermine(idSignV,dateS,budget) values (1,now(),1900000.0);
+insert into SignalementTermine(idSignV,dateS,budget) values (2,now(),9000000.50);
+insert into SignalementTermine(idSignV,dateS,budget) values (3,now(),2900000.0);
+insert into SignalementTermine(idSignV,dateS,budget) values (4,now(),900000);
 create table Notification(
      id serial primary key,
      idSignTermine int,
@@ -108,4 +115,9 @@ create table Notification(
 
 /*--------------VIEW------------------------*/
 /**/
+
+select s.commentaire,ds.photos,s.id,r.nom as region,t.nom,u.nom as personne,s.x,s.y,s.dateS from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType ;
+select st.budget,st.dateS as termine,s.commentaire,ds.photos,s.id,r.nom as region,t.nom,u.nom as personne,s.x,s.y,s.dateS from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType join SignalementTermine st on st.idSignV=sv.id;
+
+select sum(st.budget),r.nom as region from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType join SignalementTermine st on st.idSignV=sv.id group by r.nom;
 

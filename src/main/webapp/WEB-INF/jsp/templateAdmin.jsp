@@ -115,7 +115,7 @@
                         </a>
                     </li>
                     <li class="sidenav-item">
-                        <a href="bus?lim=1" class="sidenav-link">
+                        <a href="${pageContext.request.contextPath}/statDepense" class="sidenav-link">
                              <i class="sidenav-icon feather icon-bar-chart-2"></i>
                             <div>Classement des regions par depense</div>
                         </a>
