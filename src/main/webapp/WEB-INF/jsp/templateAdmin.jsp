@@ -19,7 +19,8 @@
     <meta name="author" content="Srthemesvilla" />
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-   
+    <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <link rel="stylesheet" href="assets/fonts/fontawesome.css">
     <link rel="stylesheet" href="assets/fonts/ionicons.css">
     <link rel="stylesheet" href="assets/fonts/linearicons.css">

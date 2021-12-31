@@ -2,6 +2,28 @@
 <div class="container-fluid flex-grow-1 container-p-y">
     <h4 class="font-weight-bold py-3 mb-0">Fiche Signalement</h4>   
     <div class="row">
+        <div class="col-sm-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h6 class="card-header-title mb-0" style="color:rgb(255, 106, 34);">Localisation</h6>
+                </div>
+                <div class="card-body">
+                    <div id = "map" style = "width:900px; height:200px;">
+      	
+                    </div>
+                    <script type="text/javascript">
+                        var mapOptions = {
+                         center: ["${serv.getX()}", "${serv.getY()}"],
+                         zoom: 18
+                      };
+                      var map = new L.map('map', mapOptions);
+                      var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+                      map.addLayer(layer);
+                      new L.Marker(["${serv.getX()}", "${serv.getY()}"]).addTo(map);
+                    </script>
+               </div>
+            </div>
+        </div>
         <div class="col-md-6">
             <div class="card mb-4" id="btn-dropdown-demo">
                 <div class="card-body">
@@ -10,8 +32,6 @@
                         <dd>${serv.getCommentaire()}</dd>
                         <dt style="color:rgb(255, 106, 34);">Nom de l'annonceur</dt>
                         <dd >${serv.getIdUtilisateur()}</dd>
-                        <dt style="color:rgb(255, 106, 34);">Localisation:</dt>
-                        <dd>Anosibe</dd>
                         <dt style="color:rgb(255, 106, 34);">date:</dt>
                         <dd>${serv.getDateS()}</dd>
                         <c:if test="${valide==0}">
@@ -44,9 +64,9 @@
                             <dt style="color:rgb(255, 106, 34);">Region:</dt>
                             <dd>${serv.getRegion()}</dd>
                             <dt style="color:rgb(255, 106, 34);">Budget:</dt>
-                            <dd style="color:rgb(255, 106, 34);">${serv.getBudget()}</dd>
+                            <dd >${serv.getBudget()}</dd>
                             <dt style="color:rgb(255, 106, 34);">Statut:</dt>
-                            <dd style="color:rgb(255, 106, 34);">Probleme resolu le ${serv.getTermine()}</dd>
+                            <dd >Probleme resolu le ${serv.getTermine()}</dd>
                         </c:if>
                     </dl>
                 </div>
@@ -74,5 +94,6 @@
                 </div>
             </div>
         </div>
+       
     </div>
 </div>
