@@ -141,7 +141,24 @@ public class SignalementController extends SignalementService{
         model.addAttribute("page",page);
         return "templateAdmin";
     }
-
+    @RequestMapping(value = { "/statDepenseDate" }, method = RequestMethod.GET)
+    public String statDepense(Model model,@RequestParam("d1") String date1,@RequestParam(name="d2")String date2)
+    {
+        String[] donnee=statDepenseRegionDate(date1,date2);
+        model.addAttribute("x", donnee[0]);
+        model.addAttribute("y", donnee[1]);
+        model.addAttribute("page", "statDepenseGraph");
+        return "templateAdmin";
+    }
+    @RequestMapping(value = { "/statDepense" }, method = RequestMethod.GET)
+    public String statDepense(Model model)
+    {
+        String[] donnee=statDepenseRegion();
+        model.addAttribute("x", donnee[0]);
+        model.addAttribute("y", donnee[1]);
+        model.addAttribute("page", "statDepenseGraph");
+        return "templateAdmin";
+    }
     @RequestMapping(value = { "/stat_ProblemeRecherche" }, method = RequestMethod.GET)
     public String stat2(Model model,@RequestParam("d1") String date1,@RequestParam(name="d2")String date2) {
         String page="statisticBeProbleme.jsp";
@@ -172,5 +189,6 @@ public class SignalementController extends SignalementService{
         model.addAttribute("page",page);
         return "templateAdmin";
     }
+
     
 }

@@ -14,6 +14,20 @@ public class SignalementValideView {
     String photos;
     String idUtilisateur;
     String region;
+    Timestamp termine;
+    double budget;
+    public void setBudget(double budget) {
+        this.budget = budget;
+    }
+    public void setTermine(Timestamp termine) {
+        this.termine = termine;
+    }
+    public double getBudget() {
+        return budget;
+    }
+    public Timestamp getTermine() {
+        return termine;
+    }
     public void setRegion(String r)
     {
         region=r;
@@ -80,6 +94,20 @@ public class SignalementValideView {
         this.photos=p;
         this.idUtilisateur=iii;
         this.region=r;
+        //
+    }
+    public SignalementValideView(int i,String c,Timestamp d,double x,double y,String n,String p,String iii,String r,Timestamp ter,double b){
+        this.id=i;
+        this.commentaire=c;
+        this.dateS=d;
+        this.x=x;
+        this.y=y;
+        this.nom=n;
+        this.photos=p;
+        this.idUtilisateur=iii;
+        this.region=r;
+        termine=ter;
+        this.budget=b;
         //
     }
     public List<SignalementValideView> select(String req)

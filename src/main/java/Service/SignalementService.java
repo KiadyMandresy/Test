@@ -1,16 +1,146 @@
 package Service;
 import Entity.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.sql.*;
+import java.util.Vector;
+import java.util.List;
+import java.util.ArrayList;
 
 public class SignalementService {
     
     public SignalementService(){
 
+    }
+    public String[] statDepenseRegionDate(String date1,String date2)
+    {
+        String req="select sum(st.budget) as budget,r.nom as region from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType join SignalementTermine st on st.idSignV=sv.id  where s.dateS>'"+date1+"' and s.dateS<'"+date2+"' group by r.nom";
+        String[] retour=new String[2];
+        retour[0]="";
+        retour[1]="";
+        Vector nomReg=new Vector();
+        Vector budget=new Vector();
+        ConnectionBD co=new ConnectionBD();
+        try
+        {
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                Double bg=res.getDouble("budget");
+                String reg=res.getString("region");
+                budget.addElement(bg);
+                nomReg.addElement(reg);
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        if(budget.size()>0)
+        {
+            retour[0]=(String)nomReg.elementAt(0);
+            Double bg=(Double)budget.elementAt(0);
+            retour[1]=bg.toString();
+            if(budget.size()>1)
+            {
+                retour[0]=retour[0]+"\",";
+                retour[1]=retour[1]+"\",";
+            }
+            
+            for(int i=1;i<budget.size()-1;i++)
+            {
+                retour[0]=retour[0]+"\""+(String)nomReg.elementAt(i)+"\",";
+                Double bg1=(Double)budget.elementAt(i);
+                retour[1]=retour[1]+"\""+bg1.toString()+"\",";
+            }
+            if(budget.size()>1)
+            {
+                retour[0]=retour[0]+"\""+(String)nomReg.elementAt(budget.size()-1);
+                Double bg1=(Double)budget.elementAt(budget.size()-1);
+                retour[1]=retour[1]+"\""+bg1.toString();
+            }
+        }
+        return retour;
+    }
+    public String[] statDepenseRegion()
+    {
+        String req="select sum(st.budget) as budget,r.nom as region from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType join SignalementTermine st on st.idSignV=sv.id group by r.nom";
+        String[] retour=new String[2];
+        retour[0]="";
+        retour[1]="";
+        Vector nomReg=new Vector();
+        Vector budget=new Vector();
+        ConnectionBD co=new ConnectionBD();
+        try
+        {
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                Double bg=res.getDouble("budget");
+                String reg=res.getString("region");
+                budget.addElement(bg);
+                nomReg.addElement(reg);
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        if(budget.size()>0)
+        {
+            retour[0]=(String)nomReg.elementAt(0);
+            Double bg=(Double)budget.elementAt(0);
+            retour[1]=bg.toString();
+            if(budget.size()>1)
+            {
+                retour[0]=retour[0]+"\",";
+                retour[1]=retour[1]+"\",";
+            }
+            
+            for(int i=1;i<budget.size()-1;i++)
+            {
+                retour[0]=retour[0]+"\""+(String)nomReg.elementAt(i)+"\",";
+                Double bg1=(Double)budget.elementAt(i);
+                retour[1]=retour[1]+"\""+bg1.toString()+"\",";
+            }
+            if(budget.size()>1)
+            {
+                retour[0]=retour[0]+"\""+(String)nomReg.elementAt(budget.size()-1);
+                Double bg1=(Double)budget.elementAt(budget.size()-1);
+                retour[1]=retour[1]+"\""+bg1.toString();
+            }
+        }
+        return retour;
+    }
+    public SignalementValideView signTermine(String id)
+    {
+        SignalementValideView test=null;
+        String req="select st.budget,st.dateS as termine,s.commentaire,ds.photos,s.id,r.nom as region,t.nom,u.nom as personne,s.x,s.y,s.dateS from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType join SignalementTermine st on st.idSignV=sv.id where s.id="+id;
+        ConnectionBD co=new ConnectionBD();
+        try
+        {
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                SignalementValideView s=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"),res.getString("region"),res.getTimestamp("termine"),res.getDouble("budget"));
+                test=s;
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return test;
     }
     public void deleteSignalement(String id)
     {
