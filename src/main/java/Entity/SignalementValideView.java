@@ -124,6 +124,7 @@ public class SignalementValideView {
                 SignalementValideView reg=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"),res.getString("region"));
                 liste.add(reg);
             }
+            con.close();
         }
         catch(Exception e)
         {
