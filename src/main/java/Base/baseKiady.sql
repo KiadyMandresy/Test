@@ -57,14 +57,23 @@ create table Signalement(
      FOREIGN KEY (idUtilisateur) REFERENCES Utilisateur(id)
 );
 
-insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 1','2021-11-10'::timestamp,4500.0,1500.0,2);
-insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 2','2021-10-05'::timestamp,4500.0,1500.0,2);
-insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 1','2021-11-10'::timestamp,4500.0,1500.0,1);
-insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 2','2021-10-05'::timestamp,4500.0,1500.0,1);
-insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 1','2021-11-10'::timestamp,4500.0,1500.0,2);
-insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 2','2021-10-05'::timestamp,4500.0,1500.0,1);
-insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 1','2021-11-10'::timestamp,4500.0,1500.0,2);
-insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 2','2021-10-05'::timestamp,4500.0,1500.0,2);
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 1','2021-11-10'::timestamp,4500.0,1500.0,2);-18.910950219529475, 47.52442194451745
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 2','2021-10-05'::timestamp,4500.0,1500.0,2);-18.909571444054112, 47.53033742502648
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 1','2021-11-10'::timestamp,4500.0,1500.0,1);-18.91338332499232, 47.52887998779962
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 2','2021-10-05'::timestamp,4500.0,1500.0,1);-18.899473594930384, 47.52905145100277
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 1','2021-11-10'::timestamp,4500.0,1500.0,2);-18.899838588044464, 47.53745314795763
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 2','2021-10-05'::timestamp,4500.0,1500.0,1);-18.92275045046798, 47.54053948561452
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 1','2021-11-10'::timestamp,4500.0,1500.0,2);-18.897040287160458, 47.50247465451294
+insert into Signalement(idType,commentaire,dateS,x,y,idUtilisateur) values(1,'commentaire 2','2021-10-05'::timestamp,4500.0,1500.0,2);-18.924007470649357, 47.50920458523698
+
+update Signalement set x=-18.910950219529475,y=47.52442194451745 where id=1;
+update Signalement set x=-18.909571444054112,y=47.53033742502648 where id=2;
+update Signalement set x=-18.91338332499232,y=47.52887998779962 where id=3;
+update Signalement set x=-18.899473594930384,y=47.52905145100277 where id=4;
+update Signalement set x=-18.899838588044464,y=47.53745314795763 where id=5;
+update Signalement set x=-18.92275045046798,y=47.54053948561452 where id=6;
+update Signalement set x=-18.897040287160458,y=47.50247465451294 where id=7;
+update Signalement set x=-18.924007470649357,y=47.50920458523698 where id=8;
 
 create table DetailSignalement(
      id serial primary key,
