@@ -89,6 +89,7 @@ public class Signalement {
                 Signalement reg=new Signalement(res.getInt("id"),res.getInt("idType"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),ut.toString());
                 liste.add(reg);
             }
+            con.close();
         }
         catch(Exception e)
         {

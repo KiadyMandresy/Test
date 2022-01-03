@@ -49,6 +49,7 @@ public class RegionService extends Region {
             {
                 id=res.getInt("id");
             }
+            con.close();
         }
         catch(Exception e)
         {
