@@ -1,9 +1,10 @@
 package com.example.Test.Controller;
 import java.util.ArrayList;
 import java.util.List;
-
+import Service.*;
 import Entity.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,9 +55,11 @@ public class PersonneController {
         return "listePersonne";
     }
     @RequestMapping(value = { "/template" }, method = RequestMethod.GET)
-    public String view(Model model) {
-        model.addAttribute("personn", this.getAll());
-        //model.addAttribute("personnes", this.getAll());
+    public String view(@RequestParam(name="page")String page,Model model) {
+        page="insertChefRegion.jsp";
+        model.addAttribute("page",page);
+        RegionService r=new RegionService();
+        model.addAttribute("regions",r.getAll());
         return "templateAdmin";
     }
     

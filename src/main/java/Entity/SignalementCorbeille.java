@@ -1,7 +1,10 @@
 package Entity;
 
 import java.sql.Timestamp;
-
+import java.sql.*;
+import java.util.*;
+import java.sql.Connection;
+import java.sql.Statement;
 public class SignalementCorbeille {
     
     /*id int primary key not null AUTO_INCREMENT,
@@ -38,5 +41,21 @@ public class SignalementCorbeille {
      }
      public SignalementCorbeille(){
          
+     }
+     public void insert()
+     {
+        String req="INSERT INTO SignalementCorbeille(idsign,dateS) VALUES("+this.idSign+",now())";
+        try{
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            Statement st=con.createStatement();
+            st.executeUpdate(req);
+            con.commit();
+            con.close();
+        }
+        catch(Exception e)
+        {
+
+        }
      }
 }

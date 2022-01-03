@@ -18,8 +18,9 @@
     <meta name="keywords" content="Empire, bootstrap admin template, bootstrap admin panel, bootstrap 4 admin template, admin template">
     <meta name="author" content="Srthemesvilla" />
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
-
-   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel = "stylesheet" href = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <link rel="stylesheet" href="assets/fonts/fontawesome.css">
     <link rel="stylesheet" href="assets/fonts/ionicons.css">
     <link rel="stylesheet" href="assets/fonts/linearicons.css">
@@ -78,76 +79,55 @@
                 <ul class="sidenav-inner py-1">
 
                     <!-- Dashboards -->
-                    <li class="sidenav-item active">
-                        <a href="accueil" class="sidenav-link">
-                            <i class="sidenav-icon feather icon-home"></i>
-                            <div>Accueil</div>
-                        </a>
-                    </li>
+                   
 
                     <!-- Layouts -->
                     <li class="sidenav-divider mb-1"></li>
-                     <li class="sidenav-header small font-weight-semibold">Filtre</li>
-                     <form method="post" action="filtre">
-                    <li class="sidenav-item">
-                       <a  class="sidenav-link">
-                             <i class="sidenav-icon feather icon-trending-up"></i>
-                            <div>Ligne</div>
-                        </a>
-                         <center>
-                             <span style="margin-left:30px"><input type="radio" name="ligne" value=""> pp </span>
-                            </center>
-                       <!--</div>-->
-                    </li>
-                      <li class="sidenav-item">
-                        <a  class="sidenav-link">
-                             <i class="sidenav-icon feather icon-bold"></i>
-                            <div>Bus</div>
-                        </a>
-                     <div class="input-group">
-                            <select class="custom-select" style="margin-left:80px" name="bus">
-                               
-                                    <option value="aa">aa</option>
-                                 
-                            </select>
-                         </center>
-                                   
-                     </div>
-                      </li>
-                      <li class="sidenav-item">
-                          <input type="text" class="form-control" placeholder="jj-mm-aa" name="d1" style="margin-left:80px;width:80px">
-                          <input type="text" class="form-control" placeholder="jj-mm-aa" name="d2" style="margin-left:80px;width:80px">
-                      </li>
-                    <li class="sidenav-item">
-                    <br>   <button type="submit" class="btn btn-round btn-dark" style="margin-left:60px">Rechercher</button>   </br>
-                     </form>
-                    </li>
                    
-                    <li class="sidenav-header small font-weight-semibold">Liste</li>
+                   
+                      <li class="sidenav-item">
+                        <a  class="sidenav-link" href="${pageContext.request.contextPath}/listeSignalement?lim=1">
+                             <i class="sidenav-icon feather icon-alert-triangle"></i>
+                            <div>Liste des signalements</div>
+                        </a>
+                    
+                      </li>
+                    
+                  
+                    <li class="sidenav-header small font-weight-semibold">Crud</li>
                      <li class="sidenav-item">
-                        <a href="ligne?lim=1" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-trending-up"></i>
-                            <div>Ligne</div>
+                        <a href="${pageContext.request.contextPath}/ChefRegions?lim=1" class="sidenav-link">
+                             <i class="sidenav-icon feather icon-user"></i>
+                            <div>Chef de region</div>
                         </a>
                     </li>
                     <li class="sidenav-item">
-                        <a href="bus?lim=1" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-bold"></i>
-                            <div>Bussssss</div>
+                        <a href="${pageContext.request.contextPath}/listeRegion?lim=1" class="sidenav-link">
+                             <i class="sidenav-icon feather icon-map-pin"></i>
+                            <div>Region</div>
+                        </a>
+                    </li>
+                    </li>
+                    <li class="sidenav-header small font-weight-semibold">Statistiques</li>
+                     <li class="sidenav-item">
+                        <a href="${pageContext.request.contextPath}/stat_Probleme" class="sidenav-link">
+                             <i class="sidenav-icon feather icon-bar-chart"></i>
+                            <div>Classement des regions par nombres de signalement</div>
+                        </a>
+                    </li>
+                    <li class="sidenav-item">
+                        <a href="${pageContext.request.contextPath}/statDepense" class="sidenav-link">
+                             <i class="sidenav-icon feather icon-bar-chart-2"></i>
+                            <div>Classement des regions par depense</div>
                         </a>
                     </li>
                     <li class="sidenav-item">
                         <a href="chauffeur?lim=1" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-user"></i>
-                            <div>Chauffeur</div>
+                             <i class="sidenav-icon feather icon-bar-chart"></i>
+                            <div>Classement des regions par performance (regler les problemes)</div>
                         </a>
                     </li>
-                      <li class="sidenav-item">
-                        <a href="pointage?lim=1" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-book"></i>
-                            <div>Versement</div>
-                        </a>
-                    </li>
+                     
                     <!-- UI elements -->
                    
                        
@@ -163,15 +143,15 @@
                 <nav class="layout-navbar navbar navbar-expand-lg align-items-lg-center bg-dark container-p-x" id="layout-navbar">
 
                     <!-- Brand demo (see assets/css/demo/demo.css) -->
-                  <!--   <a href="index.html" class="navbar-brand app-brand demo d-lg-none py-0 mr-4">
+                    <a href="index.html" class="navbar-brand app-brand demo d-lg-none py-0 mr-4">
                         <span class="app-brand-logo demo">
                             <img src="assets/img/logo-dark.png" alt="Brand Logo" class="img-fluid">
                         </span>
                         <span class="app-brand-text demo font-weight-normal ml-2">Empire</span>
-                    </a> -->
+                    </a>
 
                     <!-- Sidenav toggle (see assets/css/demo/demo.css) -->
-                <!--     <div class="layout-sidenav-toggle navbar-nav d-lg-none align-items-lg-center mr-auto">
+                    <div class="layout-sidenav-toggle navbar-nav d-lg-none align-items-lg-center mr-auto">
                         <a class="nav-item nav-link px-0 mr-lg-4" href="javascript:">
                             <i class="ion ion-md-menu text-large align-middle"></i>
                         </a>
@@ -179,7 +159,7 @@
 
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#layout-navbar-collapse">
                         <span class="navbar-toggler-icon"></span>
-                    </button> -->
+                    </button>
 
                     <div class="navbar-collapse collapse" id="layout-navbar-collapse">
                         <!-- Divider -->
@@ -188,25 +168,128 @@
                         <div class="navbar-nav align-items-lg-center">
                             <!-- Search -->
                             <label class="nav-item navbar-text navbar-search-box p-0 active">
-                                <form method="post" action="simple?lim=1">
-                                
+                                <i class="feather icon-search navbar-icon align-middle"></i>
                                 <span class="navbar-search-input pl-2">
-                                    <input type="text" class="form-control navbar-text mx-2" placeholder="Rechercher..." name="Nom">
-                               
-                                <button  class="btn btn-dark"><i class="feather icon-search navbar-icon align-middle"></i></button> </span>
-                                </form>
+                                  <input type="text" class="form-control navbar-text mx-2" placeholder="Search...">
+                                </span>
                             </label>
                         </div>
 
                         <div class="navbar-nav align-items-lg-center ml-auto">
                             <div class="demo-navbar-notifications nav-item dropdown mr-lg-3">
-                               
-                              
+                                <a class="nav-link dropdown-toggle hide-arrow" href="#" data-toggle="dropdown">
+                                    <i class="feather icon-bell navbar-icon align-middle"></i>
+                                    <span class="badge badge-danger badge-dot indicator"></span>
+                                    <span class="d-lg-none align-middle">&nbsp; Notifications</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="bg-primary text-center text-white font-weight-bold p-3">
+                                        4 New Notifications
+                                    </div>
+                                    <div class="list-group list-group-flush">
+                                        <a href="javascript:" class="list-group-item list-group-item-action media d-flex align-items-center">
+                                            <div class="ui-icon ui-icon-sm feather icon-home bg-secondary border-0 text-white"></div>
+                                            <div class="media-body line-height-condenced ml-3">
+                                                <div class="text-dark">Login from 192.168.1.1</div>
+                                                <div class="text-light small mt-1">
+                                                    Aliquam ex eros, imperdiet vulputate hendrerit et.
+                                                </div>
+                                                <div class="text-light small mt-1">12h ago</div>
+                                            </div>
+                                        </a>
+
+                                        <a href="javascript:" class="list-group-item list-group-item-action media d-flex align-items-center">
+                                            <div class="ui-icon ui-icon-sm feather icon-user-plus bg-info border-0 text-white"></div>
+                                            <div class="media-body line-height-condenced ml-3">
+                                                <div class="text-dark">You have
+                                                    <strong>4</strong> new followers</div>
+                                                <div class="text-light small mt-1">
+                                                    Phasellus nunc nisl, posuere cursus pretium nec, dictum vehicula tellus.
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                        <a href="javascript:" class="list-group-item list-group-item-action media d-flex align-items-center">
+                                            <div class="ui-icon ui-icon-sm feather icon-power bg-danger border-0 text-white"></div>
+                                            <div class="media-body line-height-condenced ml-3">
+                                                <div class="text-dark">Server restarted</div>
+                                                <div class="text-light small mt-1">
+                                                    19h ago
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                        <a href="javascript:" class="list-group-item list-group-item-action media d-flex align-items-center">
+                                            <div class="ui-icon ui-icon-sm feather icon-alert-triangle bg-warning border-0 text-dark"></div>
+                                            <div class="media-body line-height-condenced ml-3">
+                                                <div class="text-dark">99% server load</div>
+                                                <div class="text-light small mt-1">
+                                                    Etiam nec fringilla magna. Donec mi metus.
+                                                </div>
+                                                <div class="text-light small mt-1">
+                                                    20h ago
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <a href="javascript:" class="d-block text-center text-light small p-2 my-1">Show all notifications</a>
+                                </div>
                             </div>
 
                             <div class="demo-navbar-messages nav-item dropdown mr-lg-3">
-                              
-                               
+                                <a class="nav-link dropdown-toggle hide-arrow" href="#" data-toggle="dropdown">
+                                    <i class="feather icon-mail navbar-icon align-middle"></i>
+                                    <span class="badge badge-success badge-dot indicator"></span>
+                                    <span class="d-lg-none align-middle">&nbsp; Messages</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="bg-primary text-center text-white font-weight-bold p-3">
+                                        4 New Messages
+                                    </div>
+                                    <div class="list-group list-group-flush">
+                                        <a href="javascript:" class="list-group-item list-group-item-action media d-flex align-items-center">
+                                            <img src="assets/img/avatars/6-small.png" class="d-block ui-w-40 rounded-circle" alt>
+                                            <div class="media-body ml-3">
+                                                <div class="text-dark line-height-condenced">Lorem ipsum dolor consectetuer elit.</div>
+                                                <div class="text-light small mt-1">
+                                                    Josephin Doe &nbsp;·&nbsp; 58m ago
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                        <a href="javascript:" class="list-group-item list-group-item-action media d-flex align-items-center">
+                                            <img src="assets/img/avatars/4-small.png" class="d-block ui-w-40 rounded-circle" alt>
+                                            <div class="media-body ml-3">
+                                                <div class="text-dark line-height-condenced">Lorem ipsum dolor sit amet, consectetuer.</div>
+                                                <div class="text-light small mt-1">
+                                                    Lary Doe &nbsp;·&nbsp; 1h ago
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                        <a href="javascript:" class="list-group-item list-group-item-action media d-flex align-items-center">
+                                            <img src="assets/img/avatars/5-small.png" class="d-block ui-w-40 rounded-circle" alt>
+                                            <div class="media-body ml-3">
+                                                <div class="text-dark line-height-condenced">Lorem ipsum dolor sit amet elit.</div>
+                                                <div class="text-light small mt-1">
+                                                    Alice &nbsp;·&nbsp; 2h ago
+                                                </div>
+                                            </div>
+                                        </a>
+
+                                        <a href="javascript:" class="list-group-item list-group-item-action media d-flex align-items-center">
+                                            <img src="assets/img/avatars/11-small.png" class="d-block ui-w-40 rounded-circle" alt>
+                                            <div class="media-body ml-3">
+                                                <div class="text-dark line-height-condenced">Lorem ipsum dolor sit amet consectetuer amet elit dolor sit.</div>
+                                                <div class="text-light small mt-1">
+                                                    Suzen &nbsp;·&nbsp; 5h ago
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <a href="javascript:" class="d-block text-center text-light small p-2 my-1">Show all messages</a>
+                                </div>
                             </div>
 
                             <!-- Divider -->
@@ -214,27 +297,25 @@
                             <div class="demo-navbar-user nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                                     <span class="d-inline-flex flex-lg-row-reverse align-items-center align-middle">
-                                          <i class="feather icon-user d-block ui-w-30 rounded-circle"></i>
-                                        <span class="px-1 mr-lg-2 ml-2 ml-lg-0">lol</span>
+                                        <img src="assets/img/avatars/1.png" alt class="d-block ui-w-30 rounded-circle">
+                                        <span class="px-1 mr-lg-2 ml-2 ml-lg-0">Cindy Deitch</span>
                                     </span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="profil" class="dropdown-item">
-                                        <i class="feather icon-user text-muted"></i> &nbsp; Mon Profil</a>
-                                    
+                                    <a href="javascript:" class="dropdown-item">
+                                        <i class="feather icon-user text-muted"></i> &nbsp; Mon profil</a>
                                     <div class="dropdown-divider"></div>
-                                    <a href="deconnexion" class="dropdown-item">
+                                    <a href="javascript:" class="dropdown-item">
                                         <i class="feather icon-power text-danger"></i> &nbsp; Se deconnecter</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </nav>
-               
               <div class="layout-content">
-
+                <jsp:include page="${page}" />
                 
-		</div> 
+		    </div> 
                    
                     <nav class="layout-footer footer bg-white">
                         <div class="container-fluid d-flex flex-wrap justify-content-between text-center container-p-x pb-3">
@@ -272,7 +353,7 @@
     <script src="libs/chart-am4/core.js"></script>
     <script src="libs/chart-am4/charts.js"></script>
     <script src="libs/chart-am4/animated.js"></script>
-
+    
     <!-- Demo -->
     <!-- <script src="assets/js/demo.js"></script><script src="assets/js/analytics.js"></script> -->
     <!-- <script src="assets/js/pages/dashboards_index.js"></script> -->
