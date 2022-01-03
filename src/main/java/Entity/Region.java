@@ -47,6 +47,7 @@ public class Region {
                 Region reg=new Region(res.getInt("id"),res.getString("nom"));
                 liste.add(reg);
             }
+            
             con.close();
         }
         catch(Exception e)
