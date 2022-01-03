@@ -26,7 +26,7 @@
     const data = {
       labels: labels,
       datasets: [{
-        label: 'Statistique des depenses de chaque region',
+        label: 'Total depense',
         backgroundColor: 'rgb(255, 106, 34)',
         borderColor: 'rgb(255, 109, 132)',
         data: ["${y}"],
