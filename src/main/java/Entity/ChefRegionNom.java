@@ -71,6 +71,7 @@ public class ChefRegionNom {
                 ChefRegionNom reg=new ChefRegionNom(res.getInt("id"),res.getString("nom"),res.getString("mdp"),res.getString("mail"),res.getInt("idReg"),res.getString("region"));
                 liste.add(reg);
             }
+            con.close();
         }
         catch(Exception e)
         {

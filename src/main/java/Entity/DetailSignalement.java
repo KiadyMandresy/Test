@@ -52,6 +52,7 @@ public class DetailSignalement {
                 DetailSignalement reg=new DetailSignalement(res.getInt("id"),res.getInt("idSign"),res.getString("photos"));
                 liste.add(reg);
             }
+            con.close();
         }
         catch(Exception e)
         {

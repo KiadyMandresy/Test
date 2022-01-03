@@ -74,6 +74,7 @@ public class ChefRegionService extends ChefRegion {
             {
                 id=res.getInt("id");
             }
+            con.close();
         }
         catch(Exception e)
         {

@@ -224,12 +224,13 @@ public class SignalementService {
         rep2=indice*3;
         List<SignalementGlobal> rep=new ArrayList<>();
         ConnectionBD con=new ConnectionBD();
+        Connection co=con.getConnection();
         String req2=" limit 3 offset "+rep1;
         String req3=" where s.id not in (select idSign from SignalementCorbeille)";
         String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur";
         System.out.println(req1+req3+req2);
         try{
-            PreparedStatement st=con.getConnection().prepareStatement(req1+req3+req2);
+            PreparedStatement st=co.prepareStatement(req1+req3+req2);
             ResultSet res=st.executeQuery();
             while(res.next()){
                 int id=res.getInt("id");
@@ -244,6 +245,7 @@ public class SignalementService {
                 SignalementGlobal sing=new SignalementGlobal(id,com,date,x,y,n,photos,idu);
                 rep.add(sing);
             }
+            co.close();
 
         }catch(Exception e){
             e.printStackTrace();
@@ -255,10 +257,11 @@ public class SignalementService {
         int va=0;
         List<SignalementGlobal> rep=new ArrayList<>();
         ConnectionBD con=new ConnectionBD();
+        Connection co=con.getConnection();
         String req2=" where s.id not in (select idSign from SignalementCorbeille)";
         String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur";
         try{
-            PreparedStatement st=con.getConnection().prepareStatement(req1+req2);
+            PreparedStatement st=co.prepareStatement(req1+req2);
             ResultSet res=st.executeQuery();
             while(res.next()){
                 int id=res.getInt("id");
@@ -273,7 +276,7 @@ public class SignalementService {
                 SignalementGlobal sing=new SignalementGlobal(id,com,date,x,y,n,photos,idu);
                 rep.add(sing);
             }
-
+            co.close();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -285,11 +288,12 @@ public class SignalementService {
         int rep1,rep2;
         List<SignalementGlobal> rep=new ArrayList<>();
         ConnectionBD con=new ConnectionBD();
+        Connection co=con.getConnection();
         String req3=" where s.id not in (select idSign from SignalementCorbeille) and s.dateS>'"+d1+"' and s.dateS<'"+d2+"'";
         String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur";
         System.out.println(req1+req3);
         try{
-            PreparedStatement st=con.getConnection().prepareStatement(req1+req3);
+            PreparedStatement st=co.prepareStatement(req1+req3);
             ResultSet res=st.executeQuery();
             while(res.next()){
                 int id=res.getInt("id");
@@ -304,7 +308,7 @@ public class SignalementService {
                 SignalementGlobal sing=new SignalementGlobal(id,com,date,x,y,n,photos,idu);
                 rep.add(sing);
             }
-
+            co.close();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -315,10 +319,11 @@ public class SignalementService {
         int va=0;
         List<SignalementGlobal> rep=new ArrayList<>();
         ConnectionBD con=new ConnectionBD();
+        Connection co=con.getConnection();
         String req2=" where s.id not in (select idSign from SignalementCorbeille) and s.dateS>'"+d1+"' and s.dateS<'"+d2+"'";
         String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur";
         try{
-            PreparedStatement st=con.getConnection().prepareStatement(req1+req2);
+            PreparedStatement st=co.prepareStatement(req1+req2);
             ResultSet res=st.executeQuery();
             while(res.next()){
                 int id=res.getInt("id");
@@ -333,7 +338,7 @@ public class SignalementService {
                 SignalementGlobal sing=new SignalementGlobal(id,com,date,x,y,n,photos,idu);
                 rep.add(sing);
             }
-
+            co.close();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -344,11 +349,12 @@ public class SignalementService {
     public List<StatRegion> getStatRegion(){
         List<StatRegion> rep=new ArrayList<>();
         ConnectionBD con=new ConnectionBD();
+        Connection co=con.getConnection();
         try{
             String req1="select count(s.id),r.nom from Signalement as s join SignalementValide as sv on sv.idSign=s.id join Region as r on r.id=sv.idReg";
             String req2=" group by r.id";
             System.out.println(req1+req2);
-            PreparedStatement st=con.getConnection().prepareStatement(req1+req2);
+            PreparedStatement st=co.prepareStatement(req1+req2);
             ResultSet res=st.executeQuery();
             while(res.next()){
                 int id=res.getInt("count");
@@ -356,6 +362,7 @@ public class SignalementService {
                 StatRegion reg=new StatRegion(id,com);
                 rep.add(reg);
             }
+            co.close();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -365,13 +372,14 @@ public class SignalementService {
     public List<StatRegion> getStatRegionRecherche(String d1,String d2){
         List<StatRegion> rep=new ArrayList<>();
         ConnectionBD con=new ConnectionBD();
+        Connection co=con.getConnection();
         try{
             String req1="select count(s.id),r.nom from Signalement as s join SignalementValide as sv on sv.idSign=s.id join Region as r on r.id=sv.idReg";
             String req2=" group by r.id";
             String req3=" where s.dateS>'"+d1+"' and s.dateS<'"+d2+"'";
             System.out.println(req1+req3+req2);
             System.out.println(req1+req2);
-            PreparedStatement st=con.getConnection().prepareStatement(req1+req3+req2);
+            PreparedStatement st=co.prepareStatement(req1+req3+req2);
             ResultSet res=st.executeQuery();
             while(res.next()){
                 int id=res.getInt("count");
@@ -379,6 +387,7 @@ public class SignalementService {
                 StatRegion reg=new StatRegion(id,com);
                 rep.add(reg);
             }
+            co.close();
         }catch(Exception e){
             e.printStackTrace();
         }

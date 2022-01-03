@@ -88,6 +88,7 @@ public class SignalementGlobal {
                 SignalementGlobal reg=new SignalementGlobal(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"));
                 liste.add(reg);
             }
+            con.close();
         }
         catch(Exception e)
         {
