@@ -29,7 +29,7 @@ public class WebServiceSignRegion {
         HashMap rep=new HashMap<>();
         RegionService ser=new RegionService();
         Gson g=new Gson();
-        rep.put("liste",ser.getSignRegion(nom));
+        rep.put("lise_Region",ser.getSignRegion(nom));
         String r=g.toJson(rep);
         return r;
     }
