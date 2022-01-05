@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
 import java.util.*;
+import java.security.Timestamp;
 import java.sql.Statement;
 
 public class Region {
@@ -108,6 +109,29 @@ public class Region {
         {
 
         }
+    }
+
+    public List<SignalementRegion> getSignReg(String nom){
+        List<SignalementRegion> rep=new ArrayList<>();
+        /** */
+        String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur";
+        String req1=" where r.nom='"+nom+"'";
+        try{
+            System.out.println(req+req1);
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req+req1);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("nom"));
+                rep.add(reg);
+            }
+            con.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return rep;
     }
 
     
