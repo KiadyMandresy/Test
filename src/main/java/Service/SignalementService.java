@@ -243,6 +243,7 @@ public class SignalementService {
             {
                 SignalementValideView s=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"),res.getString("region"),res.getTimestamp("termine"),res.getDouble("budget"));
                 test=s;
+                test.setStatut("probleme resolu");
             }
             con.close();
         }
@@ -279,6 +280,7 @@ public class SignalementService {
             {
                 SignalementValideView s=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"),res.getString("region"));
                 test=s;
+                test.setStatut("probleme non resolu");
             }
             con.close();
         }
@@ -476,7 +478,6 @@ public class SignalementService {
         }
         return rep;
     }
-
     public List<StatRegion> getStatRegionRecherche(String d1,String d2){
         List<StatRegion> rep=new ArrayList<>();
         ConnectionBD con=new ConnectionBD();
@@ -501,5 +502,12 @@ public class SignalementService {
         }
         return rep;
     }
-
+    public void insert(String id,String com,String x,String y,String ut)
+    {
+        Integer idd=new Integer(id);
+        Double xx=new Double(x);
+        Double yy=new Double(y);
+        Signalement sign=new Signalement(0,idd.intValue(),com,null,xx.doubleValue(),yy.doubleValue(),ut);
+        sign.insert();
+    }
 }

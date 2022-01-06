@@ -5,6 +5,7 @@ import java.util.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 public class Signalement {
     /*id int primary key not null AUTO_INCREMENT,
      idType int,
@@ -73,6 +74,22 @@ public class Signalement {
         this.y=yy;
         this.idUtilisateur=iii;
         
+    }
+    public void insert() 
+    {
+        String req="INSERT INTO Signalement(idtype,commentaire,dateS,x,y,idUtilisateur) VALUES("+this.idType+"'"+this.commentaire+"',now(),"+this.x+","+this.y+","+this.idUtilisateur+")";
+        try{
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            Statement st=con.createStatement();
+            st.executeUpdate(req);
+            con.commit();
+            con.close();
+        }
+        catch(Exception e)
+        {
+
+        }
     }
     public List<Signalement> select(String req)
     {

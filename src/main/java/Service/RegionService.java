@@ -81,16 +81,11 @@ public class RegionService extends Region {
         Region reg=new Region(0,nom);
         reg.insert();
     }
-
+    
     public List<SignalementRegion> getSignRegion(String nom){
         Region r=new Region();
         List<SignalementRegion> rep=r.getSignReg(nom);
         return rep;
     }
-
-
-
-
-
 
 }

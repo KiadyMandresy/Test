@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin(origins = "http://localhost:2004")
 
-public class WebServiceSignRegion {
+public class WebServiceSignRegion extends SignalementService{
     
     @GetMapping("/signalementRegion/{nom}")
     public String Recherche(@PathVariable("nom") String nom)
@@ -30,6 +30,33 @@ public class WebServiceSignRegion {
         RegionService ser=new RegionService();
         Gson g=new Gson();
         rep.put("lise_Region",ser.getSignRegion(nom));
+        String r=g.toJson(rep);
+        return r;
+    }
+    @GetMapping("/signalement/{id}/{nb}")
+    public String fiche(@PathVariable("id") String id,@PathVariable("nb") String photo)
+    {
+        SignalementService serv=new SignalementService();
+        Integer idd=new Integer(id);
+        Integer p=new Integer(photo);
+        SignalementValideView st=signTermine(id);
+        HashMap<String,Object> rep=new HashMap<>();
+        int valide=0;
+        if(st==null)
+        {
+            SignalementValideView sv=ifValide(idd.intValue());
+            rep.put("serv",serv.getFicheSignalementNonValide(idd.intValue()));
+        }
+       else
+       {
+            rep.put("serv",st);
+            valide=2;
+       }
+        RegionService chef=new RegionService();
+        rep.put("valide", valide);
+        rep.put("countPhoto", serv.countPhotoSignalement(idd.intValue()));
+        rep.put("photo", serv.getPhoto(p.intValue(), idd.intValue()));
+        Gson g=new Gson();
         String r=g.toJson(rep);
         return r;
     }

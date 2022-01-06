@@ -4,6 +4,7 @@ import java.util.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 public class DetailSignalement {
     /*id int primary key not null AUTO_INCREMENT,
      idSign int,
@@ -37,6 +38,22 @@ public class DetailSignalement {
         this.id=i;
         this.idSign=ii;
         this.photos=p;
+    }
+    public void insert()
+    {
+        String req="INSERT INTO DetailSignalement(idSign,photos) VALUES("+this.idSign+"'"+this.photos+"')";
+        try{
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            Statement st=con.createStatement();
+            st.executeUpdate(req);
+            con.commit();
+            con.close();
+        }
+        catch(Exception e)
+        {
+
+        }
     }
     public List<DetailSignalement> select(String req)
     {
