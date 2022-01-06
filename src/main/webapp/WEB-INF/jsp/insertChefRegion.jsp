@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="container-fluid flex-grow-1 container-p-y">
     <h4 class="font-weight-bold py-3 mb-0">Insertion de chef de region</h4>
-   
 <div class="card mb-4">
     <div class="card-body">
         <form action="${pageContext.request.contextPath}/ajoutChef" method="get">

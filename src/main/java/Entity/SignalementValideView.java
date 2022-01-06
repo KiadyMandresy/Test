@@ -16,6 +16,15 @@ public class SignalementValideView {
     String region;
     Timestamp termine;
     double budget;
+    String statut;
+    public void setStatut(String s)
+    {
+        statut=s;
+    }
+    public String getStatut()
+    {
+        return statut;
+    }
     public void setBudget(double budget) {
         this.budget = budget;
     }
