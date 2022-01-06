@@ -42,7 +42,8 @@ public class DetailSignalement {
     public void insert()
     {
         String req="INSERT INTO DetailSignalement(idSign,photos) VALUES("+this.idSign+"'"+this.photos+"')";
-        try{
+        try
+        {
             ConnectionBD co=new ConnectionBD();
             Connection con=co.getConnection();
             Statement st=con.createStatement();

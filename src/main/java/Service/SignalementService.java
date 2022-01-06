@@ -502,7 +502,7 @@ public class SignalementService {
         }
         return rep;
     }
-    public void insert(String id,String com,String x,String y,String ut)
+    public void insertSignalement(String id,String com,String x,String y,String ut)
     {
         Integer idd=new Integer(id);
         Double xx=new Double(x);
