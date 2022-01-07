@@ -23,13 +23,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class WebServiceSignRegion extends SignalementService{
     
-    @GetMapping("/signalementRegion/{nom}")
-    public String Recherche(@PathVariable("nom") String nom)
+    @GetMapping("/signalementRegion/{nom}/{lim}")
+    public String Recherche(@PathVariable("nom") String nom,@PathVariable("lim") String lim)
     {
         HashMap rep=new HashMap<>();
         RegionService ser=new RegionService();
+        int cc=ser.countGetSignReg(nom)/3;
+        int count=ser.countGetSignReg(nom)%3;
+        if(count!=0){
+            cc=cc+1;
+        }
+        Integer i=new Integer(lim);
+        int ii=i.intValue();
+        rep.put("lim", cc);
         Gson g=new Gson();
-        rep.put("lise_Region",ser.getSignRegion(nom));
+        rep.put("lise_Region",ser.getSignRegion(nom,ii));
         String r=g.toJson(rep);
         return r;
     }

@@ -111,11 +111,14 @@ public class Region {
         }
     }
 
-    public List<SignalementRegion> getSignReg(String nom){
+    public List<SignalementRegion> getSignReg(String nom,int indice){
+        int rep1,rep2;
+        rep1=((indice-1)*3);
+        rep2=indice*3;
         List<SignalementRegion> rep=new ArrayList<>();
         /** */
         String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur";
-        String req1=" where r.nom='"+nom+"'";
+        String req1=" where r.nom='"+nom+"' limit 3 offset "+rep1;
         try{
             System.out.println(req+req1);
             ConnectionBD co=new ConnectionBD();
@@ -134,5 +137,6 @@ public class Region {
         return rep;
     }
 
+    
     
 }
