@@ -13,6 +13,98 @@ public class SignalementService {
     public SignalementService(){
 
     }
+    public List<SignalementValideView> rechercheAvance(String date1,String date2,String type,String statut)
+    {
+        List<SignalementValideView> signs=new ArrayList<>();
+        if(statut.toLowerCase().compareTo("termine")==0)
+        {
+            signs=rechercheAvanceTermine(date1,date2,type);
+        }
+        else if(statut.toLowerCase().compareTo("non termine")==0)
+        {
+            signs=rechercheAvanceNonTermine(date1,date2,type);
+        }
+        return signs;
+    }
+    public List<SignalementValideView> rechercheAvanceNonTermine(String date1,String date2,String type)
+    {
+        SignalementValideView test=null;
+        List<SignalementValideView> signs=new ArrayList<>();
+        String condition=" t.nom='"+type+"' and ";
+        if(date1.compareTo("")!=0 && date2.compareTo("")!=0)
+        {
+            condition=condition+"s.dateS>='"+date1+"' and s.dateS<='"+date2+"'";
+        }
+        else if(date1.compareTo("")==0 && date2.compareTo("")!=0)
+        {
+            condition=condition+" s.dateS<='"+date2+"'";
+        }
+        else if(date1.compareTo("")!=0 && date2.compareTo("")==0)
+        {
+            condition=condition+" s.dateS>='"+date1+"'";
+        }
+        String req="select s.commentaire,ds.photos,s.id,r.nom as region,t.nom,u.nom as personne,s.x,s.y,s.dateS from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType where "+condition;
+        ConnectionBD co=new ConnectionBD();
+        try
+        {
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                SignalementValideView s=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"),res.getString("region"));
+                s.setStatut("probleme non resolu");
+                signs.add(s);
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        System.out.println(req);
+        return signs;
+    }
+    public List<SignalementValideView> rechercheAvanceTermine(String date1,String date2,String type)
+    {
+
+        String condition=" t.nom='"+type+"' and ";
+        if(date1.compareTo("")!=0 && date2.compareTo("")!=0)
+        {
+            condition=condition+"s.dateS>='"+date1+"' and s.dateS<='"+date2+"'";
+        }
+        else if(date1.compareTo("")==0 && date2.compareTo("")!=0)
+        {
+            condition=condition+" s.dateS<='"+date2+"'";
+        }
+        else if(date1.compareTo("")!=0 && date2.compareTo("")==0)
+        {
+            condition=condition+" s.dateS>='"+date1+"'";
+        }
+        SignalementValideView sign=new SignalementValideView();
+        List<SignalementValideView> signs=new ArrayList<>();
+        String req="select st.budget,st.dateS as termine,s.commentaire,ds.photos,s.id,r.nom as region,t.nom,u.nom as personne,s.x,s.y,s.dateS from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType join SignalementTermine st on st.idSignV=sv.id where "+condition;
+        ConnectionBD co=new ConnectionBD();
+        System.out.println(req);
+        try
+        {
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                SignalementValideView s=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"),res.getString("region"),res.getTimestamp("termine"),res.getDouble("budget"));
+                s.setStatut("probleme resolu");
+                signs.add(s);            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return signs;
+    }
+
     public String[] statPerformance()
     {
         String req="select count(st.id) as budget,r.nom as region from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType join SignalementTermine st on st.idSignV=sv.id group by r.nom";
