@@ -31,15 +31,15 @@ public class SignalementService {
         SignalementValideView test=null;
         List<SignalementValideView> signs=new ArrayList<>();
         String condition=" t.nom='"+type+"' and ";
-        if(date1.compareTo("")!=0 && date2.compareTo("")!=0)
+        if(date1.compareTo(" ")!=0 && date2.compareTo(" ")!=0)
         {
             condition=condition+"s.dateS>='"+date1+"' and s.dateS<='"+date2+"'";
         }
-        else if(date1.compareTo("")==0 && date2.compareTo("")!=0)
+        else if(date1.compareTo(" ")==0 && date2.compareTo(" ")!=0)
         {
             condition=condition+" s.dateS<='"+date2+"'";
         }
-        else if(date1.compareTo("")!=0 && date2.compareTo("")==0)
+        else if(date1.compareTo(" ")!=0 && date2.compareTo(" ")==0)
         {
             condition=condition+" s.dateS>='"+date1+"'";
         }
@@ -69,15 +69,15 @@ public class SignalementService {
     {
 
         String condition=" t.nom='"+type+"' and ";
-        if(date1.compareTo("")!=0 && date2.compareTo("")!=0)
+        if(date1.compareTo(" ")!=0 && date2.compareTo(" ")!=0)
         {
             condition=condition+"s.dateS>='"+date1+"' and s.dateS<='"+date2+"'";
         }
-        else if(date1.compareTo("")==0 && date2.compareTo("")!=0)
+        else if(date1.compareTo(" ")==0 && date2.compareTo(" ")!=0)
         {
             condition=condition+" s.dateS<='"+date2+"'";
         }
-        else if(date1.compareTo("")!=0 && date2.compareTo("")==0)
+        else if(date1.compareTo(" ")!=0 && date2.compareTo(" ")==0)
         {
             condition=condition+" s.dateS>='"+date1+"'";
         }
