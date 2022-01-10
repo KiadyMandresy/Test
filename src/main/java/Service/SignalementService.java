@@ -594,15 +594,63 @@ public class SignalementService {
         }
         return rep;
     }
-    public void insertSignalement(String id,String com,String x,String y,String ut)
+    public int insertSignalement(String id,String com,String x,String y,String ut)
     {
         Integer idd=new Integer(id);
         Double xx=new Double(x);
         Double yy=new Double(y);
         Signalement sign=new Signalement(0,idd.intValue(),com,null,xx.doubleValue(),yy.doubleValue(),ut);
         sign.insert();
+        return this.idSign();
     }
-
+    public int idSign()
+    {
+        int idV=0;
+        String req="select max(id) as id from signalement";
+        ConnectionBD co=new ConnectionBD();
+        Connection con=co.getConnection();
+        try{
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                idV=res.getInt("id");
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return idV;
+    }
+    public int idSignDetail()
+    {
+        int idV=0;
+        String req="select idSign  from detailsignalement where id=(select max(id) from detailSignalement";
+        ConnectionBD co=new ConnectionBD();
+        Connection con=co.getConnection();
+        try{
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                idV=res.getInt("idSign");
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return idV;
+    }
+    public void insertPhoto(String photo,String id)
+    {
+        Integer idd=new Integer(id);
+        DetailSignalement dt=new DetailSignalement(0,idd.intValue(),photo);
+        dt.insert();
+    }
     public List<SignalementRegion> getSignPersonneEnCours(String nom,int indice){
         int rep1,rep2;
         rep1=((indice-1)*3);

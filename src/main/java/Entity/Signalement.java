@@ -77,14 +77,16 @@ public class Signalement {
     }
     public void insert() 
     {
-        String req="INSERT INTO Signalement(idtype,commentaire,dateS,x,y,idUtilisateur) VALUES("+this.idType+"'"+this.commentaire+"',now(),"+this.x+","+this.y+","+this.idUtilisateur+")";
+        String req="INSERT INTO Signalement(idtype,commentaire,dateS,x,y,idUtilisateur) VALUES("+this.idType+",'"+this.commentaire+"',now(),"+this.x+","+this.y+","+this.idUtilisateur+")";
         try{
+            System.out.println(req);
             ConnectionBD co=new ConnectionBD();
             Connection con=co.getConnection();
             Statement st=con.createStatement();
             st.executeUpdate(req);
             con.commit();
             con.close();
+            
         }
         catch(Exception e)
         {

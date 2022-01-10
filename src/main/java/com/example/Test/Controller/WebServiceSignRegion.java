@@ -12,11 +12,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import java.io.File;
+import java.io.*;
+import java.nio.file.*;
+
 
 @RestController
 @CrossOrigin(origins = "http://localhost:2004")
@@ -81,5 +86,35 @@ public class WebServiceSignRegion extends SignalementService{
     public void signalementT(@PathVariable("id") String id,@PathVariable("budget") String budget)
     {
         signalementTermine(id,budget);
+    }
+    @PostMapping("/signalement/{type}/{com}/{x}/{y}/{util}") 
+    public String insertSign(@PathVariable("type") String type,@PathVariable("com") String com,@PathVariable("x") String x,@PathVariable("y") String y,@PathVariable("util") String util)
+    {
+        int id=insertSignalement(type,com,x,y,util);
+        Gson g=new Gson();
+        return g.toJson(id);
+    }
+    @PostMapping("/detailSignalement/{id}") 
+    public String detailSignalement(@RequestParam("photo") MultipartFile file,RedirectAttributes redirectAttributes,@PathVariable("id") String id) {
+       
+        if (file.isEmpty()) {
+            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
+        }
+
+        try {
+            byte[] bytes = file.getBytes();
+            String chemin="D://UwAmp//www//Test3//src//main//resources//static//img//";
+            Path path = Paths.get(chemin + file.getOriginalFilename());
+            String ph=file.getOriginalFilename();
+            insertPhoto(ph,id);
+            Files.write(path, bytes);
+            redirectAttributes.addFlashAttribute("message","You successfully uploaded '" + file.getOriginalFilename() + "'");
+        } 
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
+        Gson g=new Gson();
+        return g.toJson(id);
     }
 }
