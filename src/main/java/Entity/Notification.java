@@ -50,4 +50,21 @@ public class Notification {
         }
         return liste;
     }
+
+    public void delete(String id)
+    {
+        String req="delete from notification where id="+id;
+        try{
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            Statement st=con.createStatement();
+            st.executeUpdate(req);
+            con.commit();
+            con.close();
+        }
+        catch(Exception e)
+        {
+
+        }
+    }
 }
