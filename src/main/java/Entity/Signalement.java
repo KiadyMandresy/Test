@@ -90,7 +90,6 @@ public class Signalement {
         }
         catch(Exception e)
         {
-
         }
     }
     public List<Signalement> select(String req)
