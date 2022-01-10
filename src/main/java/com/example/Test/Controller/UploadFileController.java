@@ -21,6 +21,8 @@ import org.springframework.stereotype.Controller;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.*;
 import java.nio.file.*;
 import java.sql.PreparedStatement;
@@ -35,7 +37,8 @@ public class UploadFileController {
     private static final String UPLOADED_FOLDER ="G://S5//";
 
     @PostMapping("/upload") // //new annotation since 4.3
-    public String singleFileUpload(@RequestParam("file") MultipartFile file,RedirectAttributes redirectAttributes) {
+    public String singleFileUpload(@RequestParam("file") MultipartFile file,
+                                   RedirectAttributes redirectAttributes) {
 
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
