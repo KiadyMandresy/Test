@@ -135,8 +135,8 @@ where s.dateS>'2021-05-10' and s.dateS<'2021-11-01'
 group by r.id
 
 
-select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom from SignalementValide as sv 
-join Signalement as s 
+select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom from Signalement as s
+join SignalementValide as sv 
 on sv.idSign=s.id
 join Region as r 
 on r.id=sv.idReg 
