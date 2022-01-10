@@ -1,5 +1,11 @@
 package Entity;
+import java.sql.Timestamp;
+import java.sql.*;
+import java.util.*;
+import java.sql.Connection;
+import java.sql.Statement;
 
+    
 public class Utilisateur {
     /* id int primary key not null AUTO_INCREMENT,
      nom varchar(50),
@@ -44,4 +50,22 @@ public class Utilisateur {
     public Utilisateur(){
         
     }
-}
+  
+     public void insert(){
+        String req = "insert into utilisateur(nom,mdp,mail) values('"+this.getNom()+"','"+this.getMdp()+"','"+this.getMail()+"')";
+        try{
+            System.out.println(req);
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            Statement st=con.createStatement();
+            st.executeUpdate(req);
+            con.setAutoCommit(false);
+            con.commit();
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+     }
+}     
