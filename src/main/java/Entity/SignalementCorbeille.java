@@ -55,7 +55,7 @@ public class SignalementCorbeille {
         }
         catch(Exception e)
         {
-
+            e.printStackTrace();
         }
      }
 }
