@@ -19,7 +19,6 @@ public class SignalementController extends SignalementService{
     @RequestMapping(value = { "/listeSignalement" }, method = RequestMethod.GET)
     public String view(Model model,@RequestParam(name="lim")String l) {
         String page="listeSignalement.jsp";
-        //qsqs
         model.addAttribute("page",page);
         SignalementService ser=new SignalementService();
         int cc=ser.getCountSignalement()/3;
