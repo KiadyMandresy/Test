@@ -17,7 +17,7 @@ import java.sql.ResultSet;
 
 public class UtilisateurController {
 
-    @PostMapping ("/insertionUtilisateur/{nom}/{mdp}/{mail}")
+    @PostMapping ("/utilisateur/{nom}/{mdp}/{mail}")
     public String insert(@PathVariable("nom") String nom,@PathVariable("mdp") String mdp,@PathVariable("mail") String mail) {
         String test = "tokony mety";
         Utilisateur util = new Utilisateur(0, nom, mdp, mail);
