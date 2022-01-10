@@ -77,4 +77,9 @@ public class WebServiceSignRegion extends SignalementService{
         String r=g.toJson(rep);
         return r;
     }
+    @PostMapping("/signalementTermine/{id}/{budget}")
+    public void signalementT(@PathVariable("id") String id,@PathVariable("budget") String budget)
+    {
+        signalementTermine(id,budget);
+    }
 }

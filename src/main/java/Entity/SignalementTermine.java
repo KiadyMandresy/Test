@@ -1,5 +1,7 @@
 package Entity;
 
+import java.sql.Connection;
+import java.sql.Statement;
 import java.sql.Timestamp;
 
 public class SignalementTermine {
@@ -46,5 +48,21 @@ public class SignalementTermine {
     }
     public SignalementTermine(){
         
+    }
+    public void insert()
+    {
+       String req="INSERT INTO SignalementTermine(idSignV,dateS,budget) VALUES("+this.idSignV+",now(),"+this.budget+")";
+       try{
+           ConnectionBD co=new ConnectionBD();
+           Connection con=co.getConnection();
+           Statement st=con.createStatement();
+           st.executeUpdate(req);
+           con.commit();
+           con.close();
+       }
+       catch(Exception e)
+       {
+
+       }
     }
 }
