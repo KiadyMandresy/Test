@@ -110,3 +110,7 @@ create table Notification(
 /**/
 
 
+notification - SignalementTermine - SignalementValide - Signalement -
+
+select s.dateS as dateDebut,st.dateS as dateFin,n.id as idNotification ,st.id as idSignalement from notification n join SignalementTermine st  on n.idSignTermine=st.id join signalementValide sv on sv.id=st.idSignV join Signalement s on s.id=sv.idSign where s.idUtilisateur=1
+
