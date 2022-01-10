@@ -21,7 +21,9 @@ public class Notification {
         this.id=i;
         this.idSignTermine=ii;
     }
-    public Notification(){
+    public Notification()
+    {
         
     }
+    
 }

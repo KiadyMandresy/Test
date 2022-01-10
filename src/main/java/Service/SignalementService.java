@@ -698,11 +698,76 @@ public class SignalementService {
                 rep.add(reg);
             }
             con.close();
-        }catch(Exception e){
+        }
+        catch(Exception e)
+        {
             e.printStackTrace();
         }
         reps=rep.size();
         return reps;
+    }
+    public int idValide(String id)
+    {
+        int idV=0;
+        String req="select id from signalementValide where idSign="+id;
+        ConnectionBD co=new ConnectionBD();
+        Connection con=co.getConnection();
+        try{
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                idV=res.getInt("id");
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return idV;
+    }
+    public int idTermine(int id)
+    {
+        int idV=0;
+        String req="select id from signalementTermine where idSignV="+id;
+        ConnectionBD co=new ConnectionBD();
+        Connection con=co.getConnection();
+        try{
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                idV=res.getInt("id");
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return idV;
+    }
+    public void signalementTermine(String id,String budget)
+    {
+        Double doub=new Double(budget);
+        SignalementTermine stt=new SignalementTermine(0,idValide(id),null,doub.doubleValue());
+        stt.insert();
+        int idT=idTermine(idValide(id));
+        String req="insert into notification(idsigntermine) values ("+idT+")";
+        try
+        {
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            Statement st=con.createStatement();
+            st.executeUpdate(req);
+            con.commit();
+            con.close();
+        }
+        catch(Exception e)
+        {
+ 
+        }
     }
 }
 
