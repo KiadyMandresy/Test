@@ -25,10 +25,10 @@ public class Notification {
         this.id=i;
         this.idSignTermine=ii;
     }
-    public Notification(){
+    public Notification()
+    {
         
     }
-
     public List<Notification> select(String req)
     {
         List<Notification> liste=new ArrayList<>();

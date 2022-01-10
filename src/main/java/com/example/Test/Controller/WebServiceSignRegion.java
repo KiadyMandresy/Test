@@ -23,11 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class WebServiceSignRegion extends SignalementService{
     
-    @GetMapping("/signalements/{type}/{date1}/{date2}/{statut}")
-    public String RechercheAvance(@PathVariable("type") String type,@PathVariable("date1") String date1,@PathVariable("date2") String date2,@PathVariable("statut") String statut)
+    @GetMapping("/signalements/{type}/{date1}/{date2}/{statut}/{region}")
+    public String RechercheAvance(@PathVariable("type") String type,@PathVariable("date1") String date1,@PathVariable("date2") String date2,@PathVariable("statut") String statut,@PathVariable("region") String region)
     {
         HashMap<String,Object> rep=new HashMap();
-        rep.put("resultat",rechercheAvance(date1,date2,type,statut));
+        rep.put("resultat",rechercheAvance(date1,date2,type,statut,region));
         Gson g=new Gson();
         return g.toJson(rep);
 
@@ -76,5 +76,10 @@ public class WebServiceSignRegion extends SignalementService{
         Gson g=new Gson();
         String r=g.toJson(rep);
         return r;
+    }
+    @PostMapping("/signalementTermine/{id}/{budget}")
+    public void signalementT(@PathVariable("id") String id,@PathVariable("budget") String budget)
+    {
+        signalementTermine(id,budget);
     }
 }

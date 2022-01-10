@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class WebServiceMobile {
     
-    @GetMapping("/signalementUtilsateurEnCours/{nom}/{lim}")
+    @GetMapping("/signalementUtilisateurEnCours/{nom}/{lim}")
     public String listeSingEnCours(@PathVariable("nom") String nom,@PathVariable("lim") String lim)
     {
         HashMap rep=new HashMap<>();
