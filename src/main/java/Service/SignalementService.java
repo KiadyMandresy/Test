@@ -13,24 +13,24 @@ public class SignalementService {
     public SignalementService(){
 
     }
-    public List<SignalementValideView> rechercheAvance(String date1,String date2,String type,String statut)
+    public List<SignalementValideView> rechercheAvance(String date1,String date2,String type,String statut,String region)
     {
         List<SignalementValideView> signs=new ArrayList<>();
         if(statut.toLowerCase().compareTo("termine")==0)
         {
-            signs=rechercheAvanceTermine(date1,date2,type);
+            signs=rechercheAvanceTermine(date1,date2,type,region);
         }
         else if(statut.toLowerCase().compareTo("non termine")==0)
         {
-            signs=rechercheAvanceNonTermine(date1,date2,type);
+            signs=rechercheAvanceNonTermine(date1,date2,type,region);
         }
         return signs;
     }
-    public List<SignalementValideView> rechercheAvanceNonTermine(String date1,String date2,String type)
+    public List<SignalementValideView> rechercheAvanceNonTermine(String date1,String date2,String type,String region)
     {
         SignalementValideView test=null;
         List<SignalementValideView> signs=new ArrayList<>();
-        String condition=" t.nom='"+type+"' and ";
+        String condition=" t.nom='"+type+"' and sv.id not in(select stt.idSignV from SignalementTermine as stt) and sv.idReg="+region+" and ";
         if(date1.compareTo(" ")!=0 && date2.compareTo(" ")!=0)
         {
             condition=condition+"s.dateS>='"+date1+"' and s.dateS<='"+date2+"'";
@@ -65,10 +65,10 @@ public class SignalementService {
         System.out.println(req);
         return signs;
     }
-    public List<SignalementValideView> rechercheAvanceTermine(String date1,String date2,String type)
+    public List<SignalementValideView> rechercheAvanceTermine(String date1,String date2,String type,String region)
     {
 
-        String condition=" t.nom='"+type+"' and ";
+        String condition=" t.nom='"+type+"' and sv.idReg="+region+" and ";
         if(date1.compareTo(" ")!=0 && date2.compareTo(" ")!=0)
         {
             condition=condition+"s.dateS>='"+date1+"' and s.dateS<='"+date2+"'";
