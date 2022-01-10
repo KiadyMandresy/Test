@@ -111,6 +111,7 @@ create table SignalementTermine(
          budget float,
       FOREIGN KEY (idSignV) REFERENCES SignalementValide(id)
 );
+insert into SignalementTermine(idSignV,dateS,budget) values(9,'2021-12-20'::timestamp,2500.0)
 create table Notification(
      id serial primary key,
      idSignTermine int,
@@ -141,3 +142,6 @@ join Region as r
 on r.id=sv.idReg 
 join Utilisateur as u 
 on u.id=s.idUtilisateur
+join SignalementTermine as st
+on sv.id=st.idSignV
+where u.nom='nick'
