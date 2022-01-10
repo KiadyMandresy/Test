@@ -17,4 +17,9 @@ public class NotificationsService extends NotificationSignalement{
         return not.select(req);
     }
 
+    public void delete(String idNotif){
+        
+
+    }
+
 }

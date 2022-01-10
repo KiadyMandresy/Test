@@ -32,4 +32,11 @@ public class NotificationController extends NotificationsService{
         String r=g.toJson(rep);
         return r;
     }    
+
+    @DeleteMapping("/notification/{id}")
+    public void delete(@PathVariable("id") String id){
+        String val = "delete mety tsara ";
+        Notification not = new Notification();
+        not.delete(id);
+    }
 }
