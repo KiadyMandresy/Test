@@ -14,10 +14,5 @@ import java.sql.ResultSet;
 @Controller
 public class AdminController {
 
-    @RequestMapping(value = { "/login" }, method = RequestMethod.GET)
-    public String login(Model model) {
-        String page="login.jsp";
-        model.addAttribute("page",page);
-        return "login";
-    }
+   
 }
