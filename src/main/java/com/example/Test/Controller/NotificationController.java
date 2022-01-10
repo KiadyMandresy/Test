@@ -28,7 +28,8 @@ public class NotificationController extends NotificationsService{
         HashMap rep=new HashMap<>();
         NotificationsService ser=new NotificationsService();
         Gson g=new Gson();
-        rep.put("liste_notification",ser.getListNotification(idUtil);
+        rep.put("liste_notification",ser.getListNotification(idUtil));
         String r=g.toJson(rep);
+        return r;
     }    
 }
