@@ -56,7 +56,7 @@ public class PersonneController {
     }
     @RequestMapping(value = { "/template" }, method = RequestMethod.GET)
     public String view(@RequestParam(name="page")String page,Model model) {
-        page="insertChefRegion.jsp";
+        page="upload.jsp";
         model.addAttribute("page",page);
         RegionService r=new RegionService();
         model.addAttribute("regions",r.getAll());

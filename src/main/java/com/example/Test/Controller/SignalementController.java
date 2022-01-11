@@ -19,7 +19,6 @@ public class SignalementController extends SignalementService{
     @RequestMapping(value = { "/listeSignalement" }, method = RequestMethod.GET)
     public String view(Model model,@RequestParam(name="lim")String l) {
         String page="listeSignalement.jsp";
-        //qsqs
         model.addAttribute("page",page);
         SignalementService ser=new SignalementService();
         int cc=ser.getCountSignalement()/3;
@@ -200,6 +199,25 @@ public class SignalementController extends SignalementService{
         model.addAttribute("page",page);
         return "templateAdmin";
     }
-
+    @RequestMapping(value = { "/statPerformanceDate" }, method = RequestMethod.GET)
+    public String statPerf(Model model,@RequestParam("d1") String date1,@RequestParam(name="d2")String date2)
+    {
+        String[] donnee=statPerformanceDate(date1,date2);
+        System.out.println(donnee[0]+"  ///   "+donnee[1]);
+        model.addAttribute("x", donnee[0]);
+        model.addAttribute("y", donnee[1]);
+        model.addAttribute("page", "statPerformance.jsp");
+        return "templateAdmin";
+    }
+    @RequestMapping(value = { "/statPerformance" }, method = RequestMethod.GET)
+    public String statPerf(Model model)
+    {
+        String[] donnee=statPerformance();
+        System.out.println(donnee[0]+"  ///   "+donnee[1]);
+        model.addAttribute("x", donnee[0]);
+        model.addAttribute("y", donnee[1]);
+        model.addAttribute("page", "statPerformance.jsp");
+        return "templateAdmin";
+    }
     
 }

@@ -13,6 +13,206 @@ public class SignalementService {
     public SignalementService(){
 
     }
+    public List<SignalementValideView> rechercheAvance(String date1,String date2,String type,String statut,String region)
+    {
+        List<SignalementValideView> signs=new ArrayList<>();
+        if(statut.toLowerCase().compareTo("termine")==0)
+        {
+            signs=rechercheAvanceTermine(date1,date2,type,region);
+        }
+        else if(statut.toLowerCase().compareTo("non termine")==0)
+        {
+            signs=rechercheAvanceNonTermine(date1,date2,type,region);
+        }
+        return signs;
+    }
+    public List<SignalementValideView> rechercheAvanceNonTermine(String date1,String date2,String type,String region)
+    {
+        SignalementValideView test=null;
+        List<SignalementValideView> signs=new ArrayList<>();
+        String condition=" t.nom='"+type+"' and sv.id not in(select stt.idSignV from SignalementTermine as stt) and sv.idReg="+region+" and ";
+        if(date1.compareTo(" ")!=0 && date2.compareTo(" ")!=0)
+        {
+            condition=condition+"s.dateS>='"+date1+"' and s.dateS<='"+date2+"'";
+        }
+        else if(date1.compareTo(" ")==0 && date2.compareTo(" ")!=0)
+        {
+            condition=condition+" s.dateS<='"+date2+"'";
+        }
+        else if(date1.compareTo(" ")!=0 && date2.compareTo(" ")==0)
+        {
+            condition=condition+" s.dateS>='"+date1+"'";
+        }
+        String req="select s.commentaire,ds.photos,s.id,r.nom as region,t.nom,u.nom as personne,s.x,s.y,s.dateS from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType where "+condition;
+        ConnectionBD co=new ConnectionBD();
+        try
+        {
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                SignalementValideView s=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"),res.getString("region"));
+                s.setStatut("probleme non resolu");
+                signs.add(s);
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        System.out.println(req);
+        return signs;
+    }
+    public List<SignalementValideView> rechercheAvanceTermine(String date1,String date2,String type,String region)
+    {
+
+        String condition=" t.nom='"+type+"' and sv.idReg="+region+" and ";
+        if(date1.compareTo(" ")!=0 && date2.compareTo(" ")!=0)
+        {
+            condition=condition+"s.dateS>='"+date1+"' and s.dateS<='"+date2+"'";
+        }
+        else if(date1.compareTo(" ")==0 && date2.compareTo(" ")!=0)
+        {
+            condition=condition+" s.dateS<='"+date2+"'";
+        }
+        else if(date1.compareTo(" ")!=0 && date2.compareTo(" ")==0)
+        {
+            condition=condition+" s.dateS>='"+date1+"'";
+        }
+        SignalementValideView sign=new SignalementValideView();
+        List<SignalementValideView> signs=new ArrayList<>();
+        String req="select st.budget,st.dateS as termine,s.commentaire,ds.photos,s.id,r.nom as region,t.nom,u.nom as personne,s.x,s.y,s.dateS from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType join SignalementTermine st on st.idSignV=sv.id where "+condition;
+        ConnectionBD co=new ConnectionBD();
+        System.out.println(req);
+        try
+        {
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                SignalementValideView s=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"),res.getString("region"),res.getTimestamp("termine"),res.getDouble("budget"));
+                s.setStatut("probleme resolu");
+                signs.add(s);            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return signs;
+    }
+
+    public String[] statPerformance()
+    {
+        String req="select count(st.id) as budget,r.nom as region from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType join SignalementTermine st on st.idSignV=sv.id group by r.nom";
+        String[] retour=new String[2];
+        System.out.println(req);
+        retour[0]="";
+        retour[1]="";
+        Vector nomReg=new Vector();
+        Vector budget=new Vector();
+        ConnectionBD co=new ConnectionBD();
+        try
+        {
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                Double bg=res.getDouble("budget");
+                String reg=res.getString("region");
+                budget.addElement(bg);
+                nomReg.addElement(reg);
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        if(budget.size()>0)
+        {
+            retour[0]=(String)nomReg.elementAt(0);
+            Double bg=(Double)budget.elementAt(0);
+            retour[1]=bg.toString();
+            if(budget.size()>1)
+            {
+                retour[0]=retour[0]+"\",";
+                retour[1]=retour[1]+"\",";
+            }
+            
+            for(int i=1;i<budget.size()-1;i++)
+            {
+                retour[0]=retour[0]+"\""+(String)nomReg.elementAt(i)+"\",";
+                Double bg1=(Double)budget.elementAt(i);
+                retour[1]=retour[1]+"\""+bg1.toString()+"\",";
+            }
+            if(budget.size()>1)
+            {
+                retour[0]=retour[0]+"\""+(String)nomReg.elementAt(budget.size()-1);
+                Double bg1=(Double)budget.elementAt(budget.size()-1);
+                retour[1]=retour[1]+"\""+bg1.toString();
+            }
+        }
+        return retour;
+    }
+    public String[] statPerformanceDate(String date1,String date2)
+    {
+        String req="select count(st.id),r.nom as region from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType join SignalementTermine st on st.idSignV=sv.id  where s.dateS>'"+date1+"' and s.dateS<'"+date2+"' group by r.nom";
+        System.out.println(req);
+        String[] retour=new String[2]; 
+        retour[0]="";
+        retour[1]="";
+        Vector nomReg=new Vector();
+        Vector budget=new Vector();
+        ConnectionBD co=new ConnectionBD();
+        try
+        {
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                Double bg=res.getDouble("budget");
+                String reg=res.getString("region");
+                budget.addElement(bg);
+                nomReg.addElement(reg);
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        if(budget.size()>0)
+        {
+            retour[0]=(String)nomReg.elementAt(0);
+            Double bg=(Double)budget.elementAt(0);
+            retour[1]=bg.toString();
+            if(budget.size()>1)
+            {
+                retour[0]=retour[0]+"\",";
+                retour[1]=retour[1]+"\",";
+            }
+            
+            for(int i=1;i<budget.size()-1;i++)
+            {
+                retour[0]=retour[0]+"\""+(String)nomReg.elementAt(i)+"\",";
+                Double bg1=(Double)budget.elementAt(i);
+                retour[1]=retour[1]+"\""+bg1.toString()+"\",";
+            }
+            if(budget.size()>1)
+            {
+                retour[0]=retour[0]+"\""+(String)nomReg.elementAt(budget.size()-1);
+                Double bg1=(Double)budget.elementAt(budget.size()-1);
+                retour[1]=retour[1]+"\""+bg1.toString();
+            }
+        }
+        return retour;
+    }
     public String[] statDepenseRegionDate(String date1,String date2)
     {
         String req="select sum(st.budget) as budget,r.nom as region from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType join SignalementTermine st on st.idSignV=sv.id  where s.dateS>'"+date1+"' and s.dateS<'"+date2+"' group by r.nom";
@@ -135,6 +335,7 @@ public class SignalementService {
             {
                 SignalementValideView s=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"),res.getString("region"),res.getTimestamp("termine"),res.getDouble("budget"));
                 test=s;
+                test.setStatut("probleme resolu");
             }
             con.close();
         }
@@ -171,6 +372,7 @@ public class SignalementService {
             {
                 SignalementValideView s=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"),res.getString("region"));
                 test=s;
+                test.setStatut("probleme non resolu");
             }
             con.close();
         }
@@ -368,7 +570,6 @@ public class SignalementService {
         }
         return rep;
     }
-
     public List<StatRegion> getStatRegionRecherche(String d1,String d2){
         List<StatRegion> rep=new ArrayList<>();
         ConnectionBD con=new ConnectionBD();
@@ -393,5 +594,228 @@ public class SignalementService {
         }
         return rep;
     }
+    public int insertSignalement(String id,String com,String x,String y,String ut)
+    {
+        Integer idd=new Integer(id);
+        Double xx=new Double(x);
+        Double yy=new Double(y);
+        Signalement sign=new Signalement(0,idd.intValue(),com,null,xx.doubleValue(),yy.doubleValue(),ut);
+        sign.insert();
+        return this.idSign();
+    }
+    public int idSign()
+    {
+        int idV=0;
+        String req="select max(id) as id from signalement";
+        ConnectionBD co=new ConnectionBD();
+        Connection con=co.getConnection();
+        try{
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                idV=res.getInt("id");
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return idV;
+    }
+    public int idSignDetail()
+    {
+        int idV=0;
+        String req="select idSign  from detailsignalement where id=(select max(id) from detailSignalement";
+        ConnectionBD co=new ConnectionBD();
+        Connection con=co.getConnection();
+        try{
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                idV=res.getInt("idSign");
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return idV;
+    }
+    public void insertPhoto(String photo,String id)
+    {
+        Integer idd=new Integer(id);
+        DetailSignalement dt=new DetailSignalement(0,idd.intValue(),photo);
+        dt.insert();
+    }
+    public List<SignalementRegion> getSignPersonneEnCours(String nom,int indice){
+        int rep1,rep2;
+        rep1=((indice-1)*3);
+        rep2=indice*3;
+        List<SignalementRegion> rep=new ArrayList<>();
+        /** */
+        String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur";
+        String req1=" where u.nom='"+nom+"' limit 3 offset "+rep1;
+        try{
+            System.out.println(req+req1);
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req+req1);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("nom"));
+                rep.add(reg);
+            }
+            con.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return rep;
+    }
+    
+    public int countGetSignUtil(String nom){
+        int reps=0;
+        List<SignalementRegion> rep=new ArrayList<>();
+        /** */
+        String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur";
+        String req1=" where u.nom='"+nom+"'";
+        try{
+            System.out.println(req+req1);
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req+req1);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("nom"));
+                rep.add(reg);
+            }
+            con.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        reps=rep.size();
+        return reps;
+    }
 
+    public List<SignalementRegion> getSignPersonneTerminer(String nom,int indice){
+        int rep1,rep2;
+        rep1=((indice-1)*3);
+        rep2=indice*3;
+        List<SignalementRegion> rep=new ArrayList<>();
+        /** */
+        String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur join SignalementTermine as st on sv.id=st.idSignV";
+        String req1=" where u.nom='"+nom+"' limit 3 offset "+rep1;
+        try{
+            System.out.println(req+req1);
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req+req1);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("nom"));
+                rep.add(reg);
+            }
+            con.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return rep;
+    }
+
+    public int countGetSignUtil2(String nom){
+        int reps=0;
+        List<SignalementRegion> rep=new ArrayList<>();
+        /** */
+        String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur join SignalementTermine as st on sv.id=st.idSignV";
+        String req1=" where u.nom='"+nom+"'";
+        try{
+            System.out.println(req+req1);
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req+req1);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("nom"));
+                rep.add(reg);
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        reps=rep.size();
+        return reps;
+    }
+    public int idValide(String id)
+    {
+        int idV=0;
+        String req="select id from signalementValide where idSign="+id;
+        ConnectionBD co=new ConnectionBD();
+        Connection con=co.getConnection();
+        try{
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                idV=res.getInt("id");
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return idV;
+    }
+    public int idTermine(int id)
+    {
+        int idV=0;
+        String req="select id from signalementTermine where idSignV="+id;
+        ConnectionBD co=new ConnectionBD();
+        Connection con=co.getConnection();
+        try{
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                idV=res.getInt("id");
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return idV;
+    }
+    public void signalementTermine(String id,String budget)
+    {
+        Double doub=new Double(budget);
+        SignalementTermine stt=new SignalementTermine(0,idValide(id),null,doub.doubleValue());
+        stt.insert();
+        int idT=idTermine(idValide(id));
+        String req="insert into notification(idsigntermine) values ("+idT+")";
+        try
+        {
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            Statement st=con.createStatement();
+            st.executeUpdate(req);
+            con.commit();
+            con.close();
+        }
+        catch(Exception e)
+        {
+ 
+        }
+    }
 }
+

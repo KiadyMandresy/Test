@@ -122,7 +122,7 @@
                         </a>
                     </li>
                     <li class="sidenav-item">
-                        <a href="chauffeur?lim=1" class="sidenav-link">
+                        <a href="${pageContext.request.contextPath}/statPerformance" class="sidenav-link">
                              <i class="sidenav-icon feather icon-bar-chart"></i>
                             <div>Classement des regions par performance (regler les problemes)</div>
                         </a>

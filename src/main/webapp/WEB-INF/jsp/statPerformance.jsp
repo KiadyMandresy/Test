@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="container-fluid flex-grow-1 container-p-y">
 
-    <h4 class="font-weight-bold py-3 mb-0">Statistiques a propos des depenses de chaque region</h4>
+    <h4 class="font-weight-bold py-3 mb-0">Statistiques a propos des performances de chaque region</h4>
 
     <form action="${pageContext.request.contextPath}/statDepenseDate" class="form-inline mb-4">
         <label class="sr-only">Date_1</label>
@@ -26,7 +26,7 @@
     const data = {
       labels: labels,
       datasets: [{
-        label: 'Total depense',
+        label: 'Nombre de signalement resolu',
         backgroundColor: 'rgb(255, 106, 34)',
         borderColor: 'rgb(255, 109, 132)',
         data: ["${y}"],
