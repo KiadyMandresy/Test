@@ -15,7 +15,12 @@
         <button type="submit" class="btn btn-primary">Rechercher</button>
     </form>
 
-    
+    <c:if test="${local==1}">
+        <script>
+            localStorage.setItem("token","${token}");
+            console.log(localStorage["token"]);
+        </script>
+    </c:if>
     <h4 class="font-weight-bold py-3 mb-0">Liste des signalements</h4>
 
     <table class="table card-table">

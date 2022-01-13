@@ -33,6 +33,8 @@ public class AdminController extends AdminService{
             if(count!=0){
                 cc=cc+1;
             }
+            model.addAttribute("token",admin);
+            model.addAttribute("local",1);
             Integer i=new Integer(1);
             int ii=i.intValue();
             model.addAttribute("lim", cc);
