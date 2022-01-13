@@ -21,7 +21,7 @@ public class AdminController extends AdminService{
     @RequestMapping(value={"/login"}, method = RequestMethod.POST)
     public String login(Model model,@RequestParam(name="mdp")String mdp,@RequestParam(name="mail")String mail)
     {
-        Admin admin=getAdmin(mail,mdp);
+        String admin=token(mail,mdp);
         String p="login";
         if(admin!=null)
         {
