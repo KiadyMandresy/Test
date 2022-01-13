@@ -93,6 +93,7 @@ public class ChefRegion{
                 ChefRegion reg=new ChefRegion(res.getInt("id"),res.getString("nom"),res.getString("mdp"),res.getString("mail"),res.getInt("idReg"));
                 liste.add(reg);
             }
+            con.close();
         }
         catch(Exception e)
         {

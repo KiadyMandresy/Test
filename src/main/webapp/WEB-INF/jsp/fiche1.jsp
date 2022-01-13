@@ -28,6 +28,8 @@
             <div class="card mb-4" id="btn-dropdown-demo">
                 <div class="card-body">
                     <dl>
+                        <dt style="color:rgb(255, 106, 34);">Type de signalement:</dt>
+                        <dd>${serv.getType()}</dd>
                         <dt style="color:rgb(255, 106, 34);">Description :</dt>
                         <dd>${serv.getCommentaire()}</dd>
                         <dt style="color:rgb(255, 106, 34);">Nom de l'annonceur</dt>
@@ -79,8 +81,8 @@
                 </div>
                 <div class="card-body">
                     <figure class="figure" style="max-width: 25rem">
-                        <img src="1.jpg" class="figure-img img-fluid" alt="A generic square placeholder image with rounded corners in a figure.">
-                        <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                        <img src="img/${photo}" class="figure-img img-fluid" alt="A generic square placeholder image with rounded corners in a figure.">
+                        <figcaption class="figure-caption">${serv.getType()}</figcaption>
                     </figure>
                     <nav>
                         <ul class="pagination">

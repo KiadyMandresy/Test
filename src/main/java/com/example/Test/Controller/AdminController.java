@@ -12,10 +12,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 @Controller
-public class AdminController {
+public class AdminController extends AdminService{
     @RequestMapping(value={"/","/loginBack"}, method = RequestMethod.GET)
     public String loginPage()
     {
         return "login";
+    }
+    @RequestMapping(value={"/login"}, method = RequestMethod.POST)
+    public String login(Model model,@RequestParam(name="mdp")String mdp,@RequestParam(name="mail")String mail)
+    {
+        Admin admin=getAdmin(mail,mdp);
+        String p="login";
+        if(admin!=null)
+        {
+            String page="listeSignalement.jsp";
+            model.addAttribute("page",page);
+            SignalementService ser=new SignalementService();
+            int cc=ser.getCountSignalement()/3;
+            int count=ser.getCountSignalement()%3;
+            if(count!=0){
+                cc=cc+1;
+            }
+            Integer i=new Integer(1);
+            int ii=i.intValue();
+            model.addAttribute("lim", cc);
+            model.addAttribute("listeGlobale",ser.getSignalementGlobal(ii));
+            p="templateAdmin";
+        }
+       
+        return p;
     }
 }
