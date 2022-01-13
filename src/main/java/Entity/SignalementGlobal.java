@@ -15,6 +15,10 @@ public class SignalementGlobal {
     String nom;
     String photos;
     String idUtilisateur;
+    public String getType()
+    {
+        return nom;
+    }
     public int getId() {
         return id;
     }
