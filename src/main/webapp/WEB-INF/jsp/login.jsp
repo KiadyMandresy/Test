@@ -12,6 +12,7 @@
 <div style="margin-top: 190px" class="cont">
   <div style="margin-top: 50px" class="form sign-in">
     <h2>Bienvenue,</h2>
+    <form action="${pageContext.request.contextPath}/login" method="post">
     <label>
       <span>Votre nom ( ou mail )</span>
       <input type="text" name="mail"/>
@@ -21,7 +22,7 @@
       <input type="password" name="mdp" />
     </label>
     <button type="submit" class="submit">Se connecter</button>
-    
+  </form>
   </div>
   <div class="sub-cont">
     <div class="img">

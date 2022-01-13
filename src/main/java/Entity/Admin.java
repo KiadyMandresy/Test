@@ -1,5 +1,12 @@
 package Entity;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Admin {
     /*id int primary key not null AUTO_INCREMENT,
     nom varchar(50),
@@ -43,5 +50,44 @@ public class Admin {
     public Admin(){
         
     }
+    public List<Admin> select(String req)
+    {
+        List<Admin> liste=new ArrayList<>();
+        try
+        {
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                Admin reg=new Admin(res.getInt("id"),res.getString("nom"),res.getString("mdp"),res.getString("mail"));
+                liste.add(reg);
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return liste;
+    }
+    public void update(){
+        String req =" update Admin set nom='"+this.nom+"',mdp='"+this.mdp+"',mail='"+this.mail+"' where id="+this.id;
+        try{
+            System.out.println(req);
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            Statement st=con.createStatement();
+            st.executeUpdate(req);
+            con.setAutoCommit(false);
+            con.commit();
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+     }
 
 }
