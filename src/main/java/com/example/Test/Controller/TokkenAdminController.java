@@ -1,5 +1,6 @@
 package com.example.Test.Controller;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import Entity.*;
@@ -24,15 +25,22 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 public class TokkenAdminController {
     
     @Autowired
-    private TokkenAdminDAO repo;
+    private AdminService admin;
 
     @GetMapping("/tokkenAdmin")
     public String getTokken() {
-        HashMap rep=new HashMap<>();
+       /* HashMap rep=new HashMap<>();
         List<TokkenAdmin> employe = repo.findAll();
         rep.put("liste_Tokken",employe);
         Gson g=new Gson();
-        String r=g.toJson(rep);
-        return r;
+        String r=g.toJson(rep);*/
+        return "hihi";
     }
+    @GetMapping("/tokken/{token}")
+    public Admin getToken(@PathVariable("token") String t) {
+        AdminService ad=new AdminService();
+        Admin a=admin.verifToken(t);
+        return a;
+    }
+   
 }

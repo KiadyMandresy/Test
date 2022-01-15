@@ -18,6 +18,12 @@ public class AdminController extends AdminService{
     {
         return "login";
     }
+    @RequestMapping(value={"/erreurAuthentification"}, method = RequestMethod.GET)
+    public String erreur(Model model)
+    {
+        model.addAttribute("erreur", "Erreur d'authentification");
+        return "login";
+    }
     @RequestMapping(value={"/login"}, method = RequestMethod.POST)
     public String login(Model model,@RequestParam(name="mdp")String mdp,@RequestParam(name="mail")String mail)
     {
@@ -40,6 +46,10 @@ public class AdminController extends AdminService{
             model.addAttribute("lim", cc);
             model.addAttribute("listeGlobale",ser.getSignalementGlobal(ii));
             p="templateAdmin";
+        }
+        else
+        {
+            model.addAttribute("erreur", "Mot de passe ou mail invalide");
         }
        
         return p;

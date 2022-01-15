@@ -1,5 +1,5 @@
 package Entity;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -8,9 +8,9 @@ import org.springframework.data.mongodb.core.mapping.*;
 @Document(collection="tokkenAdmin")
 public class TokkenAdmin {
     
-    @Id
-    String id;
+    
 
+    String idAdmin;
     
     String nom;
     
@@ -20,18 +20,15 @@ public class TokkenAdmin {
    
     String tokken;
 
-    Timestamp dateExpire;
+    Date dateExpire;
 
-    public void setDateExpire(Timestamp dateExpire) {
+    public void setDateExpire(Date dateExpire) {
         this.dateExpire = dateExpire;
     }
-    public Timestamp getDateExpire() {
+    public Date getDateExpire() {
         return dateExpire;
     }
 
-    public String getId() {
-        return id;
-    }
     public String getNom() {
         return nom;
     }
@@ -43,9 +40,6 @@ public class TokkenAdmin {
     }
     public String getTokken() {
         return tokken;
-    }
-    public void setId(String id) {
-        this.id = id;
     }
     public void setNom(String nom) {
         this.nom = nom;
@@ -59,9 +53,15 @@ public class TokkenAdmin {
     public void setTokken(String tokken) {
         this.tokken = tokken;
     }
-    public TokkenAdmin(String i,String n,String m,String md,String t,Timestamp d)
+    public String getIdAdmin() {
+        return idAdmin;
+    }
+    public void setIdAdmin(String idAdmin) {
+        this.idAdmin = idAdmin;
+    }
+    public TokkenAdmin(String i,String n,String m,String md,String t,Date d)
     {
-        this.id=i;
+        this.idAdmin=i;
         this.nom=n;
         this.mail=m;
         this.mdp=md;

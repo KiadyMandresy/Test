@@ -4,13 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.security.MessageDigest;
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.stereotype.Service;
+@Service
 public class AdminService extends Admin{
     @Autowired
     private TokkenAdminDAO repo;
@@ -35,6 +41,31 @@ public class AdminService extends Admin{
         }
         return result;
     }
+    public Admin verifToken(String token)
+    {
+        Admin a=null;
+        Timestamp t=new Timestamp(System.currentTimeMillis());
+        Date dt=new Date(t.getTime());
+        List<TokkenAdmin> tk=repo.findAll();
+        if(tk.size()>0)
+        {
+            TokkenAdmin tkk=tk.get(0);
+            System.out.println(tkk.getIdAdmin());
+            Integer id=new Integer(tkk.getIdAdmin());
+            Admin ad=new Admin(id.intValue(),tkk.getNom(),tkk.getMdp(),tkk.getMail());
+            a=ad;
+        }
+        return a;
+    }
+    public String authentif(Admin a)
+    {
+        String page="login";
+        if(a==null)
+        {
+            page="templateAdmin";
+        }
+        return page;
+    }
     public String token(String mail,String mdp) 
     {
         String sha1=null;
@@ -49,9 +80,10 @@ public class AdminService extends Admin{
                 sha1=byteToHex(msg.digest());
                 Timestamp now=new Timestamp(System.currentTimeMillis());
                 Timestamp late=new Timestamp(now.getTime()+(21600*1000));
+                Date dt=new Date(late.getTime());
                 Integer in=new Integer(a.getId());
-                System.out.println(now+"   "+late);
-                TokkenAdmin tok=new TokkenAdmin(in.toString(),a.getNom(),a.getMail(),a.getMdp(),sha1,late);
+                System.out.println(now+"   "+dt);
+                TokkenAdmin tok=new TokkenAdmin(in.toString(),a.getNom(),a.getMail(),a.getMdp(),sha1,dt);
                 repo.insert(tok);
             }
             catch(Exception e)

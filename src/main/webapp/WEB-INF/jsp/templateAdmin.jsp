@@ -4,13 +4,41 @@
 <%@ page import="service.*" %>
 <%@ page import="controller.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
 
+<!DOCTYPE html>
+<c:set var="token" value="lol"></c:set>
+<% 
+ String token="";
+%>
+<script>
+    function token()
+    {
+        return localStorage["token"];
+    }
+</script>
+<c:if test="${local==1}">
+    <script>
+        localStorage.setItem("token","${token}");
+        console.log(localStorage["token"]);
+    </script>
+</c:if>
+<c:if test="${local!=1}">
+    <script type="text/javascript">
+        if(localStorage["token"]==null)
+        {
+            window.location.href="${pageContext.request.contextPath}/erreurAuthentification";
+        }
+        else
+        {
+            var token=localStorage.getItem("token");
+            <c:set var="token" value="token"></c:set>
+        }
+    </script>
+</c:if>
 <html lang="en" class="material-style layout-fixed">
 
 <head>
     <title>Admin.com</title>
-    
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
@@ -53,12 +81,13 @@
 </head>
 
 <body>
+  
     <!-- [ Preloader ] Start -->
     <div class="page-loader">
         <div class="bg-primary"></div>
     </div>
     <!-- [ Preloader ] End -->
-
+   
     <!-- [ Layout wrapper ] Start -->
     <div class="layout-wrapper layout-2">
         <div class="layout-inner">
@@ -96,7 +125,7 @@
                   
                     <li class="sidenav-header small font-weight-semibold">Crud</li>
                      <li class="sidenav-item">
-                        <a href="${pageContext.request.contextPath}/ChefRegions?lim=1" class="sidenav-link">
+                        <a href="${pageContext.request.contextPath}/ChefRegions?lim=1&&token=${token}" class="sidenav-link">
                              <i class="sidenav-icon feather icon-user"></i>
                             <div>Chef de region</div>
                         </a>
@@ -358,5 +387,4 @@
     <!-- <script src="assets/js/demo.js"></script><script src="assets/js/analytics.js"></script> -->
     <!-- <script src="assets/js/pages/dashboards_index.js"></script> -->
 </body>
-
 </html>

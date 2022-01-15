@@ -22,6 +22,7 @@
       <input type="password" name="mdp" />
     </label>
     <button type="submit" class="submit">Se connecter</button>
+   <center><p style="color:red">${erreur}</p> </center> 
   </form>
   </div>
   <div class="sub-cont">
