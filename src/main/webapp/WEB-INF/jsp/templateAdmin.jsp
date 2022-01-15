@@ -7,9 +7,6 @@
 
 <!DOCTYPE html>
 <c:set var="token" value="lol"></c:set>
-<% 
- String token="";
-%>
 <script>
     function token()
     {
@@ -125,7 +122,11 @@
                   
                     <li class="sidenav-header small font-weight-semibold">Crud</li>
                      <li class="sidenav-item">
-                        <a href="${pageContext.request.contextPath}/ChefRegions?lim=1&&token=${token}" class="sidenav-link">
+                        <a href="${pageContext.request.contextPath}/ChefRegions?lim=1&&token=" id="ChefRegions" class="sidenav-link">
+                            <script>
+                                document.getElementById('ChefRegions').href= document.getElementById('ChefRegions').href+localStorage["token"];
+                            </script>
+
                              <i class="sidenav-icon feather icon-user"></i>
                             <div>Chef de region</div>
                         </a>
