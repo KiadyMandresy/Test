@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 import Service.*;
 import Entity.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
@@ -12,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 @Controller
-public class AdminController extends AdminService{
+public class AdminController extends AdminService {
+  
     @RequestMapping(value={"/","/loginBack"}, method = RequestMethod.GET)
     public String loginPage()
     {
@@ -21,12 +24,13 @@ public class AdminController extends AdminService{
     @RequestMapping(value={"/erreurAuthentification"}, method = RequestMethod.GET)
     public String erreur(Model model)
     {
-        model.addAttribute("erreur", "Erreur d'authentification");
+        model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         return "login";
     }
     @RequestMapping(value={"/login"}, method = RequestMethod.POST)
     public String login(Model model,@RequestParam(name="mdp")String mdp,@RequestParam(name="mail")String mail)
     {
+        AdminService ad=new AdminService();
         String admin=token(mail,mdp);
         String p="login";
         if(admin!=null)
@@ -45,6 +49,7 @@ public class AdminController extends AdminService{
             int ii=i.intValue();
             model.addAttribute("lim", cc);
             model.addAttribute("listeGlobale",ser.getSignalementGlobal(ii));
+            model.addAttribute("admin",admin);
             p="templateAdmin";
         }
         else
@@ -53,5 +58,12 @@ public class AdminController extends AdminService{
         }
        
         return p;
+    }
+    @RequestMapping(value={"/deconnection"}, method = RequestMethod.GET)
+    public String deco(Model model,@RequestParam(name="token")String token)
+    {
+        model.addAttribute("deco", 0);
+       deleteToken(token);
+        return "login";
     }
 }

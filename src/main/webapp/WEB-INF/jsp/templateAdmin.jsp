@@ -6,13 +6,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
-<c:set var="token" value="lol"></c:set>
-<script>
-    function token()
-    {
-        return localStorage["token"];
-    }
-</script>
 <c:if test="${local==1}">
     <script>
         localStorage.setItem("token","${token}");
@@ -112,8 +105,11 @@
                    
                    
                       <li class="sidenav-item">
-                        <a  class="sidenav-link" href="${pageContext.request.contextPath}/listeSignalement?lim=1">
-                             <i class="sidenav-icon feather icon-alert-triangle"></i>
+                        <a  class="sidenav-link" id="href1" href="${pageContext.request.contextPath}/listeSignalement?lim=1">
+                            <script>
+                                document.getElementById('href1').href= document.getElementById('href1').href+"&&token="+localStorage["token"];
+                            </script> 
+                            <i class="sidenav-icon feather icon-alert-triangle"></i>
                             <div>Liste des signalements</div>
                         </a>
                     
@@ -132,28 +128,40 @@
                         </a>
                     </li>
                     <li class="sidenav-item">
-                        <a href="${pageContext.request.contextPath}/listeRegion?lim=1" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-map-pin"></i>
+                        <a id="href2" href="${pageContext.request.contextPath}/listeRegion?lim=1" class="sidenav-link">
+                            <script>
+                                document.getElementById('href2').href= document.getElementById('href2').href+"&&token="+localStorage["token"];
+                            </script>  
+                            <i class="sidenav-icon feather icon-map-pin"></i>
                             <div>Region</div>
                         </a>
                     </li>
                     </li>
                     <li class="sidenav-header small font-weight-semibold">Statistiques</li>
                      <li class="sidenav-item">
-                        <a href="${pageContext.request.contextPath}/stat_Probleme" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-bar-chart"></i>
+                        <a id="href3" href="${pageContext.request.contextPath}/stat_Probleme" class="sidenav-link">
+                            <script>
+                                document.getElementById('href3').href= document.getElementById('href3').href+"?token="+localStorage["token"];
+                            </script> 
+                            <i class="sidenav-icon feather icon-bar-chart"></i>
                             <div>Classement des regions par nombres de signalement</div>
                         </a>
                     </li>
                     <li class="sidenav-item">
-                        <a href="${pageContext.request.contextPath}/statDepense" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-bar-chart-2"></i>
+                        <a id="href4" href="${pageContext.request.contextPath}/statDepense" class="sidenav-link">
+                            <script>
+                                document.getElementById('href4').href= document.getElementById('href4').href+"?token="+localStorage["token"];
+                            </script>  
+                            <i class="sidenav-icon feather icon-bar-chart-2"></i>
                             <div>Classement des regions par depense</div>
                         </a>
                     </li>
                     <li class="sidenav-item">
-                        <a href="${pageContext.request.contextPath}/statPerformance" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-bar-chart"></i>
+                        <a id="href5" href="${pageContext.request.contextPath}/statPerformance" class="sidenav-link">
+                            <script>
+                                document.getElementById('href5').href= document.getElementById('href5').href+"?token="+localStorage["token"];
+                            </script>  
+                            <i class="sidenav-icon feather icon-bar-chart"></i>
                             <div>Classement des regions par performance (regler les problemes)</div>
                         </a>
                     </li>

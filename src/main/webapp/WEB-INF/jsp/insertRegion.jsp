@@ -5,6 +5,10 @@
 <div class="card mb-4">
     <div class="card-body">
         <form action="${pageContext.request.contextPath}/insertRegion" method="get">
+            <input id="href8" name="token" type="hidden" value="">
+            <script>
+                document.getElementById('href8').value=localStorage["token"];
+           </script> 
             <div class="form-group">
                 <label class="form-label">Nom</label>
                 <input type="text" class="form-control" placeholder="Nom" name="nom">

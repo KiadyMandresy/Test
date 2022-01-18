@@ -4,6 +4,10 @@
 <div class="container-fluid flex-grow-1 container-p-y">
 
     <form action="${pageContext.request.contextPath}/signalementRecherche" class="form-inline mb-4">
+       <input id="input1" type="hidden" value="" name="token">
+       <script>
+        document.getElementById('input1').value=localStorage["token"];
+   </script> 
         <label class="sr-only">Date_1</label>
         <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="date 1" name="d1">
 
@@ -35,8 +39,11 @@
             <td>${liste.getIdUtilisateur()}</td>
             <td>${liste.getNom()}</td>
             <td>${liste.getDateS()}</td>
-            <td><a href="${pageContext.request.contextPath}/signalement?nb=1&&id=${liste.getId()}">Fiche</a></td>
-            </tr>
+            <td><a id="href8" href="${pageContext.request.contextPath}/signalement?nb=1&&id=${liste.getId()}">Fiche</a></td>
+            <script>
+                document.getElementById('href8').href= document.getElementById('href8').href+"&&token="+localStorage["token"];
+           </script> 
+        </tr>
         </c:forEach>
            
         </tbody>
@@ -48,7 +55,10 @@
             <ul class="pagination">
             <c:forEach  var="i" begin="1" end="${lim}">
                 <li class="page-item ">
-                    <a class="page-link" href="${pageContext.request.contextPath}/listeSignalement?lim=${i}">${i}</a>
+                    <a id="href9" class="page-link" href="${pageContext.request.contextPath}/listeSignalement?lim=${i}">${i}</a>
+                    <script>
+                        document.getElementById('href9').href= document.getElementById('href9').href+"&&token="+localStorage["token"];
+                   </script> 
                 </li>
             </c:forEach>
         </ul>

@@ -6,7 +6,10 @@
     <form action="${pageContext.request.contextPath}/stat_ProblemeRecherche" class="form-inline mb-4">
         <label class="sr-only">Date_1</label>
         <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="date 1" name="d1">
-
+        <input id="input1" type="hidden" value="" name="token">
+        <script>
+         document.getElementById('input1').value=localStorage["token"];
+    </script> 
         <label class="sr-only">Date_2</label>
         <div class="input-group mr-sm-2 mb-2 mb-sm-0">
             <input type="text" class="form-control" placeholder="date 2" name="d2">

@@ -3,8 +3,11 @@
     <h4 class="font-weight-bold py-3 mb-0">Listes des Regions</h4>
     <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/insertRegion1"><i class="feather icon-plus-square"></i></li>
+            <li class="breadcrumb-item"><a id="href8" href="${pageContext.request.contextPath}/insertRegion1"><i class="feather icon-plus-square"></i></li>
             <li class="breadcrumb-item">Ajouter</li></a>
+            <script>
+                document.getElementById('href8').href= document.getElementById('href8').href+"?token="+localStorage["token"];
+           </script> 
         </ol>
     </div>
     <div class="card">
@@ -24,6 +27,10 @@
                         <input type="hidden" value="${liste.getNom()}" name="nom">
                         <input type="hidden" value="${liste.getId()}" name="id">
                         <input type="hidden" value="${lim}" name="lim">
+                        <input id="href10" type="hidden" value="" name="token">
+                        <script>
+                            document.getElementById('href10').value= localStorage["token"];
+                       </script> 
                     <td><button type="submit"  class="btn btn-primary" ><i class="feather icon-edit-1"></i>Modifier</button></a></td>
     
                     </form>
@@ -36,7 +43,10 @@
             <ul class="pagination">
                 <c:forEach  var="i" begin="1" end="${lim}">
                 <li class="page-item ">
-                    <a class="page-link" href="${pageContext.request.contextPath}/listeRegion?lim=${i}">${i}</a>
+                    <a class="page-link" id="href9" href="${pageContext.request.contextPath}/listeRegion?lim=${i}">${i}</a>
+                    <script>
+                        document.getElementById('href9').href= document.getElementById('href9').href+"&&token="+localStorage["token"];
+                   </script> 
                 </li>
                  </c:forEach>
             </ul>

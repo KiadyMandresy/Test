@@ -9,5 +9,6 @@ import java.util.*;
     public interface TokkenAdminDAO extends MongoRepository<TokkenAdmin, String> {
         public List<TokkenAdmin> findAll();
         public List<TokkenAdmin> findByTokkenAndDateExpireGreaterThan(String to,Date t);
+        public void deleteByTokken(String token);
     }
 

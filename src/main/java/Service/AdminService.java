@@ -16,6 +16,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Service;
+
 @Service
 public class AdminService extends Admin{
     @Autowired
@@ -46,7 +47,7 @@ public class AdminService extends Admin{
         Admin a=null;
         Timestamp t=new Timestamp(System.currentTimeMillis());
         Date dt=new Date(t.getTime());
-        List<TokkenAdmin> tk=repo.findAll();
+        List<TokkenAdmin> tk=repo.findByTokkenAndDateExpireGreaterThan(token,dt);
         if(tk.size()>0)
         {
             TokkenAdmin tkk=tk.get(0);
@@ -56,6 +57,10 @@ public class AdminService extends Admin{
             a=ad;
         }
         return a;
+    }
+    public void deleteToken(String token)
+    {
+        this.repo.deleteByTokken(token);
     }
     public String authentif(Admin a)
     {

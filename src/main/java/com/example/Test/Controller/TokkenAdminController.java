@@ -1,4 +1,5 @@
 package com.example.Test.Controller;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 public class TokkenAdminController {
     
     @Autowired
-    private AdminService admin;
+    private TokkenAdminDAO repo;
 
     @GetMapping("/tokkenAdmin")
     public String getTokken() {
@@ -39,8 +40,36 @@ public class TokkenAdminController {
     @GetMapping("/tokken/{token}")
     public Admin getToken(@PathVariable("token") String t) {
         AdminService ad=new AdminService();
-        Admin a=admin.verifToken(t);
+        Admin a=verifToken(t);
         return a;
     }
-   
+    public Admin verifToken(String token)
+    {
+        Admin a=null;
+        Timestamp t=new Timestamp(System.currentTimeMillis());
+        Date dt=new Date(t.getTime());
+        List<TokkenAdmin> tk=repo.findByTokkenAndDateExpireGreaterThan(token,dt);
+        if(tk.size()>0)
+        {
+            TokkenAdmin tkk=tk.get(0);
+            System.out.println(tkk.getIdAdmin());
+            Integer id=new Integer(tkk.getIdAdmin());
+            Admin ad=new Admin(id.intValue(),tkk.getNom(),tkk.getMdp(),tkk.getMail());
+            a=ad;
+        }
+        return a;
+    }
+    public void deleteToken(String token)
+    {
+        this.repo.deleteByTokken(token);
+    }
+    public String authentif(Admin a)
+    {
+        String page="login";
+        if(a!=null)
+        {
+            page="templateAdmin";
+        }
+        return page;
+    }
 }
