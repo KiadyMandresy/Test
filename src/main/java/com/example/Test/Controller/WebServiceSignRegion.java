@@ -24,7 +24,6 @@ import java.nio.file.*;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:2004")
 
 public class WebServiceSignRegion extends SignalementService{
     
