@@ -36,9 +36,10 @@ public class SignalementController extends SignalementService{
             int ii=i.intValue();
             model.addAttribute("lim", cc);
             model.addAttribute("listeGlobale",ser.getSignalementGlobal(ii));
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
          return service.authentif(admin);
     }
@@ -62,9 +63,10 @@ public class SignalementController extends SignalementService{
             model.addAttribute("countPhoto", serv.countPhotoSignalement(idd.intValue()));
             model.addAttribute("photo", serv.getPhoto(p.intValue(), idd.intValue()));
             model.addAttribute("page", "fiche1.jsp");
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
          return service.authentif(admin);
     }
@@ -76,9 +78,10 @@ public class SignalementController extends SignalementService{
         {
             model.addAttribute("id", id);
             model.addAttribute("page", "confirmDeleteSign.jsp");
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
          return service.authentif(admin);
     }
@@ -98,9 +101,10 @@ public class SignalementController extends SignalementService{
             }
             model.addAttribute("lim", cc);
             model.addAttribute("listeGlobale",ser.getSignalementGlobal(1));
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
          return service.authentif(admin);
     }
@@ -140,9 +144,10 @@ public class SignalementController extends SignalementService{
             model.addAttribute("photo", serv.getPhoto(p.intValue(), idd.intValue()));
         
             model.addAttribute("page", "fiche1.jsp");
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
          return service.authentif(admin);
     }
@@ -157,9 +162,10 @@ public class SignalementController extends SignalementService{
             model.addAttribute("page",page);
             SignalementService ser=new SignalementService();
             model.addAttribute("listeGlobale",ser.getSignalementGlobalRecherche( date1, date2));
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
          return service.authentif(admin);
     }
@@ -172,32 +178,38 @@ public class SignalementController extends SignalementService{
             String page="statisticBeProbleme.jsp";
             SignalementService ser=new SignalementService();
             List<StatRegion> rep=ser.getStatRegion();
-            String data=rep.get(0).getNom();
-            Integer i2=new Integer(rep.get(0).getNbr());
-            String data2=i2.toString();
-            String d=data2;
-            if(rep.size()>1){
-                data=data+"\",";
-                d=d+"\",";
-            }
-            for(int i=1;i<rep.size()-1;i++){  
-                data=data+"\""+rep.get(i).getNom()+"\",";
-                Integer f=new Integer(rep.get(rep.size()-1).getNbr());
-                d=d+"\""+f.toString(i)+"\",";
-            }
-            if(rep.size()>1){
-                data=data+"\""+rep.get(rep.size()-1).getNom();
-                Integer f=new Integer(rep.get(rep.size()-1).getNbr());
-                d=d+"\""+f.toString();
+            String data="";
+            String d="";
+            if(rep.size()>0)
+            {
+                data=rep.get(0).getNom();
+                Integer i2=new Integer(rep.get(0).getNbr());
+                String data2=i2.toString();
+                 d=data2;
+                if(rep.size()>1){
+                    data=data+"\",";
+                    d=d+"\",";
+                }
+                for(int i=1;i<rep.size()-1;i++){  
+                    data=data+"\""+rep.get(i).getNom()+"\",";
+                    Integer f=new Integer(rep.get(rep.size()-1).getNbr());
+                    d=d+"\""+f.toString(i)+"\",";
+                }
+                if(rep.size()>1){
+                    data=data+"\""+rep.get(rep.size()-1).getNom();
+                    Integer f=new Integer(rep.get(rep.size()-1).getNbr());
+                    d=d+"\""+f.toString();
+                }
             }
             System.out.println(data);
             System.out.println(d);
             model.addAttribute("stat",data);
             model.addAttribute("stat2",d);
             model.addAttribute("page",page);
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
          return service.authentif(admin);
     }
@@ -212,9 +224,10 @@ public class SignalementController extends SignalementService{
             model.addAttribute("x", donnee[0]);
             model.addAttribute("y", donnee[1]);
             model.addAttribute("page", "statDepenseGraph.jsp");
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
          return service.authentif(admin);
     }
@@ -229,9 +242,10 @@ public class SignalementController extends SignalementService{
             model.addAttribute("x", donnee[0]);
             model.addAttribute("y", donnee[1]);
             model.addAttribute("page", "statDepenseGraph.jsp");
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
          return service.authentif(admin);
     }
@@ -243,35 +257,41 @@ public class SignalementController extends SignalementService{
             String page="statisticBeProbleme.jsp";
             SignalementService ser=new SignalementService();
             List<StatRegion> rep=ser.getStatRegionRecherche(date1,date2);
-            String data=rep.get(0).getNom();
-            Integer i2=new Integer(rep.get(0).getNbr());
-            String data2=i2.toString();
-            String d=data2;
-            if(rep.size()>1)
+            String data="";
+            String d="";
+            if(rep.size()>0)
             {
-                data=data+"\",";
-                d=d+"\",";
-            }
-            for(int i=1;i<rep.size()-1;i++)
-            {  
-                data=data+"\""+rep.get(i).getNom()+"\",";
-                Integer f=new Integer(rep.get(rep.size()-1).getNbr());
-                d=d+"\""+f.toString(i)+"\",";
-            }
-            if(rep.size()>1)
-            {
-                data=data+"\""+rep.get(rep.size()-1).getNom();
-                Integer f=new Integer(rep.get(rep.size()-1).getNbr());
-                d=d+"\""+f.toString();
+                data=rep.get(0).getNom();
+                Integer i2=new Integer(rep.get(0).getNbr());
+                String data2=i2.toString();
+                d=data2;
+                if(rep.size()>1)
+                {
+                    data=data+"\",";
+                    d=d+"\",";
+                }
+                for(int i=1;i<rep.size()-1;i++)
+                {  
+                    data=data+"\""+rep.get(i).getNom()+"\",";
+                    Integer f=new Integer(rep.get(rep.size()-1).getNbr());
+                    d=d+"\""+f.toString(i)+"\",";
+                }
+                if(rep.size()>1)
+                {
+                    data=data+"\""+rep.get(rep.size()-1).getNom();
+                    Integer f=new Integer(rep.get(rep.size()-1).getNbr());
+                    d=d+"\""+f.toString();
+                }
             }
             System.out.println(data);
             System.out.println(d);
             model.addAttribute("stat",data);
             model.addAttribute("stat2",d);
             model.addAttribute("page",page);
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
          return service.authentif(admin);
     }
@@ -286,9 +306,10 @@ public class SignalementController extends SignalementService{
             model.addAttribute("x", donnee[0]);
             model.addAttribute("y", donnee[1]);
             model.addAttribute("page", "statPerformance.jsp");
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
          return service.authentif(admin);
     }
@@ -303,10 +324,12 @@ public class SignalementController extends SignalementService{
             model.addAttribute("x", donnee[0]);
             model.addAttribute("y", donnee[1]);
             model.addAttribute("page", "statPerformance.jsp");
+            
+            model.addAttribute("admin",admin);
         }
         else
         {
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
          return service.authentif(admin);
     }

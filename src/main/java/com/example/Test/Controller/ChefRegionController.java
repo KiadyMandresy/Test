@@ -30,9 +30,10 @@ public class ChefRegionController extends ChefRegionService{
             model.addAttribute("chef", chef);
             model.addAttribute("page","updateChef.jsp");
             model.addAttribute("lim", lim);
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
         return service.authentif(admin);
     }
@@ -47,9 +48,10 @@ public class ChefRegionController extends ChefRegionService{
             model.addAttribute("listes", getListeChef(lim));
             model.addAttribute("pagination", paginationChefRegion());
             model.addAttribute("lim", lim);
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
         return service.authentif(admin);
     }
@@ -62,9 +64,10 @@ public class ChefRegionController extends ChefRegionService{
             model.addAttribute("page","confirmDeleteChef.jsp");
             model.addAttribute("lim", lim);
             model.addAttribute("id", id);
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
         return service.authentif(admin);
     }
@@ -80,9 +83,10 @@ public class ChefRegionController extends ChefRegionService{
             model.addAttribute("pagination", paginationChefRegion());
             model.addAttribute("lim", lim);
 
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
         return service.authentif(admin);
     }
@@ -96,10 +100,11 @@ public class ChefRegionController extends ChefRegionService{
             model.addAttribute("listes", getListeChef(lim));
             model.addAttribute("pagination", paginationChefRegion());
             model.addAttribute("lim", lim);
+            model.addAttribute("admin",admin);
         }
         else
         {
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
         return service.authentif(admin);
     }
@@ -113,9 +118,10 @@ public class ChefRegionController extends ChefRegionService{
             model.addAttribute("page",page);
             RegionService r=new RegionService();
             model.addAttribute("regions",r.getAll());
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
         return service.authentif(admin);
     }
@@ -131,9 +137,10 @@ public class ChefRegionController extends ChefRegionService{
             chef.insertChefRegion(nom, mdp, mail, region);
             model.addAttribute("regions",r.getAll());
             model.addAttribute("page",page);
+            model.addAttribute("admin",admin);
         }
         else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
         return service.authentif(admin);
     }

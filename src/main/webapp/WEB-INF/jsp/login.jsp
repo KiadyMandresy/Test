@@ -24,6 +24,11 @@
     <button type="submit" class="submit">Se connecter</button>
    <center><p style="color:red">${erreur}</p> </center> 
   </form>
+  <c:if test="${deco==0}">
+    <script>
+        localStorage.removeItem("token");
+    </script>
+  </c:if>
   </div>
   <div class="sub-cont">
     <div class="img">

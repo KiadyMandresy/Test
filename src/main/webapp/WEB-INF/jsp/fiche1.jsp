@@ -14,7 +14,7 @@
                     <script type="text/javascript">
                         var mapOptions = {
                          center: ["${serv.getX()}", "${serv.getY()}"],
-                         zoom: 18
+                         zoom: 17
                       };
                       var map = new L.map('map', mapOptions);
                       var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
