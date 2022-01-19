@@ -11,18 +11,19 @@
 <p class="tip"></p>
 <div style="margin-top: 190px" class="cont">
   <div style="margin-top: 50px" class="form sign-in">
-    <h2>Welcome back,</h2>
+    <h2>Bienvenue,</h2>
+    <form action="${pageContext.request.contextPath}/login" method="post">
     <label>
-      <span>Email</span>
-      <input type="email" />
+      <span>Votre nom ( ou mail )</span>
+      <input type="text" name="mail"/>
     </label>
     <label>
-      <span>Password</span>
-      <input type="password" />
+      <span>Mot de passe</span>
+      <input type="password" name="mdp" />
     </label>
-    <p class="forgot-pass">Forgot password?</p>
-    <button type="button" class="submit">Sign In</button>
-    
+    <button type="submit" class="submit">Se connecter</button>
+   <center><p style="color:red">${erreur}</p> </center> 
+  </form>
   </div>
   <div class="sub-cont">
     <div class="img">
@@ -41,29 +42,19 @@
     <div class="form sign-up">
       <h2>Time to feel like home,</h2>
       <label>
-        <span>Name</span>
-        <input type="text" />
+        <span>Votre nom ( ou mail )</span>
+        <input type="text" name="mail"/>
       </label>
       <label>
-        <span>Email</span>
-        <input type="email" />
+        <span>Mot de passe</span>
+        <input type="password" name="mdp" />
       </label>
-      <label>
-        <span>Password</span>
-        <input type="password" />
-      </label>
-      <button type="button" class="submit">Sign Up</button>
+      <button type="submit" class="submit">Se connecter</button>
       
     </div>
   </div>
 </div>
 
-<a href="https://dribbble.com/shots/3306190-Login-Registration-form" target="_blank" class="icon-link">
-  <img src="http://icons.iconarchive.com/icons/uiconstock/socialmedia/256/Dribbble-icon.png">
-</a>
-<a href="https://twitter.com/NikolayTalanov" target="_blank" class="icon-link icon-link--twitter">
-  <img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/twitter-128.png">
-</a>
 <!-- partial -->
   <script  src="script.js"></script>
 

@@ -17,6 +17,13 @@ public class SignalementValideView {
     Timestamp termine;
     double budget;
     String statut;
+    String type;
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
     public void setStatut(String s)
     {
         statut=s;
@@ -93,7 +100,7 @@ public class SignalementValideView {
     public void setIdUtilisateur(String idUtilisateur) {
         this.idUtilisateur = idUtilisateur;
     }
-    public SignalementValideView(int i,String c,Timestamp d,double x,double y,String n,String p,String iii,String r){
+    public SignalementValideView(int i,String c,Timestamp d,double x,double y,String n,String p,String iii,String r,String ty){
         this.id=i;
         this.commentaire=c;
         this.dateS=d;
@@ -103,9 +110,10 @@ public class SignalementValideView {
         this.photos=p;
         this.idUtilisateur=iii;
         this.region=r;
+        this.type=ty;
         //
     }
-    public SignalementValideView(int i,String c,Timestamp d,double x,double y,String n,String p,String iii,String r,Timestamp ter,double b){
+    public SignalementValideView(int i,String c,Timestamp d,double x,double y,String n,String p,String iii,String r,Timestamp ter,double b,String ty){
         this.id=i;
         this.commentaire=c;
         this.dateS=d;
@@ -117,6 +125,7 @@ public class SignalementValideView {
         this.region=r;
         termine=ter;
         this.budget=b;
+        this.type=ty;
         //
     }
     public List<SignalementValideView> select(String req)
@@ -130,7 +139,7 @@ public class SignalementValideView {
             ResultSet res=st.executeQuery();
             while(res.next())
             {
-                SignalementValideView reg=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"),res.getString("region"));
+                SignalementValideView reg=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"),res.getString("region"),res.getString("type"));
                 liste.add(reg);
             }
             con.close();

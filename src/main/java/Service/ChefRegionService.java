@@ -87,5 +87,16 @@ public class ChefRegionService extends ChefRegion {
         ChefRegion chef=new ChefRegion(0,nom,mdp,mail,idRegion(reg));
         chef.insert();
     }
-
+    public ChefRegion getChefRegion(String mail,String mdp)
+    {
+        String req="select * from ChefRegion where (nom='"+mail+"' or mail='"+mail+"') and mdp='"+mdp+"'";
+        System.out.println(req);
+        ChefRegion a=null;
+        List<ChefRegion> list=select(req);
+        if(list.size()>0)
+        {
+            a=list.get(0);
+        }
+        return a;
+    }
 }

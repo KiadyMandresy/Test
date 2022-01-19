@@ -65,6 +65,7 @@ public class NotificationSignalement {
                 NotificationSignalement reg = new NotificationSignalement (res.getTimestamp("dateDebut"),res.getTimestamp("dateFin"),res.getInt("idNotification"),res.getInt("idSignTermine"));
                 liste.add(reg);
             }
+            con.close();
         }
         catch(Exception e)
         {

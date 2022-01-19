@@ -4,13 +4,31 @@
 <%@ page import="service.*" %>
 <%@ page import="controller.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
 
+<!DOCTYPE html>
+<c:if test="${local==1}">
+    <script>
+        localStorage.setItem("token","${token}");
+        console.log(localStorage["token"]);
+    </script>
+</c:if>
+<c:if test="${local!=1}">
+    <script type="text/javascript">
+        if(localStorage["token"]==null)
+        {
+            window.location.href="${pageContext.request.contextPath}/erreurAuthentification";
+        }
+        else
+        {
+            var token=localStorage.getItem("token");
+            <c:set var="token" value="token"></c:set>
+        }
+    </script>
+</c:if>
 <html lang="en" class="material-style layout-fixed">
 
 <head>
     <title>Admin.com</title>
-    
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
@@ -53,12 +71,13 @@
 </head>
 
 <body>
+  
     <!-- [ Preloader ] Start -->
     <div class="page-loader">
         <div class="bg-primary"></div>
     </div>
     <!-- [ Preloader ] End -->
-
+   
     <!-- [ Layout wrapper ] Start -->
     <div class="layout-wrapper layout-2">
         <div class="layout-inner">
@@ -86,8 +105,11 @@
                    
                    
                       <li class="sidenav-item">
-                        <a  class="sidenav-link" href="${pageContext.request.contextPath}/listeSignalement?lim=1">
-                             <i class="sidenav-icon feather icon-alert-triangle"></i>
+                        <a  class="sidenav-link" id="href1" href="${pageContext.request.contextPath}/listeSignalement?lim=1">
+                            <script>
+                                document.getElementById('href1').href= document.getElementById('href1').href+"&&token="+localStorage["token"];
+                            </script> 
+                            <i class="sidenav-icon feather icon-alert-triangle"></i>
                             <div>Liste des signalements</div>
                         </a>
                     
@@ -96,34 +118,50 @@
                   
                     <li class="sidenav-header small font-weight-semibold">Crud</li>
                      <li class="sidenav-item">
-                        <a href="${pageContext.request.contextPath}/ChefRegions?lim=1" class="sidenav-link">
+                        <a href="${pageContext.request.contextPath}/ChefRegions?lim=1&&token=" id="ChefRegions" class="sidenav-link">
+                            <script>
+                                document.getElementById('ChefRegions').href= document.getElementById('ChefRegions').href+localStorage["token"];
+                            </script>
+
                              <i class="sidenav-icon feather icon-user"></i>
                             <div>Chef de region</div>
                         </a>
                     </li>
                     <li class="sidenav-item">
-                        <a href="${pageContext.request.contextPath}/listeRegion?lim=1" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-map-pin"></i>
+                        <a id="href2" href="${pageContext.request.contextPath}/listeRegion?lim=1" class="sidenav-link">
+                            <script>
+                                document.getElementById('href2').href= document.getElementById('href2').href+"&&token="+localStorage["token"];
+                            </script>  
+                            <i class="sidenav-icon feather icon-map-pin"></i>
                             <div>Region</div>
                         </a>
                     </li>
                     </li>
                     <li class="sidenav-header small font-weight-semibold">Statistiques</li>
                      <li class="sidenav-item">
-                        <a href="${pageContext.request.contextPath}/stat_Probleme" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-bar-chart"></i>
+                        <a id="href3" href="${pageContext.request.contextPath}/stat_Probleme" class="sidenav-link">
+                            <script>
+                                document.getElementById('href3').href= document.getElementById('href3').href+"?token="+localStorage["token"];
+                            </script> 
+                            <i class="sidenav-icon feather icon-bar-chart"></i>
                             <div>Classement des regions par nombres de signalement</div>
                         </a>
                     </li>
                     <li class="sidenav-item">
-                        <a href="${pageContext.request.contextPath}/statDepense" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-bar-chart-2"></i>
+                        <a id="href4" href="${pageContext.request.contextPath}/statDepense" class="sidenav-link">
+                            <script>
+                                document.getElementById('href4').href= document.getElementById('href4').href+"?token="+localStorage["token"];
+                            </script>  
+                            <i class="sidenav-icon feather icon-bar-chart-2"></i>
                             <div>Classement des regions par depense</div>
                         </a>
                     </li>
                     <li class="sidenav-item">
-                        <a href="${pageContext.request.contextPath}/statPerformance" class="sidenav-link">
-                             <i class="sidenav-icon feather icon-bar-chart"></i>
+                        <a id="href5" href="${pageContext.request.contextPath}/statPerformance" class="sidenav-link">
+                            <script>
+                                document.getElementById('href5').href= document.getElementById('href5').href+"?token="+localStorage["token"];
+                            </script>  
+                            <i class="sidenav-icon feather icon-bar-chart"></i>
                             <div>Classement des regions par performance (regler les problemes)</div>
                         </a>
                     </li>
@@ -358,5 +396,4 @@
     <!-- <script src="assets/js/demo.js"></script><script src="assets/js/analytics.js"></script> -->
     <!-- <script src="assets/js/pages/dashboards_index.js"></script> -->
 </body>
-
 </html>

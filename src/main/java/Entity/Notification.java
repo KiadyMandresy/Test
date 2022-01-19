@@ -43,6 +43,7 @@ public class Notification {
                 Notification reg=new Notification(res.getInt("id"),res.getInt("idSignTermine"));
                 liste.add(reg);
             }
+            con.close();
         }
         catch(Exception e)
         {

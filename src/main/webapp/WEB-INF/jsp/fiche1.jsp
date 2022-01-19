@@ -28,6 +28,8 @@
             <div class="card mb-4" id="btn-dropdown-demo">
                 <div class="card-body">
                     <dl>
+                        <dt style="color:rgb(255, 106, 34);">Type de signalement:</dt>
+                        <dd>${serv.getType()}</dd>
                         <dt style="color:rgb(255, 106, 34);">Description :</dt>
                         <dd>${serv.getCommentaire()}</dd>
                         <dt style="color:rgb(255, 106, 34);">Nom de l'annonceur</dt>
@@ -41,14 +43,20 @@
                                 <div class="demo-inline-spacing mt-3">
                                     
                                     <div class="btn-group">
-                                        <a href="${pageContext.request.contextPath}/deleteSignalamentConf?id=${serv.getId()}"><button  class="btn btn-primary" ><i class="feather icon-x"></i>Invalider</button></a>
+                                        <a id="href9" href="${pageContext.request.contextPath}/deleteSignalamentConf?id=${serv.getId()}"><button  class="btn btn-primary" ><i class="feather icon-x"></i>Invalider</button></a>
+                                        <script>
+                                            document.getElementById('href9').href= document.getElementById('href9').href+"&&token="+localStorage["token"];
+                                       </script> 
                                         <button style="margin-left:225px;" type="button" class="btn btn-primary dropdown-toggle hide-arrow" data-toggle="dropdown"><i class="feather icon-check"></i>Valider</button>
                                         <div class="dropdown-menu">
                                             <span class="dropdown-item">Choix de region</span>
                                             <div class="dropdown-divider"></div>
                                             <c:forEach items="${reg}" var ="rg">
-                                            <a class="dropdown-item" href="${pageContext.request.contextPath}/signalementValide?id=${serv.getId()}&&region=${rg.getId()}">${rg.getNom()}</a>
-                                            </c:forEach>
+                                            <a id="href10" class="dropdown-item" href="${pageContext.request.contextPath}/signalementValide?id=${serv.getId()}&&region=${rg.getId()}">${rg.getNom()}</a>
+                                            <script>
+                                                document.getElementById('href10').href= document.getElementById('href10').href+"&&token="+localStorage["token"];
+                                           </script> 
+                                        </c:forEach>
                                         </div>
                                     </div>
                                 </div>
@@ -79,14 +87,19 @@
                 </div>
                 <div class="card-body">
                     <figure class="figure" style="max-width: 25rem">
-                        <img src="1.jpg" class="figure-img img-fluid" alt="A generic square placeholder image with rounded corners in a figure.">
-                        <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                        <img src="img/${photo}" class="figure-img img-fluid" alt="A generic square placeholder image with rounded corners in a figure.">
+                        <figcaption class="figure-caption">${serv.getType()}</figcaption>
                     </figure>
                     <nav>
                         <ul class="pagination">
                             <c:forEach  var="i" begin="1" end="${countPhoto}">
+                                
+                            <c:set var="page" value="page+${i}"></c:set>
                             <li class="page-item ">
-                                <a class="page-link" href="${pageContext.request.contextPath}/signalement?nb=${i}&&id=${serv.getId()}">${i}</a>
+                                <a id="${page}" class="page-link" href="${pageContext.request.contextPath}/signalement?nb=${i}&&id=${serv.getId()}">${i}</a>
+                                <script>
+                                    document.getElementById('${page}').href= document.getElementById('${page}').href+"&&token="+localStorage["token"];
+                               </script> 
                             </li>
                              </c:forEach>
                         </ul>

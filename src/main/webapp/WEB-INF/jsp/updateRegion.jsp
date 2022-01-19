@@ -6,6 +6,10 @@
     <div class="card-body">
         <form action="${pageContext.request.contextPath}/modificationRegionVrai" method="get">
             <div class="form-group">
+                <input id="input1" type="hidden" value="" name="token">
+                <script>
+                 document.getElementById('input1').value=localStorage["token"];
+            </script> 
                 <label class="form-label">Nom</label>
                 <input type="hidden" class="form-control" value="${region1.getId()}" name="id">
                 <input type="text" class="form-control" value="${region1.getNom()}" name="nom">

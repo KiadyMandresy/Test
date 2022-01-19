@@ -37,7 +37,7 @@ public class PersonneController {
         return rep;
     }
 
-    @RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
+    @RequestMapping(value = {  "/index" }, method = RequestMethod.GET)
     public String index(Model model) {
 
         String message = "Hello Spring Boot + JSP";

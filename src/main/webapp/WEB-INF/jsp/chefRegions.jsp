@@ -3,8 +3,11 @@
     <h4 class="font-weight-bold py-3 mb-0">Chef Regions</h4>
     <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/insertionChefRegion"><i class="feather icon-plus-square"></i></li>
+            <li class="breadcrumb-item"><a i="href6" href="${pageContext.request.contextPath}/insertionChefRegion"><i class="feather icon-plus-square"></i></li>
             <li class="breadcrumb-item">Ajouter</li></a>
+            <script>
+                document.getElementById('href6').href= document.getElementById('href6').href+"?token="+localStorage["token"];
+            </script> 
         </ol>
     </div>
     <div class="card">
@@ -24,9 +27,17 @@
                     <td>${liste.getNom()}</td>
                     <td>${liste.getMail()}</td>
                     <td>${liste.getRegion()}</td>
-                    <td><a href="${pageContext.request.contextPath}/confirmationDeleteChefRegion?id=${liste.getId()}&&lim=${lim}"><button class="btn btn-primary" ><i class="feather icon-x"></i>Supprimer</button></a></td>
+                    <td><a id="${liste.getId()}" href="${pageContext.request.contextPath}/confirmationDeleteChefRegion?id=${liste.getId()}&&lim=${lim}"><button class="btn btn-primary" ><i class="feather icon-x"></i>Supprimer</button></a></td>
+                    <script>
+                        document.getElementById('${liste.getId()}').href= document.getElementById('${liste.getId()}').href+"&&token="+localStorage["token"];
+                    </script> 
+                    <c:set var="id" value="input+${liste.getId()}"></c:set>
                     <form action="${pageContext.request.contextPath}/updatePageChefRegion" method="get">
                         <input type="hidden" value="${liste.getNom()}" name="nom">
+                        <input id="${id}" type="hidden" value="" name="token">
+                        <script>
+                            document.getElementById('${id}').value=localStorage["token"];
+                        </script> 
                         <input type="hidden" value="${liste.getMail()}" name="mail">
                         <input type="hidden" value="${liste.getId()}" name="id">
                         <input type="hidden" value="${liste.getMdp()}" name="mdp">
@@ -41,8 +52,12 @@
         <nav>
             <ul class="pagination">
                 <c:forEach  var="i" begin="1" end="${pagination}">
+                    <c:set var="page" value="page+${i}"></c:set>
                 <li class="page-item ">
-                    <a class="page-link" href="${pageContext.request.contextPath}/ChefRegions?lim=${i}">${i}</a>
+                    <a class="page-link" id="${page}" href="${pageContext.request.contextPath}/ChefRegions?lim=${i}">${i}</a>
+                    <script>
+                        document.getElementById('${page}').href= document.getElementById('${page}').href+"&&token="+localStorage["token"];
+                    </script> 
                 </li>
                  </c:forEach>
             </ul>
