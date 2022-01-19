@@ -27,9 +27,9 @@
                         <input type="hidden" value="${liste.getNom()}" name="nom">
                         <input type="hidden" value="${liste.getId()}" name="id">
                         <input type="hidden" value="${lim}" name="lim">
-                        <input id="href10" type="hidden" value="" name="token">
+                        <input id="${liste.getId()}" type="hidden" value="" name="token">
                         <script>
-                            document.getElementById('href10').value= localStorage["token"];
+                            document.getElementById('${liste.getId()}').value= localStorage["token"];
                        </script> 
                     <td><button type="submit"  class="btn btn-primary" ><i class="feather icon-edit-1"></i>Modifier</button></a></td>
     
@@ -42,10 +42,12 @@
         <nav>
             <ul class="pagination">
                 <c:forEach  var="i" begin="1" end="${lim}">
+                    <c:set var="page" value="page+${i}"></c:set>
                 <li class="page-item ">
-                    <a class="page-link" id="href9" href="${pageContext.request.contextPath}/listeRegion?lim=${i}">${i}</a>
+                    <a class="page-link" id="${page}" href="${pageContext.request.contextPath}/listeRegion?lim=${i}">${i}</a>
                     <script>
-                        document.getElementById('href9').href= document.getElementById('href9').href+"&&token="+localStorage["token"];
+                        console.log("${page}")
+                        document.getElementById('${page}').href= document.getElementById('${page}').href+"&&token="+localStorage["token"];
                    </script> 
                 </li>
                  </c:forEach>

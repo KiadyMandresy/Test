@@ -93,10 +93,12 @@
                     <nav>
                         <ul class="pagination">
                             <c:forEach  var="i" begin="1" end="${countPhoto}">
+                                
+                            <c:set var="page" value="page+${i}"></c:set>
                             <li class="page-item ">
-                                <a id="href8" class="page-link" href="${pageContext.request.contextPath}/signalement?nb=${i}&&id=${serv.getId()}">${i}</a>
+                                <a id="${page}" class="page-link" href="${pageContext.request.contextPath}/signalement?nb=${i}&&id=${serv.getId()}">${i}</a>
                                 <script>
-                                    document.getElementById('href8').href= document.getElementById('href8').href+"&&token="+localStorage["token"];
+                                    document.getElementById('${page}').href= document.getElementById('${page}').href+"&&token="+localStorage["token"];
                                </script> 
                             </li>
                              </c:forEach>

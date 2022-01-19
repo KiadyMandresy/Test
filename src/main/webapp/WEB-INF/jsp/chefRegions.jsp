@@ -27,15 +27,16 @@
                     <td>${liste.getNom()}</td>
                     <td>${liste.getMail()}</td>
                     <td>${liste.getRegion()}</td>
-                    <td><a id="href7" href="${pageContext.request.contextPath}/confirmationDeleteChefRegion?id=${liste.getId()}&&lim=${lim}"><button class="btn btn-primary" ><i class="feather icon-x"></i>Supprimer</button></a></td>
+                    <td><a id="${liste.getId()}" href="${pageContext.request.contextPath}/confirmationDeleteChefRegion?id=${liste.getId()}&&lim=${lim}"><button class="btn btn-primary" ><i class="feather icon-x"></i>Supprimer</button></a></td>
                     <script>
-                        document.getElementById('href7').href= document.getElementById('href7').href+"&&token="+localStorage["token"];
+                        document.getElementById('${liste.getId()}').href= document.getElementById('${liste.getId()}').href+"&&token="+localStorage["token"];
                     </script> 
+                    <c:set var="id" value="input+${liste.getId()}"></c:set>
                     <form action="${pageContext.request.contextPath}/updatePageChefRegion" method="get">
                         <input type="hidden" value="${liste.getNom()}" name="nom">
-                        <input id="input1" type="hidden" value="" name="token">
+                        <input id="${id}" type="hidden" value="" name="token">
                         <script>
-                            document.getElementById('input1').value=localStorage["token"];
+                            document.getElementById('${id}').value=localStorage["token"];
                         </script> 
                         <input type="hidden" value="${liste.getMail()}" name="mail">
                         <input type="hidden" value="${liste.getId()}" name="id">
@@ -51,10 +52,11 @@
         <nav>
             <ul class="pagination">
                 <c:forEach  var="i" begin="1" end="${pagination}">
+                    <c:set var="page" value="page+${i}"></c:set>
                 <li class="page-item ">
-                    <a class="page-link" id="href8" href="${pageContext.request.contextPath}/ChefRegions?lim=${i}">${i}</a>
+                    <a class="page-link" id="${page}" href="${pageContext.request.contextPath}/ChefRegions?lim=${i}">${i}</a>
                     <script>
-                        document.getElementById('href8').href= document.getElementById('href8').href+"&&token="+localStorage["token"];
+                        document.getElementById('${page}').href= document.getElementById('${page}').href+"&&token="+localStorage["token"];
                     </script> 
                 </li>
                  </c:forEach>
