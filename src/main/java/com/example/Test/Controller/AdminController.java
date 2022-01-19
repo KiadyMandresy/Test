@@ -49,7 +49,7 @@ public class AdminController extends AdminService {
             int ii=i.intValue();
             model.addAttribute("lim", cc);
             model.addAttribute("listeGlobale",ser.getSignalementGlobal(ii));
-            model.addAttribute("admin",admin);
+            model.addAttribute("admin",getAdmin(mail, mdp));
             p="templateAdmin";
         }
         else
@@ -63,7 +63,7 @@ public class AdminController extends AdminService {
     public String deco(Model model,@RequestParam(name="token")String token)
     {
         model.addAttribute("deco", 0);
-       deleteToken(token);
+        deleteToken(token);
         return "login";
     }
 }

@@ -35,9 +35,10 @@ public class RegionController {
             String page="crudRegion.jsp";
             model.addAttribute("page",page);
             model.addAttribute("listeRegion",rs.getRegion(ii));
+            model.addAttribute("admin",admin);
         }
           else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
         return service.authentif(admin);
     }
@@ -53,9 +54,10 @@ public class RegionController {
             Region r=new Region(i.intValue(),nom);
             model.addAttribute("region1",r);
             model.addAttribute("lim",l);
+            model.addAttribute("admin",admin);
         }
           else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
         return service.authentif(admin);
     }
@@ -79,9 +81,10 @@ public class RegionController {
             model.addAttribute("lim", cc);
             model.addAttribute("page",page);
             model.addAttribute("listeRegion",rs.getRegion(ii));
+            model.addAttribute("admin",admin);
         }
           else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
         return service.authentif(admin);
     }
@@ -96,9 +99,10 @@ public class RegionController {
             RegionService rs=new RegionService();
             rs.insertRegion(nom);
             model.addAttribute("page",page);
+            model.addAttribute("admin",admin);
         }
           else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
         return service.authentif(admin);
     }
@@ -110,9 +114,10 @@ public class RegionController {
         {
             String page="insertRegion.jsp";
             model.addAttribute("page",page);
+            model.addAttribute("admin",admin);
         }
           else{
-            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-conntez");
+            model.addAttribute("erreur", "Erreur d'authentification, veuillez vous-connectez");
         }
         return service.authentif(admin);
     }
