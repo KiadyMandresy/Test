@@ -39,9 +39,9 @@
             <td>${liste.getIdUtilisateur()}</td>
             <td>${liste.getNom()}</td>
             <td>${liste.getDateS()}</td>
-            <td><a id="href8" href="${pageContext.request.contextPath}/signalement?nb=1&&id=${liste.getId()}">Fiche</a></td>
+            <td><a id="${liste.getId()}" href="${pageContext.request.contextPath}/signalement?nb=1&&id=${liste.getId()}">Fiche</a></td>
             <script>
-                document.getElementById('href8').href= document.getElementById('href8').href+"&&token="+localStorage["token"];
+                document.getElementById('${liste.getId()}').href= document.getElementById('${liste.getId()}').href+"&&token="+localStorage["token"];
            </script> 
         </tr>
         </c:forEach>
