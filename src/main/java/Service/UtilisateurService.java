@@ -7,7 +7,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+
+import java.security.MessageDigest;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
 public class UtilisateurService extends Utilisateur {
+    @Autowired
+    TokenUtilisateurDAO repo;
     public Utilisateur getUtilisateur(String mail,String mdp)
     {
         String req="select * from Utilisateur where (nom='"+mail+"' or mail='"+mail+"') and mdp='"+mdp+"'";
@@ -17,6 +26,63 @@ public class UtilisateurService extends Utilisateur {
         if(list.size()>0)
         {
             a=list.get(0);
+        }
+        return a;
+    }
+    public String byteToHex(byte[] b)
+    {
+        String result="";
+        for(int i=0;i<b.length;i++)
+        {
+            result+=Integer.toString((b[i] & 0xff) + 0x100,16).substring(1);
+        }
+        return result;
+    }
+    public String token(String mail,String mdp) 
+    {
+        String sha1=null;
+        Utilisateur a=getUtilisateur(mail, mdp);
+        if(a!=null)
+        {
+            try{
+                String idNom=a.getNom()+a.getMdp();
+                MessageDigest msg=MessageDigest.getInstance("SHA-1");
+                msg.reset();
+                msg.update(idNom.getBytes("iso-8859-1"),0,idNom.length());
+                sha1=byteToHex(msg.digest());
+                Timestamp now=new Timestamp(System.currentTimeMillis());
+                Timestamp late=new Timestamp(now.getTime()+(21600*1000));
+                Date dt=new Date(late.getTime());
+                Integer in=new Integer(a.getId());
+                System.out.println(now+"   "+dt);
+                TokenUtilisateur tok=new TokenUtilisateur(in.toString(),a.getNom(),a.getMail(),a.getMdp(),sha1,dt);
+                repo.insert(tok);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(sha1);
+        return sha1;
+    }
+    public void deleteToken(String token)
+    {
+        this.repo.deleteByToken(token);
+    }
+    public Utilisateur verifToken(String token)
+    {
+        Utilisateur a=null;
+        Timestamp t=new Timestamp(System.currentTimeMillis());
+        Date dt=new Date(t.getTime());
+        List<TokenUtilisateur> tk=repo.findByTokenAndDateExpireGreaterThan(token,dt);
+        if(tk.size()>0)
+        {
+            TokenUtilisateur tkk=tk.get(0);
+            System.out.println(tkk.getIdUtilisateur());
+            Integer id=new Integer(tkk.getIdUtilisateur());
+            Utilisateur ad=new Utilisateur(id.intValue(),tkk.getNom(),tkk.getMdp(),tkk.getMail());
+            a=ad;
         }
         return a;
     }
