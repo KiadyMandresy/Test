@@ -24,8 +24,7 @@ import java.nio.file.*;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:2004")
-
+@CrossOrigin(origins="https://test-rojo.herokuapp.com")
 public class WebServiceSignRegion extends SignalementService{
     
     @GetMapping("/signalements/{type}/{date1}/{date2}/{statut}/{region}")
@@ -100,15 +99,14 @@ public class WebServiceSignRegion extends SignalementService{
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
         }
-
         try {
             byte[] bytes = file.getBytes();
-            String chemin="../../../../../resources/static/img/";
+            String chemin="D://Uwamp//www//Test3//src//main//resources//static//img//";
             Path path = Paths.get(chemin + file.getOriginalFilename());
             String ph=file.getOriginalFilename();
-            insertPhoto(ph,id);
             Files.write(path, bytes);
             redirectAttributes.addFlashAttribute("message","You successfully uploaded '" + file.getOriginalFilename() + "'");
+            insertPhoto(ph,id);
         } 
         catch (IOException e) 
         {
