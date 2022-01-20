@@ -102,13 +102,14 @@ public class WebServiceSignRegion extends SignalementService{
 
         try {
             byte[] bytes = file.getBytes();
-            String chemin="src\\main\\resources\\static\\img\\";
+            System.out.println(System.getProperty("user.dir")+"   soa");
+            String chemin=System.getProperty("user.dir")+"\\src\\main\\resources\\static\\img\\";
             Path path = Paths.get(chemin + file.getOriginalFilename());
             String ph=file.getOriginalFilename();
-            System.out.println(path);
-            insertPhoto(ph,id);
+            System.out.println(path+" asdfgh");
             Files.write(path, bytes);
             redirectAttributes.addFlashAttribute("message","You successfully uploaded '" + file.getOriginalFilename() + "'");
+            insertPhoto(ph,id);
         } 
         catch (IOException e) 
         {
