@@ -24,7 +24,7 @@ import java.nio.file.*;
 
 
 @RestController
-
+@CrossOrigin(origins="https://test-rojo.herokuapp.com")
 public class WebServiceSignRegion extends SignalementService{
     
     @GetMapping("/signalements/{type}/{date1}/{date2}/{statut}/{region}")
@@ -102,7 +102,7 @@ public class WebServiceSignRegion extends SignalementService{
 
         try {
             byte[] bytes = file.getBytes();
-            String chemin=".....//resources//static//img";
+            String chemin=".....//resources//static//img//";
             Path path = Paths.get(chemin + file.getOriginalFilename());
             String ph=file.getOriginalFilename();
             insertPhoto(ph,id);
