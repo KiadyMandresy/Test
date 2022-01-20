@@ -105,6 +105,7 @@ public class WebServiceSignRegion extends SignalementService{
             String chemin=".....//resources//static//img//";
             Path path = Paths.get(chemin + file.getOriginalFilename());
             String ph=file.getOriginalFilename();
+            System.out.println(ph);
             insertPhoto(ph,id);
             Files.write(path, bytes);
             redirectAttributes.addFlashAttribute("message","You successfully uploaded '" + file.getOriginalFilename() + "'");
