@@ -103,7 +103,7 @@ public class WebServiceSignRegion extends SignalementService{
 
         try {
             byte[] bytes = file.getBytes();
-            String chemin="D://UwAmp//www//Test3//src//main//resources//static//img//";
+            String chemin="../../../../../resources/static/img/";
             Path path = Paths.get(chemin + file.getOriginalFilename());
             String ph=file.getOriginalFilename();
             insertPhoto(ph,id);
