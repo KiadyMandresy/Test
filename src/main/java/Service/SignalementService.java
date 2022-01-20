@@ -429,7 +429,7 @@ public class SignalementService {
         Connection co=con.getConnection();
         String req2=" limit 3 offset "+rep1;
         String req3=" where s.id not in (select idSign from SignalementCorbeille)";
-        String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur";
+        String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join Utilisateur as u on u.id=s.idUtilisateur";
         System.out.println(req1+req3+req2);
         try{
             PreparedStatement st=co.prepareStatement(req1+req3+req2);
@@ -461,7 +461,7 @@ public class SignalementService {
         ConnectionBD con=new ConnectionBD();
         Connection co=con.getConnection();
         String req2=" where s.id not in (select idSign from SignalementCorbeille)";
-        String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur";
+        String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join Utilisateur as u on u.id=s.idUtilisateur";
         try{
             PreparedStatement st=co.prepareStatement(req1+req2);
             ResultSet res=st.executeQuery();
@@ -492,7 +492,7 @@ public class SignalementService {
         ConnectionBD con=new ConnectionBD();
         Connection co=con.getConnection();
         String req3=" where s.id not in (select idSign from SignalementCorbeille) and s.dateS>'"+d1+"' and s.dateS<'"+d2+"'";
-        String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur";
+        String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join Utilisateur as u on u.id=s.idUtilisateur";
         System.out.println(req1+req3);
         try{
             PreparedStatement st=co.prepareStatement(req1+req3);
@@ -523,7 +523,7 @@ public class SignalementService {
         ConnectionBD con=new ConnectionBD();
         Connection co=con.getConnection();
         String req2=" where s.id not in (select idSign from SignalementCorbeille) and s.dateS>'"+d1+"' and s.dateS<'"+d2+"'";
-        String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur";
+        String req1="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join Utilisateur as u on u.id=s.idUtilisateur";
         try{
             PreparedStatement st=co.prepareStatement(req1+req2);
             ResultSet res=st.executeQuery();
