@@ -442,7 +442,7 @@ public class SignalementService {
                 double x=res.getDouble("x");
                 double y=res.getDouble("y");
                 String n=res.getString("nom");
-                String photos=res.getString("photos");
+                String photos="";
                 String idu=res.getString("Personne");
                 SignalementGlobal sing=new SignalementGlobal(id,com,date,x,y,n,photos,idu);
                 rep.add(sing);
@@ -473,7 +473,7 @@ public class SignalementService {
                 double x=res.getDouble("x");
                 double y=res.getDouble("y");
                 String n=res.getString("nom");
-                String photos=res.getString("photos");
+                String photos="";
                 String idu=res.getString("Personne");
                 SignalementGlobal sing=new SignalementGlobal(id,com,date,x,y,n,photos,idu);
                 rep.add(sing);
@@ -505,7 +505,7 @@ public class SignalementService {
                 double x=res.getDouble("x");
                 double y=res.getDouble("y");
                 String n=res.getString("nom");
-                String photos=res.getString("photos");
+                String photos="";
                 String idu=res.getString("Personne");
                 SignalementGlobal sing=new SignalementGlobal(id,com,date,x,y,n,photos,idu);
                 rep.add(sing);
@@ -535,7 +535,7 @@ public class SignalementService {
                 double x=res.getDouble("x");
                 double y=res.getDouble("y");
                 String n=res.getString("nom");
-                String photos=res.getString("photos");
+                String photos="";
                 String idu=res.getString("Personne");
                 SignalementGlobal sing=new SignalementGlobal(id,com,date,x,y,n,photos,idu);
                 rep.add(sing);
