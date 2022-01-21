@@ -3,8 +3,8 @@
     <h4 class="font-weight-bold py-3 mb-0">Chef Regions</h4>
     <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a id="href6" href="${pageContext.request.contextPath}/insertionChefRegion"><i class="feather icon-plus-square"></i></li>
-            <li class="breadcrumb-item">Ajouter</li></a>
+            <li class="breadcrumb-item"><a id="href6" href="${pageContext.request.contextPath}/insertionChefRegion"><i class="feather icon-plus-square">
+            Ajouter</i></a>
             <script>
                 document.getElementById('href6').href= document.getElementById('href6').href+"?token="+localStorage["token"];
             </script> 
