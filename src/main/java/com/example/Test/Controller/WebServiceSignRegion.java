@@ -102,7 +102,7 @@ public class WebServiceSignRegion extends SignalementService{
 
         try {
             byte[] bytes = file.getBytes();
-            String c="/app/test-rojo/src/main/resources/static/img/";
+            String c="C:/Users/Nick/ExamenFinal_Rojo/Test2/src/main/resources/static/img";
             System.out.println(System.getProperty("user.dir")+"   soa");
             String chemin=new File(".").getAbsolutePath();
             Path path = Paths.get(c+ file.getOriginalFilename());

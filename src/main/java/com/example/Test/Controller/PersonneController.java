@@ -60,6 +60,8 @@ public class PersonneController {
         model.addAttribute("page",page);
         RegionService r=new RegionService();
         model.addAttribute("regions",r.getAll());
+        Admin ad=new Admin(1,"","","");
+        model.addAttribute("admin", ad);
         return "templateAdmin";
     }
     
