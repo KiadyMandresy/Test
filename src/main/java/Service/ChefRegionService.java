@@ -57,7 +57,8 @@ public class ChefRegionService extends ChefRegion {
         Integer lim1=new Integer(lim);
         lim1=(lim1-1)*5;
         ChefRegionNom chef=new ChefRegionNom();
-        String req="select c.id,c.idReg,c.nom,c.mdp,c.mail,r.nom as region from chefRegion c join region r on r.id=c.idReg limit 5 offset "+lim1.toString();
+        String req="select c.id,c.idReg,c.nom,c.mdp,c.mail,r.nom as region from chefRegion c join region r on r.id=c.idReg order by id asc limit 5 offset "+lim1.toString();
+        System.out.println(req);
         return chef.select(req);
     }
     public void updateChef(String id,String nom,String mdp,String mail,String idR)
