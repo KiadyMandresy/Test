@@ -52,9 +52,10 @@
                                             <span class="dropdown-item">Choix de region</span>
                                             <div class="dropdown-divider"></div>
                                             <c:forEach items="${reg}" var ="rg">
-                                            <a id="href10" class="dropdown-item" href="${pageContext.request.contextPath}/signalementValide?id=${serv.getId()}&&region=${rg.getId()}">${rg.getNom()}</a>
+                                            <c:set var="page" value="page+${rg.getId()}"></c:set>
+                                            <a id="${page}" class="dropdown-item" href="${pageContext.request.contextPath}/signalementValide?id=${serv.getId()}&&region=${rg.getId()}">${rg.getNom()}</a>
                                             <script>
-                                                document.getElementById('href10').href= document.getElementById('href10').href+"&&token="+localStorage["token"];
+                                                document.getElementById('${page}').href= document.getElementById('${page}').href+"&&token="+localStorage["token"];
                                            </script> 
                                         </c:forEach>
                                         </div>
