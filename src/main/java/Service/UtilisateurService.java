@@ -13,6 +13,10 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.*;
+  
 import org.springframework.beans.factory.annotation.Autowired;
 public class UtilisateurService extends Utilisateur {
     @Autowired
@@ -85,5 +89,28 @@ public class UtilisateurService extends Utilisateur {
             a=ad;
         }
         return a;
+    }
+
+    public boolean test_misyArobaze(String mail){
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+        "[a-zA-Z0-9_+&*-]+)*@" +
+        "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+        "A-Z]{2,7}$";
+          
+        Pattern pat = Pattern.compile(emailRegex);
+        if (mail == null)
+            return false;
+        return pat.matcher(mail).matches();
+     }
+
+
+     public boolean testMail(String mail){
+        return true;
+     }
+
+    public static void main(String[] args){
+        UtilisateurService us = new UtilisateurService();
+        String mail = "qlq@lol.com";
+        System.out.println(us.test_misyArobaze(mail));
     }
 }
