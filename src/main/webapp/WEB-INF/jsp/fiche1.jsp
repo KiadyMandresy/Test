@@ -95,7 +95,7 @@
                         <ul class="pagination">
                             <c:forEach  var="i" begin="1" end="${countPhoto}">
                                 
-                            <c:set var="page" value="page+${i}"></c:set>
+                            <c:set var="page" value="page3+${i}"></c:set>
                             <li class="page-item ">
                                 <a id="${page}" class="page-link" href="${pageContext.request.contextPath}/signalement?nb=${i}&&id=${serv.getId()}">${i}</a>
                                 <script>
