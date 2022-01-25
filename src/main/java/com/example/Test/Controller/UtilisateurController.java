@@ -22,7 +22,8 @@ public class UtilisateurController extends UtilisateurService{
         String test = "mety ny insertion";
         String non = "tsy tafiditra";
         UtilisateurService us = new UtilisateurService();
-        if(us.test_misyArobaze(mail)==true){
+        int verif=us.getVerifMdp(mdp);
+        if(us.test_misyArobaze(mail)==true || verif==1){
             Utilisateur util = new Utilisateur(0, nom, mdp, mail);
             util.insert();
             return test;
