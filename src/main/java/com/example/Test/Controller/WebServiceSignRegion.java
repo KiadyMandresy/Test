@@ -92,32 +92,32 @@ public class WebServiceSignRegion extends SignalementService{
         int id=insertSignalement(type,com,x,y,util);
         for (MultipartFile file: fil) 
        {
-        if (file.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-        }
+            if (file.isEmpty()) {
+                redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
+            }
 
-        try {
-            byte[] bytes = file.getBytes();
-            String c="D:/Uwamp/www/Test3/src/main/resources/static/img/";
-            System.out.println(System.getProperty("user.dir")+"   soa");
-            String chemin=new File(".").getAbsolutePath();
-            Path path = Paths.get(c+ file.getOriginalFilename());
-            String ph=file.getOriginalFilename();
-            System.out.println(chemin+" asdfgh");
-            Files.write(path, bytes);
-            redirectAttributes.addFlashAttribute("message","You successfully uploaded '" + file.getOriginalFilename() + "'");
-            Integer idd=new Integer(id);
-            insertPhoto(ph,idd.toString());
-        } 
-        catch (IOException e) 
-        {
-            e.printStackTrace();
-        }
-       }
+            try {
+                byte[] bytes = file.getBytes();
+                String c="D:/Uwamp/www/Test3/src/main/resources/static/img/";
+                System.out.println(System.getProperty("user.dir")+"   soa");
+                String chemin=new File(".").getAbsolutePath();
+                Path path = Paths.get(c+ file.getOriginalFilename());
+                String ph=file.getOriginalFilename();
+                System.out.println(chemin+" asdfgh");
+                Files.write(path, bytes);
+                redirectAttributes.addFlashAttribute("message","You successfully uploaded '" + file.getOriginalFilename() + "'");
+                Integer idd=new Integer(id);
+                insertPhoto(ph,idd.toString());
+            } 
+            catch (IOException e) 
+            {
+                e.printStackTrace();
+            }
+         }
         Gson g=new Gson();
         return g.toJson(id);
     }
-    @PostMapping("/detailSignalement/{id}") 
+   /* @PostMapping("/detailSignalement/{id}") 
     public String detailSignalement(@RequestParam("photo") MultipartFile[] fil,RedirectAttributes redirectAttributes,@PathVariable("id") String id) {
        for (MultipartFile file: fil) 
        {
@@ -144,5 +144,5 @@ public class WebServiceSignRegion extends SignalementService{
        }
         Gson g=new Gson();
         return g.toJson(id);
-    }
+    }*/
 }
