@@ -19,10 +19,16 @@ public class UtilisateurController extends UtilisateurService{
 
     @PostMapping ("/utilisateur/{nom}/{mdp}/{mail}")
     public String insert(@PathVariable("nom") String nom,@PathVariable("mdp") String mdp,@PathVariable("mail") String mail) {
-        String test = "tokony mety";
-        Utilisateur util = new Utilisateur(0, nom, mdp, mail);
-        util.insert();
-        return test;
+        String test = "mety ny insertion";
+        String non = "tsy tafiditra";
+        UtilisateurService us = new UtilisateurService();
+        if(us.test_misyArobaze(mail)==true){
+            Utilisateur util = new Utilisateur(0, nom, mdp, mail);
+            util.insert();
+            return test;
+        }
+        return non;   
+        
     }
     @GetMapping ("/utilisateurs/{nom}/{mdp}")
     public String login(@PathVariable("nom") String nom,@PathVariable("mdp") String mdp)
@@ -65,5 +71,14 @@ public class UtilisateurController extends UtilisateurService{
         Gson g=new Gson();
         deleteToken(token);
         return g.toJson(hash);
+    }
+
+    @GetMapping ("/utilisateurs/{mail}")
+    public String login(@PathVariable("mail") String mail)
+    {
+        String lol = "test";
+        UtilisateurService us = new UtilisateurService();
+        System.out.println(us.test_misyArobaze(mail));
+        return lol;
     }
 }
