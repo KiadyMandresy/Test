@@ -28,7 +28,15 @@ public class UtilisateurController extends UtilisateurService{
             util.insert();
             return test;
         }
-        return non;   
+        else if(verif==0 && us.test_misyArobaze(mail)==true)
+        {
+            return "tsy mety ny mdp";
+        }
+        else if(us.test_misyArobaze(mail)==false && verif==1)
+        {
+            return "tsy mety ny mail";
+        }
+        return "tsy mety ny mdp sy mail";   
         
     }
     @GetMapping ("/utilisateurs/{nom}/{mdp}")
