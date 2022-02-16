@@ -1,5 +1,7 @@
 package Service;
 import Entity.*;
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
@@ -7,13 +9,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
 import java.security.MessageDigest;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.*;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 public class UtilisateurService extends Utilisateur {
     @Autowired
     TokenUtilisateurDAO repo;
@@ -86,4 +95,39 @@ public class UtilisateurService extends Utilisateur {
         }
         return a;
     }
+
+    public boolean test_misyArobaze(String mail){
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+        "[a-zA-Z0-9_+&*-]+)*@" +
+        "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+        "A-Z]{2,7}$";
+          
+        Pattern pat = Pattern.compile(emailRegex);
+        if (mail == null)
+            return false;
+        return pat.matcher(mail).matches();
+     }
+
+
+     public boolean testMail(String mail){
+        return true;
+     }
+
+    public String removeDiacriticalMarks(String string) {
+        return Normalizer.normalize(string, Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+    }
+
+    public int getVerifMdp(String mdp){
+        int rep=0;
+        String input =removeDiacriticalMarks(mdp);
+        int count=mdp.length();
+        if(mdp.equals(input) && count>=8){
+            System.out.println("Mdp1:"+mdp+" Mdp2:"+input);
+            rep=1;
+        }
+        return rep;
+    }
+
+
+    
 }
