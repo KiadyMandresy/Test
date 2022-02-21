@@ -651,14 +651,11 @@ public class SignalementService {
         DetailSignalement dt=new DetailSignalement(0,idd.intValue(),photo);
         dt.insert();
     }
-    public List<SignalementRegion> getSignPersonneEnCours(String nom,int indice){
-        int rep1,rep2;
-        rep1=((indice-1)*3);
-        rep2=indice*3;
+    public List<SignalementRegion> getSignPersonneEnCours(String nom){
         List<SignalementRegion> rep=new ArrayList<>();
         /** */
-        String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur";
-        String req1=" where u.nom='"+nom+"' limit 3 offset "+rep1;
+        String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom,ty.nom as typeS from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur join TypeSignalement as ty on ty.id=s.idType";
+        String req1=" where u.nom='"+nom+"' and  sv.idSign not in(select idSignV from SignalementTermine)";
         try{
             System.out.println(req+req1);
             ConnectionBD co=new ConnectionBD();
@@ -667,7 +664,7 @@ public class SignalementService {
             ResultSet res=st.executeQuery();
             while(res.next())
             {
-                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("nom"));
+                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("nom"),res.getString("typeS"));
                 rep.add(reg);
             }
             con.close();
@@ -681,7 +678,7 @@ public class SignalementService {
         int reps=0;
         List<SignalementRegion> rep=new ArrayList<>();
         /** */
-        String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur";
+        String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom,ty.nom as typeS from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur join TypeSignalement as ty on ty.id=s.idType";
         String req1=" where u.nom='"+nom+"'";
         try{
             System.out.println(req+req1);
@@ -691,7 +688,7 @@ public class SignalementService {
             ResultSet res=st.executeQuery();
             while(res.next())
             {
-                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("nom"));
+                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("nom"),res.getString("typeS"));
                 rep.add(reg);
             }
             con.close();
@@ -702,14 +699,11 @@ public class SignalementService {
         return reps;
     }
 
-    public List<SignalementRegion> getSignPersonneTerminer(String nom,int indice){
-        int rep1,rep2;
-        rep1=((indice-1)*3);
-        rep2=indice*3;
+    public List<SignalementRegion> getSignPersonneTerminer(String nom){
         List<SignalementRegion> rep=new ArrayList<>();
         /** */
-        String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur join SignalementTermine as st on sv.id=st.idSignV";
-        String req1=" where u.nom='"+nom+"' limit 3 offset "+rep1;
+        String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom,ty.nom as typeS from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur join SignalementTermine as st on sv.id=st.idSignV join TypeSignalement as ty on ty.id=s.idType";
+        String req1=" where u.nom='"+nom+"'";
         try{
             System.out.println(req+req1);
             ConnectionBD co=new ConnectionBD();
@@ -718,7 +712,30 @@ public class SignalementService {
             ResultSet res=st.executeQuery();
             while(res.next())
             {
-                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("nom"));
+                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("nom"),res.getString("typeS"));
+                rep.add(reg);
+            }
+            con.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return rep;
+    }
+
+    public List<SignalementRegion> getSignPersonneNonValide(String nom){
+        List<SignalementRegion> rep=new ArrayList<>();
+        /** */
+        String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,ty.nom as typeS from Signalement as s join Utilisateur as u  on u.id=s.idUtilisateur join TypeSignalement as ty on ty.id=s.idType";
+        String req1=" where u.nom='"+nom+"' and s.id not in(select idSign from SignalementValide)";
+        try{
+            System.out.println(req+req1);
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req+req1);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("nom"),res.getString("typeS"));
                 rep.add(reg);
             }
             con.close();
@@ -732,7 +749,7 @@ public class SignalementService {
         int reps=0;
         List<SignalementRegion> rep=new ArrayList<>();
         /** */
-        String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur join SignalementTermine as st on sv.id=st.idSignV";
+        String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom,ty.nom as typeS from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur join SignalementTermine as st on sv.id=st.idSignV join TypeSignalment as ty on ty.id=s.idType";
         String req1=" where u.nom='"+nom+"'";
         try{
             System.out.println(req+req1);
@@ -742,7 +759,7 @@ public class SignalementService {
             ResultSet res=st.executeQuery();
             while(res.next())
             {
-                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("nom"));
+                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("nom"),res.getString("typeS"));
                 rep.add(reg);
             }
             con.close();

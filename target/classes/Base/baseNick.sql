@@ -104,6 +104,7 @@ insert into SignalementValide(idSign,idReg) values(6,2);
 insert into SignalementValide(idSign,idReg) values(7,2);
 insert into SignalementValide(idSign,idReg) values(8,2);
 insert into SignalementValide(idSign,idReg) values(9,2);
+insert into SignalementValide(idSign,idReg) values(3,3);
 create table SignalementTermine(
          id serial primary key,
          idSignV int,
@@ -111,7 +112,7 @@ create table SignalementTermine(
          budget float,
       FOREIGN KEY (idSignV) REFERENCES SignalementValide(id)
 );
-insert into SignalementTermine(idSignV,dateS,budget) values(9,'2021-12-20'::timestamp,2500.0)
+insert into SignalementTermine(idSignV,dateS,budget) values(5,'2021-12-20'::timestamp,2500.0)
 create table Notification(
      id serial primary key,
      idSignTermine int,
@@ -135,7 +136,7 @@ where s.dateS>'2021-05-10' and s.dateS<'2021-11-01'
 group by r.id
 
 
-select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom from Signalement as s
+select s.id,s.commentaire,s.dates,s.x,s.y,u.nom,ty.nom as utilisateur,u.mail,r.nom from Signalement as s
 join SignalementValide as sv 
 on sv.idSign=s.id
 join Region as r 
@@ -144,4 +145,26 @@ join Utilisateur as u
 on u.id=s.idUtilisateur
 join SignalementTermine as st
 on sv.id=st.idSignV
+join TypeSignalement as ty
+on s.idType=ty.id
 where u.nom='nick'
+
+select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom from SignalementValide as sv 
+join Signalement as s on sv.idSign=s.id 
+join Region as r on r.id=sv.idReg 
+join Utilisateur as u on u.id=s.idUtilisateur
+where u.nom='Rakotomananana Nick Mathieu' and sv.idSign not in(select idSignV from SignalementTermine)
+
+
+select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom from SignalementValide as sv 
+join Signalement as s 
+on sv.idSign=s.id 
+join Region as r 
+on r.id=sv.idReg 
+join Utilisateur as u 
+on u.id=s.idUtilisateur 
+join SignalementTermine as st 
+on sv.id=st.idSignV
+
+select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail from Signalement as s join Utilisateur as u  on u.id=s.idUtilisateur 
+where u.nom="'"+nom+"'" and s.id not in(select idSign from SignalementValide)

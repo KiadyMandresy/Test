@@ -12,7 +12,14 @@ public class SignalementRegion {
     String nom;
     String mail;
     String reg;
+    String  type;
 
+    public void setType(String n){
+        this.type=n;
+    }
+    public String getType(){
+        return this.type;
+    }
     public void setId(int id) {
         this.id = id;
     }
@@ -66,7 +73,7 @@ public class SignalementRegion {
     public SignalementRegion(){
 
     }
-    public SignalementRegion(int i,String c,Timestamp d,double xx,double yy,String n,String m,String re){
+    public SignalementRegion(int i,String c,Timestamp d,double xx,double yy,String n,String m,String re,String t){
         this.id=i;
         this.commentaire=c;
         this.dateS=d;
@@ -75,6 +82,7 @@ public class SignalementRegion {
         this.nom=n;
         this.mail=m;
         this.reg=re;
+        this.type=t;
     }
 
 }
