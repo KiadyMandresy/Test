@@ -47,7 +47,7 @@ public class UtilisateurService extends Utilisateur {
         }
         return result;
     }
-    public String token(String mail,String mdp) 
+    public String token(String mail,String mdp)  
     {
         String sha1=null;
         Utilisateur a=getUtilisateur(mail, mdp);

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-
+@CrossOrigin(origins = "http://localhost:2004")
 public class WebServiceMobile {
     
     @GetMapping("/signalementUtilisateurEnCours/{nom}/{lim}")
@@ -38,6 +38,30 @@ public class WebServiceMobile {
         Gson g=new Gson();
         rep.put("lise_Signalement",ser.getSignPersonneEnCours(nom,ii));
         String r=g.toJson(rep);
+        return r;
+    }
+    @GetMapping("/signalementUtilisateur/{nom}/{lim}")
+    public String listeSingEnCour(@PathVariable("nom") String nom,@PathVariable("lim") String lim)
+    {
+        HashMap rep=new HashMap<>();
+        SignalementService ser=new SignalementService();
+        int cc=ser.countGetSignUtil(nom)/3;
+        int count=ser.countGetSignUtil(nom)%3;
+        if(count!=0){
+            cc=cc+1;
+        }
+        Integer i=new Integer(lim);
+        int ii=i.intValue();
+        rep.put("lim", cc);
+        Gson g=new Gson();
+        rep.put("lise_Signalement",ser.getSignPersonneEnCours(nom,ii));
+        List<SignalementRegion> l=ser.getSignPersonneEnCours(nom,ii);
+        SignalementRegion[] ss=new SignalementRegion[l.size()];
+        for(int iii=0;iii<ss.length;iii++)
+        {
+            ss[iii]=l.get(iii);
+        }
+        String r=g.toJson(ss);
         return r;
     }
 
