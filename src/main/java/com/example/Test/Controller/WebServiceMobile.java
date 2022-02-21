@@ -22,41 +22,38 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class WebServiceMobile {
     
-    @GetMapping("/signalementUtilisateurEnCours/{nom}/{lim}")
-    public String listeSingEnCours(@PathVariable("nom") String nom,@PathVariable("lim") String lim)
+    @GetMapping("/signalementUtilisateurEnCours/{nom}")
+    public String listeSingEnCours(@PathVariable("nom") String nom)
     {
         HashMap rep=new HashMap<>();
         SignalementService ser=new SignalementService();
-        int cc=ser.countGetSignUtil(nom)/3;
-        int count=ser.countGetSignUtil(nom)%3;
-        if(count!=0){
-            cc=cc+1;
-        }
-        Integer i=new Integer(lim);
-        int ii=i.intValue();
-        rep.put("lim", cc);
         Gson g=new Gson();
-        rep.put("lise_Signalement",ser.getSignPersonneEnCours(nom,ii));
+        rep.put("lise_Signalement",ser.getSignPersonneEnCours(nom));
         String r=g.toJson(rep);
         return r;
     }
 
-    @GetMapping("/signalementUtilsateurTermine/{nom}/{lim}")
-    public String ListeSignTermine(@PathVariable("nom") String nom,@PathVariable("lim") String lim)
+    @GetMapping("/signalementUtilsateurTermine/{nom}")
+    public String ListeSignTermine(@PathVariable("nom") String nom)
     {
         HashMap rep=new HashMap<>();
         SignalementService ser=new SignalementService();
-        int cc=ser.countGetSignUtil2(nom)/3;
-        int count=ser.countGetSignUtil2(nom)%3;
-        if(count!=0){
-            cc=cc+1;
-        }
-        Integer i=new Integer(lim);
-        int ii=i.intValue();
-        rep.put("lim", cc);
         Gson g=new Gson();
-        rep.put("lise_Signalement",ser.getSignPersonneTerminer(nom,ii));
+        rep.put("liste_Signalement",ser.getSignPersonneTerminer(nom));
         String r=g.toJson(rep);
         return r;
     }
+
+    @GetMapping("/signalementUtilsateurNonValide/{nom}")
+    public String ListeSignNonValide(@PathVariable("nom") String nom)
+    {
+        HashMap rep=new HashMap<>();
+        SignalementService ser=new SignalementService();
+        Gson g=new Gson();
+        rep.put("liste_Signalement",ser.getSignPersonneNonValide(nom));
+        String r=g.toJson(rep);
+        return r;
+    }
+
+
 }
