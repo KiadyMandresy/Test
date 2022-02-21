@@ -735,7 +735,7 @@ public class SignalementService {
             ResultSet res=st.executeQuery();
             while(res.next())
             {
-                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("nom"),res.getString("typeS"));
+                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("utilisateur"),res.getString("typeS"));
                 rep.add(reg);
             }
             con.close();
