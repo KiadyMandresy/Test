@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,6 +54,21 @@ public class WebServiceMobile {
         rep.put("liste_Signalement",ser.getSignPersonneNonValide(nom));
         String r=g.toJson(rep);
         return r;
+    }
+    @GetMapping("/signalement/details/{id}")
+    public String ListeSign(@PathVariable("id") String nom)
+    {
+        Gson g=new Gson();
+        SignalementService ser=new SignalementService();
+        List<String> ph=ser.getPhotos(nom);
+        List<String> base=new ArrayList<>();
+        for(int i=0;i<ph.size();i++)
+        {
+            File f=new File("D:/Uwamp/www/Test3/src/main/resources/static/img/"+ph.get(i));
+            base.add(ser.toBase64(f));
+
+        }
+        return g.toJson(base);
     }
 
 

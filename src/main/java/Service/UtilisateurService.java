@@ -121,9 +121,17 @@ public class UtilisateurService extends Utilisateur {
         int rep=0;
         String input =removeDiacriticalMarks(mdp);
         int count=mdp.length();
-        if(mdp.equals(input) && count>=8){
+        if(mdp.equals(input) && count<8){
             System.out.println("Mdp1:"+mdp+" Mdp2:"+input);
             rep=1;
+        }
+        else if(mdp.equals(input)==false && count<8)
+        {
+            rep=-1;
+        }
+        else if(mdp.equals(input)==false && count>=8)
+        {
+            rep=2;
         }
         return rep;
     }

@@ -3,8 +3,13 @@ import Entity.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.*;
 import java.util.Vector;
+
+import org.apache.tomcat.util.codec.binary.Base64;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -833,6 +838,45 @@ public class SignalementService {
         {
  
         }
+    }
+    public List<String> getPhotos(String id)
+    {
+        List<String> photos=new ArrayList<>();
+        String req="select photos from detailSignalement where idSign="+id;
+        ConnectionBD co=new ConnectionBD();
+        Connection con=co.getConnection();
+        try{
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                photos.add(res.getString("photos"));
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+        return photos;
+    }
+    public String toBase64(File file)
+    {
+        String base="";
+        try
+        {
+            FileInputStream file1=new FileInputStream(file);
+            byte[] bytes=new byte[(int)file.length()];
+            file1.read(bytes);
+            String a=new String(Base64.encodeBase64(bytes));
+            System.out.println(a);
+            base=a;
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+        return base;
     }
 }
 

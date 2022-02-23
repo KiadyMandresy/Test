@@ -17,26 +17,46 @@ import java.sql.ResultSet;
 
 public class UtilisateurController extends UtilisateurService{
 
-    @PostMapping ("/utilisateur/{nom}/{mdp}/{mail}")
+    @PostMapping ("/utilisateurs/{nom}/{mdp}/{mail}")
     public String insert(@PathVariable("nom") String nom,@PathVariable("mdp") String mdp,@PathVariable("mail") String mail) {
         String test = "mety ny insertion";
         String non = "tsy tafiditra";
+        HashMap<String,Object> hash=new HashMap();
         UtilisateurService us = new UtilisateurService();
         int verif=us.getVerifMdp(mdp);
-        if(us.test_misyArobaze(mail)==true && verif==1){
+        if(us.test_misyArobaze(mail)==true && verif==0){
             Utilisateur util = new Utilisateur(0, nom, mdp, mail);
             util.insert();
-            return test;
+            hash.put("valide",0);
         }
-        else if(verif==0 && us.test_misyArobaze(mail)==true)
+        else if(us.test_misyArobaze(mail)==false && verif!=0)
         {
-            return "tsy mety ny mdp";
+            hash.put("valide",1);
+            hash.put("erreur","Mot de passe invalide et mail inexistant");
         }
-        else if(us.test_misyArobaze(mail)==false && verif==1)
+        else if(verif!=0 && us.test_misyArobaze(mail)==true)
         {
-            return "tsy mety ny mail";
+            hash.put("valide",1);
+            if(verif==1)
+            {
+                hash.put("erreur","Le mot de passe doit contenir 8 caracteres ");
+            }
+            else if(verif==-1)
+            {
+                hash.put("erreur","Le mot de passe doit contenir 8 caracteres et ne doit pas contenir des caracteres avec accents ");
+            }
+            else
+            {
+                hash.put("erreur","Le mot de passe ne doit pas contenir des caracteres avec accents ");
+            }
+           // hash.put("message"," ")
         }
-        return "tsy mety ny mdp sy mail";   
+        else if(us.test_misyArobaze(mail)==false && verif==0)
+        {
+            hash.put("erreur","Votre email est invalide");
+        }
+        Gson g=new Gson();
+        return g.toJson(hash); 
         
     }
     @GetMapping ("/utilisateurs/{nom}/{mdp}")
@@ -47,11 +67,13 @@ public class UtilisateurController extends UtilisateurService{
         if(u!=null)
         {
             hash.put("utilisateur",u);
-            hash.put("token",token(nom, mdp));
+            hash.put("valide",true);
+            hash.put("token",token(nom,mdp));
         }
         else
         {
             hash.put("erreur", "mot de passe ou mail invalide");
+            hash.put("valide",false);
         }
         Gson g=new Gson();
         return g.toJson(hash);
@@ -63,11 +85,12 @@ public class UtilisateurController extends UtilisateurService{
         HashMap<String,Object> hash=new HashMap();
         if(chef==null)
         {
-            hash.put("erreur",1);
+            hash.put("token",false);
         }
         else
         {
-            hash.put("chef",chef);
+            hash.put("token",true);
+            hash.put("ut",chef);
         }
         Gson g=new Gson();
         return g.toJson(hash);
