@@ -660,7 +660,7 @@ public class SignalementService {
         List<SignalementRegion> rep=new ArrayList<>();
         /** */
         String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom,ty.nom as typeS from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur join TypeSignalement as ty on ty.id=s.idType";
-        String req1=" where u.nom='"+nom+"' and  sv.idSign not in(select idSignV from SignalementTermine)";
+        String req1=" where u.nom='"+nom+"' and  sv.id not in(select idSignV from SignalementTermine)";
         try{
             System.out.println(req+req1);
             ConnectionBD co=new ConnectionBD();
