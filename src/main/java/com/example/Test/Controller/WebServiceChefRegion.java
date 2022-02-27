@@ -59,6 +59,7 @@ public class WebServiceChefRegion extends ChefRegionService {
         {
             hash.put("region",sv.nomReg(chef.getIdReg()));
             hash.put("chef",chef);
+            hash.put("erreur",0);
         }
         Gson g=new Gson();
         return g.toJson(hash);
