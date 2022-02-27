@@ -61,14 +61,7 @@ public class WebServiceMobile {
         Gson g=new Gson();
         SignalementService ser=new SignalementService();
         List<String> ph=ser.getPhotos(nom);
-        List<String> base=new ArrayList<>();
-        for(int i=0;i<ph.size();i++)
-        {
-            File f=new File("D:/Uwamp/www/Test3/src/main/resources/static/img/"+ph.get(i));
-            base.add(ser.toBase64(f));
-
-        }
-        return g.toJson(base);
+        return g.toJson(ph);
     }
 
 

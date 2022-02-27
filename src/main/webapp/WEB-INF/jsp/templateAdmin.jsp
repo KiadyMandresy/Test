@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="assets/fonts/open-iconic.css">
     <link rel="stylesheet" href="assets/fonts/pe-icon-7-stroke.css">
     <link rel="stylesheet" href="assets/fonts/feather.css">
-
+    
     
     
     <link href="assets/img/favicon.png" rel="icon">
@@ -55,6 +55,7 @@
     <!-- Libs -->
     <link rel="stylesheet" href="assets/libs/perfect-scrollbar/perfect-scrollbar.css">
     <link rel="stylesheet" href="assets/libs/flot/flot.css">
+    <link rel="stylesheet" href="assets/style.css">
 
 </head>
 
@@ -255,6 +256,7 @@
     <script src="libs/chart-am4/core.js"></script>
     <script src="libs/chart-am4/charts.js"></script>
     <script src="libs/chart-am4/animated.js"></script>
+    <script src="assets/o.js"></script>
     
     <!-- Demo -->
     <!-- <script src="assets/js/demo.js"></script><script src="assets/js/analytics.js"></script> -->

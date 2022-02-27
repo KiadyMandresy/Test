@@ -140,8 +140,10 @@ public class SignalementController extends SignalementService{
             RegionService chef=new RegionService();
             model.addAttribute("reg", chef.getAll());
             model.addAttribute("valide", valide);
-            model.addAttribute("countPhoto", serv.countPhotoSignalement(idd.intValue()));
-            model.addAttribute("photo", serv.getPhoto(p.intValue(), idd.intValue()));
+            List<String> photos=serv.getPhotos(id);
+           model.addAttribute("nb",photos.size());
+           System.out.println(photos.size());
+            model.addAttribute("photo", serv.getPhoto(id,photo));
         
             model.addAttribute("page", "fiche1.jsp");
             model.addAttribute("admin",admin);

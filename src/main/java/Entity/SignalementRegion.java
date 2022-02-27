@@ -13,7 +13,7 @@ public class SignalementRegion {
     String mail;
     String reg;
     String  type;
-
+    String statut;
     public void setType(String n){
         this.type=n;
     }
@@ -83,6 +83,18 @@ public class SignalementRegion {
         this.mail=m;
         this.reg=re;
         this.type=t;
+    }
+    public SignalementRegion(int i,String c,Timestamp d,double xx,double yy,String n,String m,String re,String t,String s){
+        this.id=i;
+        this.commentaire=c;
+        this.dateS=d;
+        this.x=xx;
+        this.y=yy;
+        this.nom=n;
+        this.mail=m;
+        this.reg=re;
+        this.type=t;
+        this.statut=s;
     }
 
 }

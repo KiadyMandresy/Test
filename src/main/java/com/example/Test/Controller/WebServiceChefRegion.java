@@ -31,12 +31,16 @@ public class WebServiceChefRegion extends ChefRegionService {
         HashMap<String,Object> hash=new HashMap();
         if(u!=null)
         {
-            hash.put("chef",u);
+            hash.put("valide",true);
             hash.put("token",token(nom, mdp));
+            hash.put("chef",u);
         }
         else
         {
+            hash.put("valide",false);
+           
             hash.put("erreur", "mot de passe ou mail invalide");
+
         }
         Gson g=new Gson();
         return g.toJson(hash);
@@ -45,6 +49,7 @@ public class WebServiceChefRegion extends ChefRegionService {
     public String token(@PathVariable(name="token")String token)
     {
         ChefRegion chef=service.verifToken(token);
+        SignalementService sv=new SignalementService();
         HashMap<String,Object> hash=new HashMap();
         if(chef==null)
         {
@@ -52,6 +57,7 @@ public class WebServiceChefRegion extends ChefRegionService {
         }
         else
         {
+            hash.put("rehion",sv.nomReg(chef.getIdReg()));
             hash.put("chef",chef);
         }
         Gson g=new Gson();

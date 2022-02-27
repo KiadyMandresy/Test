@@ -87,13 +87,14 @@
                     <h6 class="card-header-title mb-0" style="color:rgb(255, 106, 34);">Photos</h6>
                 </div>
                 <div class="card-body">
+                   <c:if test="${nb>0}" >
                     <figure class="figure" style="max-width: 25rem">
-                        <img src="img/${photo}" class="figure-img img-fluid" alt="A generic square placeholder image with rounded corners in a figure.">
+                        <img src=${photo} style="max-width:25rm;max-heigth:20px">
                         <figcaption class="figure-caption">${serv.getType()}</figcaption>
                     </figure>
                     <nav>
                         <ul class="pagination">
-                            <c:forEach  var="i" begin="1" end="${countPhoto}">
+                            <c:forEach  var="i" begin="1" end="${nb}">
                                 
                             <c:set var="page" value="page3+${i}"></c:set>
                             <li class="page-item ">
@@ -104,7 +105,8 @@
                             </li>
                              </c:forEach>
                         </ul>
-                    </nav>
+                    </nav>   
+                </c:if>  
                 </div>
             </div>
         </div>
