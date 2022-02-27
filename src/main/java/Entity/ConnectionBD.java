@@ -11,9 +11,9 @@ public class ConnectionBD {
         try{
 
             Class.forName("org.postgresql.Driver");
-            String dbURL = "jdbc:postgresql://ec2-99-81-177-233.eu-west-1.compute.amazonaws.com:5432/d4a3es05ub57g0";
-            String user = "nacfitmmzmrucm";
-            String pass="9411b1c0b57d1ef09301475487b2cdda41379866cfdec11a0b6f293972d3e2fa";
+            String dbURL = "jdbc:postgresql://ec2-54-220-243-77.eu-west-1.compute.amazonaws.com:5432/dcjcs7q252ejoq";
+            String user = "eoachhsokrigti";
+            String pass="72fda7a47790d34124da0be6e4d1f8efd31623feecbd327651dbf820c61b6a0e";
             
        
             con = DriverManager.getConnection(dbURL, user, pass);
