@@ -18,6 +18,26 @@ public class SignalementService {
     public SignalementService(){
 
     }
+    public String nomReg(int id)
+    {
+        String reg="";
+        try{
+                ConnectionBD co=new ConnectionBD();
+                String req="select nom from region where id="+id;
+                Connection con=co.getConnection();
+                PreparedStatement st=con.prepareStatement(req);
+                ResultSet res=st.executeQuery();
+                while(res.next())
+                {
+                    reg=res.getString(0);
+                }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return reg;
+    }
     public List<SignalementValideView> rechercheAvance(String date1,String date2,String type,String statut,String region)
     {
         List<SignalementValideView> signs=new ArrayList<>();
@@ -25,7 +45,7 @@ public class SignalementService {
         {
             signs=rechercheAvanceTermine(date1,date2,type,region);
         }
-        else if(statut.toLowerCase().compareTo("non termine")==0)
+        else if(statut.toLowerCase().compareTo("en cours")==0)
         {
             signs=rechercheAvanceNonTermine(date1,date2,type,region);
         }
@@ -329,7 +349,7 @@ public class SignalementService {
     public SignalementValideView signTermine(String id)
     {
         SignalementValideView test=null;
-        String req="select st.budget,st.dateS as termine,t.nom as type,s.commentaire,ds.photos,s.id,r.nom as region,t.nom,u.nom as personne,s.x,s.y,s.dateS from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType join SignalementTermine st on st.idSignV=sv.id  where s.id="+id;
+        String req="select st.budget,st.dateS as termine,t.nom as type,s.commentaire,s.id,r.nom as region,t.nom,u.nom as personne,s.x,s.y,s.dateS from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join  utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType join SignalementTermine st on st.idSignV=sv.id  where s.id="+id;
         ConnectionBD co=new ConnectionBD();
         try
         {
@@ -338,7 +358,7 @@ public class SignalementService {
             ResultSet res=st.executeQuery();
             while(res.next())
             {
-                SignalementValideView s=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"),res.getString("region"),res.getTimestamp("termine"),res.getDouble("budget"),res.getString("type"));
+                SignalementValideView s=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),"",res.getString("personne"),res.getString("region"),res.getTimestamp("termine"),res.getDouble("budget"),res.getString("type"));
                 test=s;
                 test.setStatut("probleme resolu");
             }
@@ -366,7 +386,7 @@ public class SignalementService {
     public SignalementValideView ifValide(int id)
     {
        SignalementValideView test=null;
-        String req="select s.commentaire,t.nom as type,ds.photos,s.id,r.nom as region,t.nom,u.nom as personne,s.x,s.y,s.dateS from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join detailSignalement ds on ds.idSign=s.id join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType where s.id="+id;
+        String req="select s.commentaire,t.nom as type,s.id,r.nom as region,t.nom,u.nom as personne,s.x,s.y,s.dateS from Signalement s join signalementValide sv on sv.idSign=s.id join region r on r.id=sv.idReg join utilisateur u on u.id=s.idUtilisateur join TypeSignalement t on t.id=s.idType where s.id="+id;
         ConnectionBD co=new ConnectionBD();
         try
         {
@@ -375,7 +395,7 @@ public class SignalementService {
             ResultSet res=st.executeQuery();
             while(res.next())
             {
-                SignalementValideView s=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),res.getString("photos"),res.getString("personne"),res.getString("region"),res.getString("type"));
+                SignalementValideView s=new SignalementValideView(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"),res.getDouble("x"),res.getDouble("y"),res.getString("nom"),"",res.getString("personne"),res.getString("region"),res.getString("type"));
                 test=s;
                 test.setStatut("probleme non resolu");
             }
@@ -420,7 +440,7 @@ public class SignalementService {
     }
     public SignalementGlobal getFicheSignalementNonValide(int id)
     {
-        String req="select s.id,s.commentaire,s.dateS,s.x,s.y,st.nom ,dt.photos,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType join DetailSignalement as dt on dt.idSign=s.id join Utilisateur as u on u.id=s.idUtilisateur where s.id="+id;
+        String req="select s.id,s.commentaire as photos,s.commentaire,s.dateS,s.x,s.y,st.nom ,u.nom as Personne from Signalement as s join TypeSignalement as st on st.id=s.idType  join Utilisateur as u on u.id=s.idUtilisateur where s.id="+id;
         SignalementGlobal sign=new SignalementGlobal();
         List<SignalementGlobal> liste=sign.select(req);
         return liste.get(0);
@@ -839,10 +859,34 @@ public class SignalementService {
  
         }
     }
+    public String getPhoto(String id,String nb)
+    {
+        String photos="";
+        int nb1=Integer.parseInt(nb);
+        String req="select photos from detailSignalement1 where idSign="+id+" order by id  asc limit 1 offset "+(nb1-1);
+        System.out.println(req);
+        ConnectionBD co=new ConnectionBD();
+        Connection con=co.getConnection();
+        try{
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                photos=res.getString("photos");
+            }
+           // System.out.println(photos);
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.getMessage();
+        }
+        return photos;
+    }
     public List<String> getPhotos(String id)
     {
         List<String> photos=new ArrayList<>();
-        String req="select photos from detailSignalement where idSign="+id;
+        String req="select photos from detailSignalement1 where idSign="+id;
         ConnectionBD co=new ConnectionBD();
         Connection con=co.getConnection();
         try{
@@ -869,7 +913,7 @@ public class SignalementService {
             byte[] bytes=new byte[(int)file.length()];
             file1.read(bytes);
             String a=new String(Base64.encodeBase64(bytes));
-            System.out.println(a);
+          //  System.out.println(a);
             base=a;
         }
         catch(Exception e)
@@ -877,6 +921,28 @@ public class SignalementService {
             e.getMessage();
         }
         return base;
+    }
+    public List<TypeSignalement> type()
+    {
+        List<TypeSignalement> typ=new ArrayList<>();
+        String req="select * from typeSignalement";
+        ConnectionBD co=new ConnectionBD();
+        Connection con=co.getConnection();
+        try{
+            PreparedStatement st=con.prepareStatement(req);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                TypeSignalement t=new TypeSignalement(res.getInt("id"),res.getString("nom"));
+                typ.add(t);
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return typ;
     }
 }
 

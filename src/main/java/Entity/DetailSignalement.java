@@ -41,7 +41,7 @@ public class DetailSignalement {
     }
     public void insert()
     {
-        String req="INSERT INTO DetailSignalement(idSign,photos) VALUES("+this.idSign+",'"+this.photos+"')";
+        String req="INSERT INTO DetailSignalement1(idSign,photos) VALUES("+this.idSign+",'"+this.photos+"')";
         try
         {
             System.out.println(req);

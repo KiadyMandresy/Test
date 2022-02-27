@@ -111,6 +111,40 @@ public class Region {
         }
     }
 
+    public List<SignalementRegion> getSignReg1(String nom,int indice){
+        int rep1,rep2;
+        rep1=((indice-1)*3);
+        rep2=indice*3;
+        List<SignalementRegion> rep=new ArrayList<>();
+        /** */
+        String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom,ty.nom as typeS from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur join TypeSignalement as ty on ty.id=s.idType";
+        String req1=" where r.id='"+nom+"' and sv.id not in (select idSignV from signalementTermine) ";
+        try{
+            System.out.println(req+req1);
+            ConnectionBD co=new ConnectionBD();
+            Connection con=co.getConnection();
+            PreparedStatement st=con.prepareStatement(req+req1);
+            ResultSet res=st.executeQuery();
+            while(res.next())
+            {
+                SignalementRegion reg=new SignalementRegion(res.getInt("id"),res.getString("commentaire"),res.getTimestamp("dateS"), res.getDouble("x"),res.getDouble("y"),res.getString("utilisateur"),res.getString("mail"), res.getString("nom"),res.getString("typeS"),res.getString("en cours"));
+                rep.add(reg);
+            }
+             req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom,ty.nom as typeS from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur join TypeSignalement as ty on ty.id=s.idType join SignalementTermine ts on ts.idSignV=sv.id ";
+            req1=" where r.id='"+nom+"' ";
+            con.close();
+            PreparedStatement st1=con.prepareStatement(req+req1);
+            ResultSet res1=st1.executeQuery();
+            while(res1.next())
+            {
+                SignalementRegion reg=new SignalementRegion(res1.getInt("id"),res1.getString("commentaire"),res1.getTimestamp("dateS"), res1.getDouble("x"),res1.getDouble("y"),res1.getString("utilisateur"),res1.getString("mail"), res1.getString("nom"),res1.getString("typeS"),res1.getString("termine"));
+                rep.add(reg);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return rep;
+    }
     public List<SignalementRegion> getSignReg(String nom,int indice){
         int rep1,rep2;
         rep1=((indice-1)*3);
