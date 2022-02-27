@@ -29,7 +29,7 @@ public class SignalementService {
                 ResultSet res=st.executeQuery();
                 while(res.next())
                 {
-                    reg=res.getString(0);
+                    reg=res.getString("nom");
                 }
         }
         catch(Exception e)
