@@ -88,7 +88,7 @@ insert into ChefRegion(nom,mdp,mail,idReg) values('Mandresy','1234','Mandresy@gm
 create table TypeSignalement(
     id serial primary key,
     nom varchar(50)
-)
+);
 
 
 

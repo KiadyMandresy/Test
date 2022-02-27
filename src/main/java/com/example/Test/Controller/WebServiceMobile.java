@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:2004")
+@CrossOrigin(origins = "http://test-rojo.herokuapp.com")
 public class WebServiceMobile {
     
     @GetMapping("/signalementUtilisateurEnCours/{nom}")

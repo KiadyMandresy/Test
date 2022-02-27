@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:2004")
+@CrossOrigin(origins = "http://test-rojo.herokuapp.com")
 public class UploadFileController {
 
     private static final String UPLOADED_FOLDER ="G://S5//";
