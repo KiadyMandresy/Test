@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:2004")
+@CrossOrigin(origins = "https://test-rojo.herokuapp.com")
 
 public class UtilisateurController extends UtilisateurService{
 

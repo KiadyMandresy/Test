@@ -24,7 +24,7 @@ import java.nio.file.*;
 
 
 @RestController
-@CrossOrigin(origins="http://localhost:2004")
+@CrossOrigin(origins="https://test-rojo.herokuapp.com")
 public class WebServiceSignRegion extends SignalementService{
     
     @GetMapping("/signalements/{type}/{date1}/{date2}/{statut}/{region}")
