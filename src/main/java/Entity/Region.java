@@ -118,7 +118,7 @@ public class Region {
         List<SignalementRegion> rep=new ArrayList<>();
         /** */
         String req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom,ty.nom as typeS from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur join TypeSignalement as ty on ty.id=s.idType";
-        String req1=" where r.id='"+nom+"' and sv.id not in (select idSignV from signalementTermine) ";
+        String req1=" where r.id="+nom+" and sv.id not in (select idSignV from signalementTermine) ";
         try{
             System.out.println(req+req1);
             ConnectionBD co=new ConnectionBD();
@@ -131,8 +131,7 @@ public class Region {
                 rep.add(reg);
             }
              req="select s.id,s.commentaire,s.dates,s.x,s.y,u.nom as utilisateur,u.mail,r.nom,ty.nom as typeS from SignalementValide as sv join Signalement as s on sv.idSign=s.id join Region as r on r.id=sv.idReg join Utilisateur as u on u.id=s.idUtilisateur join TypeSignalement as ty on ty.id=s.idType join SignalementTermine ts on ts.idSignV=sv.id ";
-            req1=" where r.id='"+nom+"' ";
-            con.close();
+            req1=" where r.id="+nom;
             PreparedStatement st1=con.prepareStatement(req+req1);
             ResultSet res1=st1.executeQuery();
             while(res1.next())
@@ -140,6 +139,8 @@ public class Region {
                 SignalementRegion reg=new SignalementRegion(res1.getInt("id"),res1.getString("commentaire"),res1.getTimestamp("dateS"), res1.getDouble("x"),res1.getDouble("y"),res1.getString("utilisateur"),res1.getString("mail"), res1.getString("nom"),res1.getString("typeS"),res1.getString("termine"));
                 rep.add(reg);
             }
+            con.close();
+
         }catch(Exception e){
             e.printStackTrace();
         }
