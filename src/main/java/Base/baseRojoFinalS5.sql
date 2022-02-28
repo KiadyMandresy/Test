@@ -91,20 +91,20 @@ insert into ChefRegion(nom,mdp,mail,idReg) values('Mandresy','1234','Mandresy@gm
 
 /*--------------------------------------------------------------------------------*/
 
-create table TypeSignalement(
-    id serial primary key,
-    nom varchar(50)
-)
 create table Type1(
     id serial primary key,
     nom text
+)
+create table TypeSignalement(
+    id serial primary key,
+    nom varchar(50)
 )
 
 
 
 insert into TypeSignalement(nom) values('Destruction routiere');
 insert into TypeSignalement(nom) values('Eboulement');
-
+insert into TypeSignalement(nom) values('menace pour l environnement');
 /*--------------------------------------------------------------------------------*/
 
 create table Signalement(
@@ -234,6 +234,12 @@ create table SignalementTermine(
          budget float,
       FOREIGN KEY (idSignV) REFERENCES SignalementValide(id)
 );
+create table Notification(
+     id serial primary key,
+     idSignTermine int,
+     statut int,
+      FOREIGN KEY (idSignTermine) REFERENCES SignalementTermine(id)
+);
 
 insert into SignalementTermine(idSignV,dateS,budget) values(2,'2021-12-20'::timestamp,1800000.0);
 insert into SignalementTermine(idSignV,dateS,budget) values(4,'2021-12-10'::timestamp,1000450.0);
@@ -243,12 +249,7 @@ insert into SignalementTermine(idSignV,dateS,budget) values(10,'2021-10-14'::tim
 
 
 
-/*--------------------------------------------------------------------------------*/
-create table Notification(
-     id serial primary key,
-     idSignTermine int,
-     statut int,
-      FOREIGN KEY (idSignTermine) REFERENCES SignalementTermine(id)
-);
+
+
 
 
