@@ -11,7 +11,14 @@ public class NotificationSignalement {
     Timestamp dateFin;
     int idNotification;
     int idSignalement;
+    int statut;
 
+    public int getStatut(){
+        return statut;
+    }
+    public void setStatut(int s){
+        this.statut=s;
+    }
    public Timestamp getDateDebut() {
        return dateDebut;
    }
@@ -43,12 +50,12 @@ public class NotificationSignalement {
    public NotificationSignalement(){
 
    }
-   public NotificationSignalement(Timestamp datedeb,Timestamp datefin,int idNotif, int idSigb){
+   public NotificationSignalement(Timestamp datedeb,Timestamp datefin,int idNotif, int idSigb,int s){
        this.dateDebut = datedeb;
        this.dateFin = datefin;
        this.idNotification = idNotif;
        this.idSignalement = idSigb;
-
+       this.statut=s; 
 }
 
    public List<NotificationSignalement> select(String req)
@@ -62,7 +69,7 @@ public class NotificationSignalement {
             ResultSet res=st.executeQuery();
             while(res.next())
             {
-                NotificationSignalement reg = new NotificationSignalement (res.getTimestamp("dateDebut"),res.getTimestamp("dateFin"),res.getInt("idNotification"),res.getInt("idSignTermine"));
+                NotificationSignalement reg = new NotificationSignalement (res.getTimestamp("dateDebut"),res.getTimestamp("dateFin"),res.getInt("idNotification"),res.getInt("idSignTermine"),res.getInt("statut"));
                 liste.add(reg);
             }
             con.close();

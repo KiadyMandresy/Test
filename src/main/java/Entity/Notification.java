@@ -8,6 +8,7 @@ public class Notification {
     
     int id;
     int idSignTermine;
+    int statut;
 
     public int getId(){
         return this.id;
@@ -21,9 +22,16 @@ public class Notification {
     public void setIdSignTermine(int i){
         this.idSignTermine=i;
     }
-    public Notification(int i,int ii){
+    public int getStatut(){
+        return this.statut;
+    }
+    public void setStatut(int i){
+        this.statut=i;
+    }
+    public Notification(int i,int ii,int s){
         this.id=i;
         this.idSignTermine=ii;
+        this.statut=s;
     }
     public Notification()
     {
@@ -40,7 +48,7 @@ public class Notification {
             ResultSet res=st.executeQuery();
             while(res.next())
             {
-                Notification reg=new Notification(res.getInt("id"),res.getInt("idSignTermine"));
+                Notification reg=new Notification(res.getInt("id"),res.getInt("idSignTermine"),res.getInt("statut"));
                 liste.add(reg);
             }
             con.close();

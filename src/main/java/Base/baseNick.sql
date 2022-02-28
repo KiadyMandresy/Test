@@ -116,9 +116,11 @@ insert into SignalementTermine(idSignV,dateS,budget) values(5,'2021-12-20'::time
 create table Notification(
      id serial primary key,
      idSignTermine int,
-      FOREIGN KEY (idSignTermine) REFERENCES SignalementTermine(id)
+     FOREIGN KEY (idSignTermine) REFERENCES SignalementTermine(id)
 );
-
+insert into Notification(idSignTermine) values(1);
+insert into Notification(idSignTermine) values(2);
+insert into Notification(idSignTermine) values(5);
 /*--------------VIEW------------------------*/
 /**/
 /*Liste globales des signalements*/
